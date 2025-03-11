@@ -1,0 +1,359 @@
+document.addEventListener("DOMContentLoaded", () => {
+    // =======================================
+    // 1. SCROLL SUAVE Y RESALTADO DEL MENÚ (opcional)
+    // =======================================
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".scroll-link");
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            navLinks.forEach((link) => {
+              link.classList.remove("active");
+              if (link.getAttribute("href") === "#" + id) {
+                link.classList.add("active");
+              }
+            });
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    
+    sections.forEach((section) => observer.observe(section));
+    
+    navLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href").substring(1);
+        document.getElementById(targetId).scrollIntoView({ behavior: "smooth" });
+      });
+    });
+    
+    // =======================================
+    // 2. INICIALIZACIÓN DEL MAPA
+    // =======================================
+    const map = L.map("map").setView([23.634501, -102.552784], 5);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+    }).addTo(map);
+    
+    // Variables globales para la carga del GeoJSON
+    let geojsonLayer = null;
+    let geojsonData = null;
+    
+    // Función para actualizar la capa GeoJSON en el mapa
+    function updateGeoJSONLayer(data) {
+      if (geojsonLayer) {
+        map.removeLayer(geojsonLayer);
+      }
+      geojsonLayer = L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+          // Personaliza el marcador según prioridad de venta
+          let color = "#4CAF50";
+          if (feature.properties.prioridad_venta === "Alta") {
+            color = "#1B5E20";
+          } else if (feature.properties.prioridad_venta === "Baja") {
+            color = "#C62828";
+          }
+          return L.circleMarker(latlng, {
+            radius: 8,
+            fillColor: color,
+            color: "#fff",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: 0.8,
+          });
+        },
+        onEachFeature: function (feature, layer) {
+          const props = feature.properties;
+          // Recordando que en GeoJSON, las coordenadas vienen en [lng, lat]
+          const lat = feature.geometry.coordinates[1];
+          const lng = feature.geometry.coordinates[0];
+          layer.bindPopup(`
+            <b>ID:</b> ${props.id}<br>
+            <b>Establecimiento:</b> ${props.nom_estab}<br>
+            <b>Razón Social:</b> ${props.raz_social}<br>
+            <b>Actividad:</b> ${props.nombre_act}<br>
+            <b>Teléfono:</b> ${props.telefono}<br>
+            <b>Correo:</b> ${props.correoelec}<br>
+            <b>Página Web:</b> ${props.www ? props.www : "No disponible"}<br>
+            <b>Entidad:</b> ${props.entidad}<br>
+            <b>Municipio:</b> ${props.municipio}<br>
+            <b>Localidad:</b> ${props.localidad}<br>
+            <b>Coordenadas:</b> ${lat}, ${lng}<br><br>
+            <button onclick="openProposalModal(${props.id})">Generar Propuesta</button>
+          `);
+        },
+      }).addTo(map);
+    }
+    
+    // Función para actualizar la lista de clientes en el dashboard
+    function updateClientesList(features) {
+      const clientesUl = document.getElementById("clientesUl");
+      if (!clientesUl) return;
+      clientesUl.innerHTML = "";
+      features.forEach((feature) => {
+        const li = document.createElement("li");
+        li.innerText = feature.properties.nom_estab;
+        clientesUl.appendChild(li);
+      });
+    }
+    
+    // Función para cargar el GeoJSON
+    function loadGeoJSON() {
+      fetch("nube.geojson")
+        .then((response) => response.json())
+        .then((data) => {
+          geojsonData = data;
+          updateGeoJSONLayer(data);
+          updateClientesList(data.features);
+        })
+        .catch((err) => console.error("Error cargando el GeoJSON:", err));
+    }
+    
+    loadGeoJSON();
+    
+    // =======================================
+    // 3. FILTROS BASADOS EN GEOJSON
+    // =======================================
+    const filterEstado = document.getElementById("filterEstado");
+    const filterPrioridad = document.getElementById("filterPrioridad");
+    const applyFiltersBtn = document.getElementById("applyFiltersBtn");
+    
+    function applyFilters() {
+      if (!geojsonData) return;
+      const estadoValor = filterEstado ? filterEstado.value : "";
+      const prioridadValor = filterPrioridad ? filterPrioridad.value : "";
+    
+      const filteredFeatures = geojsonData.features.filter((feature) => {
+        const props = feature.properties;
+        const matchEstado = estadoValor ? props.estado === estadoValor : true;
+        const matchPrioridad = prioridadValor ? props.prioridad_venta === prioridadValor : true;
+        return matchEstado && matchPrioridad;
+      });
+    
+      const filteredGeoJSON = {
+        type: "FeatureCollection",
+        features: filteredFeatures,
+      };
+    
+      updateGeoJSONLayer(filteredGeoJSON);
+      updateClientesList(filteredFeatures);
+    }
+    
+    if (applyFiltersBtn) {
+      applyFiltersBtn.addEventListener("click", applyFilters);
+    }
+    if (filterEstado) {
+      filterEstado.addEventListener("change", applyFilters);
+    }
+    if (filterPrioridad) {
+      filterPrioridad.addEventListener("change", applyFilters);
+    }
+    
+    // =======================================
+    // 4. KPI y GRÁFICA CON CHART.JS
+    // =======================================
+    if (document.getElementById("kpiLitros") && document.getElementById("chartAhorro")) {
+      animarKPI("kpiLitros", 3500, 2000);
+      const ctx = document.getElementById("chartAhorro").getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+          datasets: [
+            {
+              label: "Litros Ahorrados",
+              data: [500, 800, 1200, 1800, 2700, 3500],
+              borderColor: "#4CAF50",
+              backgroundColor: "rgba(76, 175, 80, 0.2)",
+              borderWidth: 2,
+              tension: 0.3,
+              pointRadius: 4,
+              pointBackgroundColor: "#4CAF50",
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: 1500 },
+          scales: {
+            y: { beginAtZero: true, title: { display: true, text: "Litros" } },
+            x: { title: { display: true, text: "Mes" } },
+          },
+          plugins: { legend: { display: false } },
+        },
+      });
+    }
+    
+    // =======================================
+    // 5. CHATBOT FALSO
+    // =======================================
+    const chatbotBtn = document.getElementById("chatbotBtn");
+    const chatbotWindow = document.getElementById("chatbotWindow");
+    const closeChatbot = document.getElementById("closeChatbot");
+    const chatMessages = document.getElementById("chatMessages");
+    const chatInput = document.getElementById("chatInput");
+    const sendChatBtn = document.getElementById("sendChatBtn");
+    
+    let chatbotOpen = false;
+    if (chatbotBtn) {
+      chatbotBtn.addEventListener("click", () => {
+        chatbotOpen = !chatbotOpen;
+        chatbotWindow.style.display = chatbotOpen ? "flex" : "none";
+      });
+    }
+    if (closeChatbot) {
+      closeChatbot.addEventListener("click", () => {
+        chatbotOpen = false;
+        chatbotWindow.style.display = "none";
+      });
+    }
+    if (sendChatBtn && chatInput) {
+      sendChatBtn.addEventListener("click", sendMessage);
+      chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendMessage();
+      });
+    }
+    function sendMessage() {
+      const msg = chatInput.value.trim();
+      if (!msg) return;
+      const userMsg = document.createElement("div");
+      userMsg.classList.add("chat-message", "user");
+      userMsg.innerText = msg;
+      chatMessages.appendChild(userMsg);
+      chatInput.value = "";
+      const botMsg = document.createElement("div");
+      botMsg.classList.add("chat-message", "bot");
+      botMsg.innerText = "Este es un chatbot ficticio. En una versión real, podría ayudarte con tus dudas.";
+      chatMessages.appendChild(botMsg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  });
+  
+  // =======================================
+  // FUNCIONES EXTERNAS
+  // =======================================
+  
+  // Animar el KPI (conteo ascendente)
+  function animarKPI(elementId, endValue, duration) {
+    let startValue = 0;
+    const increment = endValue / (duration / 16);
+    const obj = document.getElementById(elementId);
+    const timer = setInterval(() => {
+      startValue += increment;
+      if (startValue >= endValue) {
+        startValue = endValue;
+        clearInterval(timer);
+      }
+      obj.textContent = Math.floor(startValue);
+    }, 16);
+  }
+  
+  // Funciones para modales de cursos/detalles
+  function abrirModalCurso(idModal) {
+    const modal = document.getElementById(idModal);
+    if (modal) {
+      modal.style.display = "flex";
+    }
+  }
+  function cerrarModalCurso(idModal) {
+    const modal = document.getElementById(idModal);
+    if (modal) {
+      modal.style.display = "none";
+    }
+  }
+  
+  // Funciones para popups de alertas
+  function mostrarAlerta(titulo) {
+    document.getElementById("tituloAlerta").innerText = titulo;
+    document.getElementById("overlayAlerta").style.display = "flex";
+  }
+  function cerrarAlerta() {
+    document.getElementById("overlayAlerta").style.display = "none";
+  }
+  
+  // =======================================
+  // FUNCIONES PARA EL MODAL DE PROPUESTA DE VENTA
+  // =======================================
+  let salesStatus = {}; // Guarda estado de venta por id
+  function openProposalModal(companyId) {
+    window.currentCompanyId = companyId;
+    // Aquí puedes buscar más información en tu geojsonData si lo necesitas
+    document.getElementById("proposalCompanyName").innerText = "Empresa " + companyId;
+    document.getElementById("saleStatusText").innerText = salesStatus[companyId] || "Pendiente";
+    document.getElementById("proposalModal").style.display = "flex";
+  }
+  window.openProposalModal = openProposalModal;
+  
+  const closeProposalModalBtn = document.getElementById("closeProposalModal");
+  if (closeProposalModalBtn) {
+    closeProposalModalBtn.addEventListener("click", () => {
+      document.getElementById("proposalModal").style.display = "none";
+    });
+  }
+  window.addEventListener("click", (e) => {
+    if (e.target === document.getElementById("proposalModal")) {
+      document.getElementById("proposalModal").style.display = "none";
+    }
+  });
+  
+  const markSaleClosedBtn = document.getElementById("markSaleClosedBtn");
+  if (markSaleClosedBtn) {
+    markSaleClosedBtn.addEventListener("click", () => {
+      if (window.currentCompanyId) {
+        salesStatus[window.currentCompanyId] = "Cerrado";
+        document.getElementById("saleStatusText").innerText = "Cerrado";
+      }
+    });
+  }
+  const markSalePendingBtn = document.getElementById("markSalePendingBtn");
+  if (markSalePendingBtn) {
+    markSalePendingBtn.addEventListener("click", () => {
+      if (window.currentCompanyId) {
+        salesStatus[window.currentCompanyId] = "Pendiente";
+        document.getElementById("saleStatusText").innerText = "Pendiente";
+      }
+    });
+  }
+
+
+  /************************************************************
+ * EJEMPLO DE scripts.js
+ ************************************************************/
+
+// Función para abrir el modal de Demo Login
+function abrirModalLogin() {
+    const modal = document.getElementById("modalLogin");
+    if (modal) {
+      modal.style.display = "flex";
+    }
+  }
+  
+  // Función para cerrar el modal de Demo Login
+  function cerrarModalLogin() {
+    const modal = document.getElementById("modalLogin");
+    if (modal) {
+      modal.style.display = "none";
+    }
+  }
+  
+  // Función de demo login (llamada al hacer submit del form)
+  function demoLogin() {
+    const user = document.getElementById("loginUser").value;
+    const pass = document.getElementById("loginPass").value;
+  
+    // Verifica credenciales
+    if (user === "user" && pass === "user") {
+      // Redirige a home.html
+      window.location.href = "home.html";
+    } else {
+      alert('Credenciales incorrectas. Usa "user"/"user".');
+    }
+    return false; // evita recargar la página
+  }

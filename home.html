@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agrimonitor - Tablero de la Gente de Ventas</title>
+  
+  <!-- Fuente Google: Poppins -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
+  
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="styles.css" />
+  
+  <!-- Librería Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  
+  <!-- Librería de íconos (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+  <!-- Librería Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- PapaParse para CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  
+  <style>
+    /* Ajustes rápidos para el canvas de la gráfica */
+    .chart-card canvas {
+      width: 100% !important;
+      height: 250px !important;
+    }
+  </style>
+</head>
+<body class="has-sidebar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-profile">
+      <img src="https://via.placeholder.com/60x60.png?text=AV" alt="Agente de Ventas" />
+      <div class="profile-info">
+        <h3>Agente de Ventas</h3>
+      </div>
+    </div>
+    <nav class="menu">
+      <ul>
+        <li class="active"><a href="home.html"><i class="fas fa-home"></i> Tablero de Ventas</a></li>
+        <li><a href="resumen.html"><i class="fas fa-file-alt"></i> Resumen</a></li>
+        <li><a href="perspectivas.html"><i class="fas fa-chart-pie"></i> Perspectivas</a></li>
+        <li><a href="tableros.html"><i class="fas fa-chart-bar"></i> Tableros</a></li>
+        <li><a href="acreditaciones.html"><i class="fas fa-check-square"></i> Acreditaciones</a></li>
+        <li><a href="acercadenosotros.html"><i class="fas fa-info-circle"></i> Acerca de Nosotros</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="btnDashboard">Cerca de Nosotros</button>
+      <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Tablero de la Gente de Ventas</h1>
+      <div class="topbar-actions">
+        <div class="search-bar">
+          <input type="text" placeholder="Buscar..." />
+          <i class="fas fa-search"></i>
+        </div>
+        <div class="icons">
+          <i class="fas fa-envelope"></i>
+          <i class="fas fa-bell"></i>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <!-- SECCIÓN IZQUIERDA: Filtros, Mapa, Calendario y KPIs -->
+      <section class="left-section">
+        <!-- Filtros y Mapa -->
+        <div class="land-section">
+          <div class="land-card">
+            <h2>Características de Clientes Potenciales</h2>
+            <p>Utiliza los filtros para segmentar y analizar oportunidades:</p>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top:10px;">
+              <select id="filterPrioridad">
+                <option value="">Prioridad: Todas</option>
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+              </select>
+              <select id="filterTamaño">
+                <option value="">Tamaño: Todos</option>
+                <option value="Micro">Micro</option>
+                <option value="Pequeña">Pequeña</option>
+                <option value="Mediana">Mediana</option>
+                <option value="Mediana-Grande">Mediana-Grande</option>
+                <option value="Grande">Grande</option>
+                <option value="Corporativo">Corporativo</option>
+              </select>
+              <select id="filterCanal">
+                <option value="">Canal de Compra: Todos</option>
+                <option value="Correo">Correo</option>
+                <option value="Teléfono">Teléfono</option>
+                <option value="Web">Web</option>
+                <option value="No disponible">No disponible</option>
+              </select>
+              <select id="filterContacto">
+                <option value="">Tiene Contacto: Todos</option>
+                <option value="Sí">Sí</option>
+                <option value="No">No</option>
+              </select>
+              <select id="filterTipo">
+                <option value="">Tipo de Cliente: Todos</option>
+                <option value="Agrícola">Agrícola</option>
+                <option value="Agroindustrial">Agroindustrial</option>
+                <option value="Servicios agrícolas">Servicios agrícolas</option>
+                <option value="Otro">Otro</option>
+              </select>
+              <select id="filterEstado">
+                <option value="">Estado: Todos</option>
+                <option value="CDMX">CDMX</option>
+                <option value="Jalisco">Jalisco</option>
+                <option value="Nuevo León">Nuevo León</option>
+                <option value="Baja California">Baja California</option>
+                <option value="Veracruz">Veracruz</option>
+                <option value="Puebla">Puebla</option>
+              </select>
+              <button id="applyFiltersBtn">Aplicar</button>
+            </div>
+          </div>
+          <!-- Mapa -->
+          <div class="map-container" style="margin-top: 1rem;">
+            <div id="map"></div>
+          </div>
+        </div>
+
+        <!-- Calendario de Citas -->
+        <div class="schedule-section">
+          <h2>Calendario de Citas - Mayo 2025</h2>
+          <div class="schedule-info">
+            <span>Citas programadas para el mes</span>
+            <button id="prevMonthBtn" style="margin-left:10px;">Anterior</button>
+            <button id="nextMonthBtn" style="margin-left:5px;">Siguiente</button>
+          </div>
+          <div class="calendar">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div class="calendar-event">4<br />Cita: Invernaderos Bonanza<br /><small>2 PM</small></div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div class="calendar-event">10<br />Llamada: Finca La Paloma<br /><small>11 AM</small></div>
+            <div>11</div>
+            <div>12</div>
+            <div>13</div>
+            <div>14</div>
+            <div class="calendar-event">15<br />Reunión: Agroindustrial El Sol<br /><small>3 PM</small></div>
+            <div>16</div>
+            <div>17</div>
+            <div>18</div>
+            <div class="calendar-event">19<br />Cita: Frutos de la Sierra<br /><small>10 AM</small></div>
+            <div>20</div>
+            <div>21</div>
+            <div>22</div>
+            <div>23</div>
+            <div class="calendar-event">24<br />Seguimiento: Hortalizas del Campo<br /><small>1 PM</small></div>
+            <div>25</div>
+            <div>26</div>
+            <div>27</div>
+            <div>28</div>
+            <div class="calendar-event">29<br />Llamada: Frutos de la Sierra<br /><small>4 PM</small></div>
+            <div>30</div>
+            <div>31</div>
+          </div>
+        </div>
+
+        <!-- KPIs y Gráfica de Ventas -->
+        <div class="kpis">
+          <div class="kpi-card">
+            <h2>Ventas Realizadas</h2>
+            <p id="kpiVentas">0</p>
+            <small>Unidades vendidas este mes</small>
+            <button class="btn-detail" onclick="abrirModalCurso('modalKpiVentas')">Ver Detalles</button>
+          </div>
+          <div class="chart-card">
+            <h2>Evolución de Ventas</h2>
+            <canvas id="chartVentas"></canvas>
+            <button class="btn-detail" onclick="abrirModalCurso('modalGraficaVentas')">Más info sobre ventas</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN DERECHA: Alertas, Cursos y Clientes Potenciales -->
+      <aside class="right-section">
+        <!-- Alertas de Seguimiento -->
+        <div class="alerts">
+          <h2>Alertas de Seguimiento</h2>
+          <div class="alert-item">
+            <p><strong>Invernaderos Bonanza</strong> (Jalisco)<br>Cliente respondió y agendó cita.</p>
+            <button onclick="mostrarAlerta('Invernaderos Bonanza (Jalisco)')">Ver Detalles</button>
+          </div>
+          <div class="alert-item">
+            <p><strong>Finca La Paloma</strong> (CDMX)<br>Cliente confirmó interés.</p>
+            <button onclick="mostrarAlerta('Finca La Paloma (CDMX)')">Ver Detalles</button>
+          </div>
+          <div class="alert-item">
+            <p><strong>Agroindustrial El Sol</strong> (Veracruz)<br>Cliente solicita seguimiento.</p>
+            <button onclick="mostrarAlerta('Agroindustrial El Sol (Veracruz)')">Ver Detalles</button>
+          </div>
+        </div>
+
+        <!-- Cursos de Ventas -->
+        <div class="courses">
+          <h2>Cursos de Ventas</h2>
+          <div class="course-item">
+            <img src="https://img.icons8.com/color/48/000000/sales-performance.png" alt="Estrategias de Venta Avanzadas" />
+            <div class="course-info">
+              <h3>Estrategias de Venta Avanzadas</h3>
+              <p>Aprende técnicas avanzadas para captar clientes y cerrar ventas en el sector agrícola.</p>
+              <small>Módulo 3 de 6</small>
+            </div>
+            <div class="course-extra">
+              <button onclick="abrirModalCurso('modalVentas')">Más Información</button>
+            </div>
+          </div>
+          <div class="course-item">
+            <img src="https://img.icons8.com/color/48/000000/prospecting.png" alt="Técnicas de Prospección" />
+            <div class="course-info">
+              <h3>Técnicas de Prospección</h3>
+              <p>Estrategias para identificar y captar clientes potenciales.</p>
+              <small>Módulo 2 de 5</small>
+            </div>
+            <div class="course-extra">
+              <button onclick="abrirModalCurso('modalRiego')">Más Información</button>
+            </div>
+          </div>
+          <div class="course-item">
+            <img src="https://img.icons8.com/color/48/000000/negotiation.png" alt="Negociación y Cierre de Ventas" />
+            <div class="course-info">
+              <h3>Negociación y Cierre de Ventas</h3>
+              <p>Descubre estrategias para negociar, superar objeciones y cerrar ventas efectivas.</p>
+              <small>Módulo 4 de 7</small>
+            </div>
+            <div class="course-extra">
+              <button onclick="abrirModalCurso('modalEco')">Más Información</button>
+            </div>
+          </div>
+          <div class="course-item">
+            <img src="https://img.icons8.com/color/48/000000/follow-up.png" alt="Manejo de Seguimiento Comercial" />
+            <div class="course-info">
+              <h3>Manejo de Seguimiento Comercial</h3>
+              <p>Herramientas para mantener relaciones efectivas con tus clientes.</p>
+              <small>Módulo 1 de 4</small>
+            </div>
+            <div class="course-extra">
+              <button onclick="abrirModalCurso('modalClima')">Más Información</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista de Clientes Potenciales (actualizada desde CSV) -->
+        <div class="clientes">
+          <h2>Clientes Potenciales</h2>
+          <ul id="clientesUl"></ul>
+        </div>
+
+        <!-- Explicación del Dashboard -->
+        <div class="dashboard-explanation">
+          <h2>Explicación del Dashboard</h2>
+          <p>
+            Este tablero agrupa información clave para optimizar la gestión de ventas en el sector agrícola. Utiliza los filtros para segmentar clientes potenciales según prioridad, tamaño, canal de compra, contacto, tipo y estado.
+          </p>
+          <ul>
+            <li><strong>Prioridad de Venta:</strong> Alta, Media o Baja.</li>
+            <li><strong>Tamaño de Empresa:</strong> Micro, Pequeña, Mediana, Mediana-Grande, Grande, Corporativo.</li>
+            <li><strong>Canal de Compra:</strong> Correo, Teléfono, Web o No disponible.</li>
+            <li><strong>Tiene Contacto:</strong> Sí o No.</li>
+            <li><strong>Tipo de Cliente:</strong> Agrícola, Agroindustrial, Servicios agrícolas, Otro.</li>
+            <li><strong>Estado:</strong> Ubicación geográfica.</li>
+          </ul>
+          <p>Filtra y analiza para identificar las mejores oportunidades de venta.</p>
+        </div>
+
+        <!-- KPIs y Gráfica de Ventas -->
+        <div class="kpis">
+          <div class="kpi-card">
+            <h2>Ventas Realizadas</h2>
+            <p id="kpiVentas">0</p>
+            <small>Unidades vendidas este mes</small>
+            <button class="btn-detail" onclick="abrirModalCurso('modalKpiVentas')">Ver Detalles</button>
+          </div>
+          <div class="chart-card">
+            <h2>Evolución de Ventas</h2>
+            <canvas id="chartVentas"></canvas>
+            <button class="btn-detail" onclick="abrirModalCurso('modalGraficaVentas')">Más info sobre ventas</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- POP-UP Overlay para Alertas -->
+  <div class="popup-overlay" id="overlayAlerta">
+    <div class="popup">
+      <h2 id="tituloAlerta">Detalles</h2>
+      <p>Aquí se mostrarán más datos sobre la alerta seleccionada.</p>
+      <button onclick="cerrarAlerta()">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- MODALES -->
+  <!-- Modal de Curso: Estrategias de Venta Avanzadas -->
+  <div class="course-modal" id="modalVentas">
+    <div class="course-modal-content">
+      <span class="close-modal" onclick="cerrarModalCurso('modalVentas')">&times;</span>
+      <h2>Estrategias de Venta Avanzadas</h2>
+      <p>
+        En este curso aprenderás técnicas avanzadas para captar clientes y cerrar ventas en el sector agrícola.
+      </p>
+      <ul>
+        <li>Módulo 1: Análisis del Mercado</li>
+        <li>Módulo 2: Prospección Efectiva</li>
+        <li>Módulo 3: Técnicas de Negociación</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal de Curso: Técnicas de Prospección -->
+  <div class="course-modal" id="modalRiego">
+    <div class="course-modal-content">
+      <span class="close-modal" onclick="cerrarModalCurso('modalRiego')">&times;</span>
+      <h2>Técnicas de Prospección</h2>
+      <p>
+        Aprende a identificar y acercarte a clientes potenciales de forma efectiva.
+      </p>
+      <button onclick="alert('Iniciando Evaluación de Prospección...')">Iniciar Evaluación</button>
+    </div>
+  </div>
+
+  <!-- Modal de Curso: Negociación y Cierre de Ventas -->
+  <div class="course-modal" id="modalEco">
+    <div class="course-modal-content">
+      <span class="close-modal" onclick="cerrarModalCurso('modalEco')">&times;</span>
+      <h2>Negociación y Cierre de Ventas</h2>
+      <p>
+        Descubre estrategias para negociar, superar objeciones y cerrar ventas efectivas.
+      </p>
+      <ul>
+        <li>Técnicas de Cierre</li>
+        <li>Manejo de Objeciones</li>
+        <li>Seguimiento Post-Venta</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal de Curso: Manejo de Seguimiento Comercial -->
+  <div class="course-modal" id="modalClima">
+    <div class="course-modal-content">
+      <span class="close-modal" onclick="cerrarModalCurso('modalClima')">&times;</span>
+      <h2>Manejo de Seguimiento Comercial</h2>
+      <p>
+        Aprende a mantener relaciones efectivas y dar seguimiento a clientes para aumentar tus ventas.
+      </p>
+      <p><strong>Próxima sesión:</strong> Viernes 15, 9 AM (Online)</p>
+    </div>
+  </div>
+
+  <!-- Modal de KPI: Detalle de Ventas -->
+  <div class="course-modal" id="modalKpiVentas">
+    <div class="course-modal-content">
+      <span class="close-modal" onclick="cerrarModalCurso('modalKpiVentas')">&times;</span>
+      <h2>Detalle de Ventas</h2>
+      <p>
+        Este indicador muestra el total de unidades vendidas durante el mes.
+      </p>
+      <p>
+        <strong>Objetivo:</strong> 200 unidades<br/>
+        <strong>Resultado actual:</strong> 120 unidades
+      </p>
+    </div>
+  </div>
+
+  <!-- Modal de Gráfica: Evolución de Ventas -->
+  <div class="course-modal" id="modalGraficaVentas">
+    <div class="course-modal-content">
+      <span class="close-modal" onclick="cerrarModalCurso('modalGraficaVentas')">&times;</span>
+      <h2>Datos sobre Evolución de Ventas</h2>
+      <p>
+        La gráfica muestra la evolución de las ventas a lo largo de los meses.
+      </p>
+      <ul>
+        <li>Enero: 15 unidades</li>
+        <li>Febrero: 20 unidades</li>
+        <li>Marzo: 25 unidades</li>
+        <li>Abril: 30 unidades</li>
+        <li>Mayo: 20 unidades</li>
+        <li>Junio: 10 unidades</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal de Gráfica: Ahorro de Agua -->
+  <div class="course-modal" id="modalGrafica">
+    <div class="course-modal-content">
+      <span class="close-modal" onclick="cerrarModalCurso('modalGrafica')">&times;</span>
+      <h2>Datos sobre el Ahorro de Agua</h2>
+      <p>
+        Esta gráfica representa la evolución del ahorro de agua (litros acumulados) a lo largo de los meses.
+      </p>
+      <ul>
+        <li>Enero: 500 L</li>
+        <li>Febrero: 800 L</li>
+        <li>Marzo: 1200 L</li>
+        <li>Abril: 1800 L</li>
+        <li>Mayo: 2700 L</li>
+        <li>Junio: 3500 L</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Modal para Propuesta de Venta -->
+  <div class="modal" id="proposalModal">
+    <div class="modal-content" id="proposalModalContent">
+      <span class="close-btn" id="closeProposalModal">&times;</span>
+      <h3>Propuesta de Venta</h3>
+      <p><strong>Empresa Seleccionada:</strong> <span id="proposalCompanyName"></span></p>
+      <p id="proposalText">Detalla la propuesta de venta de soluciones y servicios para este cliente.</p>
+      <div class="btn-group">
+        <button class="close-sale" id="markSaleClosedBtn">Venta Cerrada</button>
+        <button class="pending-sale" id="markSalePendingBtn">Mantener Pendiente</button>
+      </div>
+      <p style="margin-top:15px;"><strong>Estado de la Venta:</strong> <span id="saleStatusText">Pendiente</span></p>
+    </div>
+  </div>
+
+  <!-- Modal del Dashboard (Chatbot fake) -->
+  <div class="modal" id="dashboardModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeDashboardModal">&times;</span>
+      <h3>Dashboard de Ventas</h3>
+      <p>Aquí se muestran estadísticas y un asistente virtual para ayudarte en la toma de decisiones.</p>
+      <div style="margin-top:15px; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <p><strong>Chatbot:</strong> Hola, ¿en qué puedo ayudarte hoy?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Funciones de scroll suave y resaltado (si aplica)
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll(".scroll-link");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute("id");
+              navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href") === "#" + id) {
+                  link.classList.add("active");
+                }
+              });
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      sections.forEach((section) => observer.observe(section));
+      navLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const targetId = link.getAttribute("href").substring(1);
+          document.getElementById(targetId).scrollIntoView({ behavior: "smooth" });
+        });
+      });
+      
+      // =======================================
+      // 1. INICIALIZACIÓN DEL MAPA
+      // =======================================
+      const map = L.map("map").setView([23.634501, -102.552784], 5);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      
+      // =======================================
+      // 2. CARGA DEL ARCHIVO GEOJSON
+      // =======================================
+      let geojsonLayer = null;
+      let geojsonData = null;
+      
+      function updateGeoJSONLayer(data) {
+        if (geojsonLayer) {
+          map.removeLayer(geojsonLayer);
+        }
+        geojsonLayer = L.geoJSON(data, {
+          pointToLayer: function(feature, latlng) {
+            let color = "#4CAF50";
+            if (feature.properties.prioridad_venta === "Alta") {
+              color = "#1B5E20";
+            } else if (feature.properties.prioridad_venta === "Baja") {
+              color = "#C62828";
+            }
+            return L.circleMarker(latlng, {
+              radius: 8,
+              fillColor: color,
+              color: "#fff",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8
+            });
+          },
+          onEachFeature: function(feature, layer) {
+            const props = feature.properties;
+            const lat = feature.geometry.coordinates[1];
+            const lng = feature.geometry.coordinates[0];
+            layer.bindPopup(`
+              <b>ID:</b> ${props.id}<br>
+              <b>Establecimiento:</b> ${props.nom_estab}<br>
+              <b>Razón Social:</b> ${props.raz_social}<br>
+              <b>Actividad:</b> ${props.nombre_act}<br>
+              <b>Teléfono:</b> ${props.telefono}<br>
+              <b>Correo:</b> ${props.correoelec}<br>
+              <b>Página Web:</b> ${props.www ? props.www : "No disponible"}<br>
+              <b>Entidad:</b> ${props.entidad}<br>
+              <b>Municipio:</b> ${props.municipio}<br>
+              <b>Localidad:</b> ${props.localidad}<br>
+              <b>Coordenadas:</b> ${lat}, ${lng}<br><br>
+              <button onclick="openProposalModal(${props.id})">Generar Propuesta</button>
+            `);
+          }
+        }).addTo(map);
+      }
+      
+      function loadGeoJSON() {
+        fetch("nube.geojson")
+          .then(response => response.json())
+          .then(data => {
+            geojsonData = data;
+            updateGeoJSONLayer(data);
+            updateClientesList(data.features);
+          })
+          .catch(err => console.error("Error cargando el GeoJSON:", err));
+      }
+      
+      loadGeoJSON();
+      
+      // =======================================
+      // 3. FILTROS BASADOS EN GEOJSON
+      // =======================================
+      const filterEstado = document.getElementById("filterEstado");
+      const filterPrioridad = document.getElementById("filterPrioridad");
+      const applyFiltersBtn = document.getElementById("applyFiltersBtn");
+      
+      function applyFilters() {
+        if (!geojsonData) return;
+        const estadoValor = filterEstado ? filterEstado.value : "";
+        const prioridadValor = filterPrioridad ? filterPrioridad.value : "";
+        const filteredFeatures = geojsonData.features.filter(feature => {
+          const props = feature.properties;
+          const matchEstado = estadoValor ? props.estado === estadoValor : true;
+          const matchPrioridad = prioridadValor ? props.prioridad_venta === prioridadValor : true;
+          return matchEstado && matchPrioridad;
+        });
+        const filteredGeoJSON = {
+          type: "FeatureCollection",
+          features: filteredFeatures
+        };
+        updateGeoJSONLayer(filteredGeoJSON);
+        updateClientesList(filteredFeatures);
+      }
+      
+      if (applyFiltersBtn) {
+        applyFiltersBtn.addEventListener("click", applyFilters);
+      }
+      if (filterEstado) {
+        filterEstado.addEventListener("change", applyFilters);
+      }
+      if (filterPrioridad) {
+        filterPrioridad.addEventListener("change", applyFilters);
+      }
+      
+      // =======================================
+      // 4. KPI y GRÁFICA CON CHART.JS
+      // =======================================
+      if (document.getElementById("kpiVentas") && document.getElementById("chartVentas")) {
+        animarKPI("kpiVentas", 120, 2000);  // Ejemplo: 120 ventas
+        const ctx = document.getElementById("chartVentas").getContext("2d");
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+            datasets: [{
+              label: "Ventas",
+              data: [15, 20, 25, 30, 20, 10],
+              borderColor: "#4CAF50",
+              backgroundColor: "rgba(76, 175, 80, 0.2)",
+              borderWidth: 2,
+              tension: 0.3,
+              pointRadius: 4,
+              pointBackgroundColor: "#4CAF50"
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: { duration: 1500 },
+            scales: {
+              y: { beginAtZero: true, title: { display: true, text: "Unidades" } },
+              x: { title: { display: true, text: "Mes" } }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+      
+      // =======================================
+      // 5. CHATBOT FALSO
+      // =======================================
+      const chatbotBtn = document.getElementById("chatbotBtn");
+      const chatbotWindow = document.getElementById("chatbotWindow");
+      const closeChatbot = document.getElementById("closeChatbot");
+      const chatMessages = document.getElementById("chatMessages");
+      const chatInput = document.getElementById("chatInput");
+      const sendChatBtn = document.getElementById("sendChatBtn");
+      
+      let chatbotOpen = false;
+      if (chatbotBtn) {
+        chatbotBtn.addEventListener("click", () => {
+          chatbotOpen = !chatbotOpen;
+          chatbotWindow.style.display = chatbotOpen ? "flex" : "none";
+        });
+      }
+      if (closeChatbot) {
+        closeChatbot.addEventListener("click", () => {
+          chatbotOpen = false;
+          chatbotWindow.style.display = "none";
+        });
+      }
+      if (sendChatBtn && chatInput) {
+        sendChatBtn.addEventListener("click", sendMessage);
+        chatInput.addEventListener("keydown", (e) => {
+          if(e.key === "Enter") sendMessage();
+        });
+      }
+      function sendMessage() {
+        const msg = chatInput.value.trim();
+        if (!msg) return;
+        const userMsg = document.createElement("div");
+        userMsg.classList.add("chat-message", "user");
+        userMsg.innerText = msg;
+        chatMessages.appendChild(userMsg);
+        chatInput.value = "";
+        const botMsg = document.createElement("div");
+        botMsg.classList.add("chat-message", "bot");
+        botMsg.innerText = "Este es un chatbot ficticio.";
+        chatMessages.appendChild(botMsg);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // =======================================
+      // 6. FUNCIONES EXTERNAS: KPI, MODALES, DEMO LOGIN, ETC.
+      // =======================================
+      
+      // Animar el KPI (conteo ascendente)
+      function animarKPI(elementId, endValue, duration) {
+        let startValue = 0;
+        const increment = endValue / (duration / 16);
+        const obj = document.getElementById(elementId);
+        const timer = setInterval(() => {
+          startValue += increment;
+          if (startValue >= endValue) {
+            startValue = endValue;
+            clearInterval(timer);
+          }
+          obj.textContent = Math.floor(startValue);
+        }, 16);
+      }
+      
+      // Funciones para modales de cursos/detalles
+      function abrirModalCurso(idModal) {
+        const modal = document.getElementById(idModal);
+        if (modal) modal.style.display = "flex";
+      }
+      function cerrarModalCurso(idModal) {
+        const modal = document.getElementById(idModal);
+        if (modal) modal.style.display = "none";
+      }
+      
+      // Funciones para popups de alertas
+      function mostrarAlerta(titulo) {
+        document.getElementById("tituloAlerta").innerText = titulo;
+        document.getElementById("overlayAlerta").style.display = "flex";
+      }
+      function cerrarAlerta() {
+        document.getElementById("overlayAlerta").style.display = "none";
+      }
+      
+      // Funciones para el modal de Propuesta de Venta
+      let salesStatus = {}; // Estado de venta por id
+      window.openProposalModal = function(companyId) {
+        window.currentCompanyId = companyId;
+        document.getElementById("proposalCompanyName").innerText = "Empresa " + companyId;
+        document.getElementById("saleStatusText").innerText = salesStatus[companyId] || "Pendiente";
+        document.getElementById("proposalModal").style.display = "flex";
+      };
+      const closeProposalModalBtn = document.getElementById("closeProposalModal");
+      if (closeProposalModalBtn) {
+        closeProposalModalBtn.addEventListener("click", () => {
+          document.getElementById("proposalModal").style.display = "none";
+        });
+      }
+      window.addEventListener("click", (e) => {
+        if (e.target === document.getElementById("proposalModal")) {
+          document.getElementById("proposalModal").style.display = "none";
+        }
+      });
+      const markSaleClosedBtn = document.getElementById("markSaleClosedBtn");
+      if (markSaleClosedBtn) {
+        markSaleClosedBtn.addEventListener("click", () => {
+          if (window.currentCompanyId) {
+            salesStatus[window.currentCompanyId] = "Cerrado";
+            document.getElementById("saleStatusText").innerText = "Cerrado";
+          }
+        });
+      }
+      const markSalePendingBtn = document.getElementById("markSalePendingBtn");
+      if (markSalePendingBtn) {
+        markSalePendingBtn.addEventListener("click", () => {
+          if (window.currentCompanyId) {
+            salesStatus[window.currentCompanyId] = "Pendiente";
+            document.getElementById("saleStatusText").innerText = "Pendiente";
+          }
+        });
+      }
+      
+      // Funciones para Demo Login
+      window.abrirModalLogin = function() {
+        const modal = document.getElementById("modalLogin");
+        if (modal) modal.style.display = "flex";
+      };
+      window.cerrarModalLogin = function() {
+        const modal = document.getElementById("modalLogin");
+        if (modal) modal.style.display = "none";
+      };
+      window.demoLogin = function() {
+        const user = document.getElementById("loginUser").value;
+        const pass = document.getElementById("loginPass").value;
+        if (user === "user" && pass === "user") {
+          window.location.href = "home.html";
+        } else {
+          alert('Credenciales incorrectas. Usa "user"/"user".');
+        }
+        return false;
+      };
+      
+      // Actualizar lista de clientes potenciales (usando CSV)
+      Papa.parse("clientes_potenciales_fertilizantes_enhanced.csv", {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const data = results.data;
+          const clientesUl = document.getElementById("clientesUl");
+          if (clientesUl) {
+            clientesUl.innerHTML = "";
+            data.forEach(item => {
+              const li = document.createElement("li");
+              li.innerText = `${item.nom_estab} (${item.entidad})`;
+              clientesUl.appendChild(li);
+            });
+          }
+          const alertsContainer = document.querySelector(".alerts");
+          if (alertsContainer && data.length >= 3) {
+            alertsContainer.innerHTML = `
+              <h2>Alertas de Seguimiento</h2>
+              <div class="alert-item">
+                <p><strong>${data[0].nom_estab}</strong> (${data[0].entidad})<br>Cliente respondió y agendó cita.</p>
+                <button onclick="mostrarAlerta('${data[0].nom_estab} (${data[0].entidad})')">Ver Detalles</button>
+              </div>
+              <div class="alert-item">
+                <p><strong>${data[1].nom_estab}</strong> (${data[1].entidad})<br>Cliente confirmó interés.</p>
+                <button onclick="mostrarAlerta('${data[1].nom_estab} (${data[1].entidad})')">Ver Detalles</button>
+              </div>
+              <div class="alert-item">
+                <p><strong>${data[2].nom_estab}</strong> (${data[2].entidad})<br>Cliente solicita seguimiento.</p>
+                <button onclick="mostrarAlerta('${data[2].nom_estab} (${data[2].entidad})')">Ver Detalles</button>
+              </div>
+            `;
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

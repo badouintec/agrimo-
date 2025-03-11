@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agrimonitor - Landing</title>
+  <!-- Fuente Google: Poppins -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+</head>
+<body class="no-sidebar">
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo-container">
+      <img src="https://via.placeholder.com/60x60.png?text=Agrimonitor" alt="Agrimonitor" class="logo"/>
+      <h1>Agrimonitor</h1>
+    </div>
+    <nav class="menu">
+      <ul>
+        <li><a href="#inicio" class="scroll-link">Inicio</a></li>
+        <li><a href="#plataforma" class="scroll-link">Plataforma</a></li>
+        <li><a href="#blog" class="scroll-link">Blog</a></li>
+        <li><a href="#contacto" class="scroll-link">Contacto</a></li>
+        <li><a href="#equipo" class="scroll-link">Equipo</a></li>
+      </ul>
+    </nav>
+    <div class="topbar-actions">
+      <button onclick="abrirModalLogin()">
+        <i class="fas fa-user"></i> Demo Login
+      </button>
+    </div>
+  </header>
+
+  <!-- SECCIÓN 1: INICIO (Parallax) -->
+  <section id="inicio" class="parallax-section inicio">
+    <div class="parallax-content">
+      <h2>Agrimonitor</h2>
+      <p>
+        Tu agente inteligente para impulsar la venta de fertilizantes orgánicos a base de sargazo. Utilizamos datos y análisis inteligente para prospectar clientes y hacer seguimiento a cada venta.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 2: PLATAFORMA (Parallax) -->
+  <section id="plataforma" class="parallax-section plataforma">
+    <div class="parallax-content">
+      <h2>Plataforma AgriMonitor</h2>
+      <p>
+        Agrimonitor integra conjuntos de datos robustos y algoritmos de filtrado inteligente para identificar los mejores prospectos, hacer seguimiento a tus ventas y priorizar clientes potenciales.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 3: BLOG -->
+  <section id="blog" class="section-content">
+    <h2 class="section-title">Blog: Noticias y Artículos</h2>
+    <div class="blog-container">
+      <!-- Entrada de Blog 1 -->
+      <article class="blog-card">
+        <img src="https://via.placeholder.com/600x400.png?text=Fertilizantes+Org%C3%A1nicos" alt="Innovando en la venta de fertilizantes orgánicos"/>
+        <div class="blog-content">
+          <h3>Innovando en la venta de fertilizantes orgánicos</h3>
+          <p>
+            Descubre cómo Agrimonitor utiliza un conjunto de datos y filtrados inteligentes para prospectar ventas y hacer seguimiento. Aprende cómo se explica cada columna clave para priorizar clientes y tomar decisiones estratégicas.
+          </p>
+          <a href="blog1.html">Leer más</a>
+        </div>
+      </article>
+      <!-- Entrada de Blog 2 -->
+      <article class="blog-card">
+        <img src="https://via.placeholder.com/600x400.png?text=Alga+Sargazo" alt="¿Es el alga sargazo un buen fertilizante?"/>
+        <div class="blog-content">
+          <h3>¿Es el alga sargazo un buen fertilizante?</h3>
+          <p>
+            Analizamos las propiedades del alga sargazo y evaluamos su potencial como fertilizante orgánico, sus ventajas y desafíos en el sector agrícola.
+          </p>
+          <a href="blog2.html">Leer más</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4: DASHBOARD INTERACTIVO -->
+  <section id="dashboard" class="section-content dashboard">
+    <h2 class="section-title">Dashboard Interactivo</h2>
+    <p>
+      Nuestro sistema optimiza la prospección y seguimiento de ventas mediante un dashboard interactivo que segmenta y prioriza la información.
+    </p>
+    <div class="dashboard-details">
+      <h3>Columnas del Archivo Mejorado:</h3>
+      <ul>
+        <li><strong>Prioridad de Venta:</strong> Alta, Media o Baja.</li>
+        <li><strong>Tamaño de Empresa:</strong> Micro, Pequeña, Mediana, Mediana-Grande, Grande, Corporativo.</li>
+        <li><strong>Potencial de Compra:</strong> Alto, Medio o Bajo.</li>
+        <li><strong>Tiene Contacto:</strong> Sí o No.</li>
+        <li><strong>Canal Preferido:</strong> Correo, Teléfono, Web o No disponible.</li>
+        <li><strong>Tipo de Cliente:</strong> Agrícola, Agroindustrial, Servicios agrícolas, Otro.</li>
+      </ul>
+      <p>
+        Estos datos te permiten filtrar por estado, tamaño y potencial de compra para identificar oportunidades estratégicas y maximizar tus ventas.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 5: CONTACTO -->
+  <section id="contacto" class="section-content contacto">
+    <h2 class="section-title">Contacto</h2>
+    <p>
+      ¿Listo para impulsar tus ventas de fertilizantes orgánicos? Contáctanos y descubre cómo Agrimonitor puede transformar tu estrategia comercial.
+    </p>
+  </section>
+
+  <!-- SECCIÓN 6: EQUIPO -->
+  <section id="equipo" class="section-content equipo">
+    <h2 class="section-title">Nuestro Equipo</h2>
+    <p class="section-subtitle">Conoce a los estudiantes Tec que hicieron esto posible.</p>
+    <div class="equipo-container">
+      <div class="acreditacion-card">
+        <img src="imagenes/imagen6.jpg" alt="Miembro del Equipo 1"/>
+        <div class="acreditacion-info">
+          <h3>Juan Pérez</h3>
+          <p>Estudiante Tec</p>
+        </div>
+      </div>
+      <div class="acreditacion-card">
+        <img src="imagenes/imagen7.jpg" alt="Miembro del Equipo 2"/>
+        <div class="acreditacion-info">
+          <h3>María López</h3>
+          <p>Estudiante Tec</p>
+        </div>
+      </div>
+      <div class="acreditacion-card">
+        <img src="imagenes/imagen8.jpg" alt="Miembro del Equipo 3"/>
+        <div class="acreditacion-info">
+          <h3>Carlos Ramírez</h3>
+          <p>Estudiante Tec</p>
+        </div>
+      </div>
+      <div class="acreditacion-card">
+        <img src="imagenes/imagen9.jpg" alt="Miembro del Equipo 4"/>
+        <div class="acreditacion-info">
+          <h3>Lucía Gómez</h3>
+          <p>Estudiante Tec</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2023 Agrimonitor. Todos los derechos reservados.</p>
+  </footer>
+
+  <!-- MODAL DEMO LOGIN -->
+  <div class="course-modal" id="modalLogin">
+    <div class="course-modal-content">
+      <span class="close-modal" onclick="cerrarModalLogin()">&times;</span>
+      <h2>Demo Login</h2>
+      <p>
+        <small>Usuario: <strong>user</strong> | Contraseña: <strong>user</strong></small>
+      </p>
+      <form onsubmit="return demoLogin()">
+        <label for="loginUser">Usuario:</label><br/>
+        <input type="text" id="loginUser" placeholder="user"/>
+        <label for="loginPass">Contraseña:</label><br/>
+        <input type="password" id="loginPass" placeholder="user"/>
+        <button type="submit">Ingresar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="scripts.js"></script>
+  <!-- Lógica extra para el modal Dashboard -->
+  <script>
+    document.getElementById("btnDashboard").addEventListener("click", () => {
+      document.getElementById("dashboardModal").style.display = "flex";
+    });
+    document.getElementById("closeDashboardModal").addEventListener("click", () => {
+      document.getElementById("dashboardModal").style.display = "none";
+    });
+    window.addEventListener("click", (e) => {
+      if (e.target === document.getElementById("dashboardModal")) {
+        document.getElementById("dashboardModal").style.display = "none";
+      }
+    });
+    
+    // Cargar CSV con clientes reales y actualizar lista y alertas
+    Papa.parse("clientes_potenciales_fertilizantes_enhanced.csv", {
+      download: true,
+      header: true,
+      complete: function(results) {
+        const data = results.data;
+        // Actualizar lista de clientes potenciales
+        const clientesUl = document.getElementById("clientesUl");
+        if (clientesUl) {
+          clientesUl.innerHTML = "";
+          data.forEach(item => {
+            const li = document.createElement("li");
+            li.innerText = `${item.nom_estab} (${item.entidad})`;
+            clientesUl.appendChild(li);
+          });
+        }
+        // Actualizar alertas con los tres primeros clientes
+        const alertsContainer = document.querySelector(".alerts");
+        if (alertsContainer && data.length >= 3) {
+          alertsContainer.innerHTML = `
+            <h2>Alertas de Seguimiento</h2>
+            <div class="alert-item">
+              <p><strong>${data[0].nom_estab}</strong> (${data[0].entidad})<br>Cliente respondió y agendó cita.</p>
+              <button onclick="mostrarAlerta('${data[0].nom_estab} (${data[0].entidad})')">Ver Detalles</button>
+            </div>
+            <div class="alert-item">
+              <p><strong>${data[1].nom_estab}</strong> (${data[1].entidad})<br>Cliente confirmó interés.</p>
+              <button onclick="mostrarAlerta('${data[1].nom_estab} (${data[1].entidad})')">Ver Detalles</button>
+            </div>
+            <div class="alert-item">
+              <p><strong>${data[2].nom_estab}</strong> (${data[2].entidad})<br>Cliente solicita seguimiento.</p>
+              <button onclick="mostrarAlerta('${data[2].nom_estab} (${data[2].entidad})')">Ver Detalles</button>
+            </div>
+          `;
+        }
+      }
+    });
+  </script>
+
+  <!-- Modal del Dashboard (Chatbot fake) -->
+  <div class="modal" id="dashboardModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeDashboardModal">&times;</span>
+      <h3>Dashboard de Ventas</h3>
+      <p>Aquí se muestran estadísticas y un asistente virtual para ayudarte en la toma de decisiones.</p>
+      <div style="margin-top:15px; padding:10px; border:1px solid #ccc; border-radius:4px;">
+        <p><strong>Chatbot:</strong> Hola, ¿en qué puedo ayudarte hoy?</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
