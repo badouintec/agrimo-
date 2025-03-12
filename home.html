@@ -25,6 +25,67 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   
   <style>
+    /* Estilos para la barra lateral (sidebar) */
+    .sidebar {
+      width: 250px;
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .sidebar-profile {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .sidebar-profile img {
+      border-radius: 50%;
+    }
+    .sidebar .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar .menu ul li {
+      margin: 10px 0;
+    }
+    .sidebar .menu ul li a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+      padding: 8px 10px;
+      border-radius: 4px;
+    }
+    .sidebar .menu ul li.active a,
+    .sidebar .menu ul li a:hover {
+      background-color: #34495e;
+    }
+    .sidebar-footer {
+      text-align: center;
+    }
+    .sidebar-footer button,
+    .sidebar-footer a {
+      background: none;
+      border: none;
+      color: #ecf0f1;
+      cursor: pointer;
+      margin: 5px 0;
+      font-size: 0.9rem;
+    }
+    
+    /* Ajuste del contenedor principal para dar espacio a la sidebar */
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      font-family: 'Poppins', sans-serif;
+    }
+    
     /* Ajustes rápidos para el canvas de la gráfica */
     .chart-card canvas {
       width: 100% !important;
@@ -51,22 +112,24 @@
 <body class="has-sidebar">
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sidebar-profile">
-      <img src="https://via.placeholder.com/60x60.png?text=AV" alt="Agente de Ventas" />
-      <div class="profile-info">
-        <h3>Agente de Ventas</h3>
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://via.placeholder.com/60x60.png?text=AV" alt="Agente de Ventas" />
+        <div class="profile-info">
+          <h3>Agente de Ventas</h3>
+        </div>
       </div>
+      <nav class="menu">
+        <ul>
+          <li class="active"><a href="home.html"><i class="fas fa-home"></i> Tablero de Ventas</a></li>
+          <li><a href="resumen.html"><i class="fas fa-file-alt"></i> Resumen</a></li>
+          <li><a href="perspectivas.html"><i class="fas fa-chart-pie"></i> Perspectivas</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-bar"></i> Tableros</a></li>
+          <li><a href="acreditaciones.html"><i class="fas fa-check-square"></i> Acreditaciones</a></li>
+          <li><a href="acercadenosotros.html"><i class="fas fa-info-circle"></i> Acerca de Nosotros</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="menu">
-      <ul>
-        <li class="active"><a href="home.html"><i class="fas fa-home"></i> Tablero de Ventas</a></li>
-        <li><a href="resumen.html"><i class="fas fa-file-alt"></i> Resumen</a></li>
-        <li><a href="perspectivas.html"><i class="fas fa-chart-pie"></i> Perspectivas</a></li>
-        <li><a href="tableros.html"><i class="fas fa-chart-bar"></i> Tableros</a></li>
-        <li><a href="acreditaciones.html"><i class="fas fa-check-square"></i> Acreditaciones</a></li>
-        <li><a href="acercadenosotros.html"><i class="fas fa-info-circle"></i> Acerca de Nosotros</a></li>
-      </ul>
-    </nav>
     <div class="sidebar-footer">
       <button id="btnDashboard">Cerca de Nosotros</button>
       <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
@@ -277,7 +340,7 @@
           </div>
         </div>
 
-        <!-- Lista de Clientes Potenciales (actualizada desde CSV) -->
+        <!-- Lista de Clientes Potenciales (solo se mostrarán los 3 principales) -->
         <div class="clientes">
           <h2>Clientes Potenciales</h2>
           <ul id="clientesUl"></ul>
@@ -300,7 +363,7 @@
           <p>Filtra y analiza para identificar las mejores oportunidades de venta.</p>
         </div>
 
-        <!-- KPIs y Gráfica de Ventas -->
+        <!-- KPIs y Gráfica de Ventas (repetido para asegurar consistencia en la sección derecha) -->
         <div class="kpis">
           <div class="kpi-card">
             <h2>Ventas Realizadas</h2>
@@ -774,7 +837,7 @@
         return false;
       };
       
-      // Actualizar lista de clientes potenciales (usando CSV)
+      // Actualizar lista de clientes potenciales desde CSV (mostrando solo los 3 primeros)
       Papa.parse("clientes_potenciales_fertilizantes_enhanced.csv", {
         download: true,
         header: true,
@@ -783,7 +846,7 @@
           const clientesUl = document.getElementById("clientesUl");
           if (clientesUl) {
             clientesUl.innerHTML = "";
-            data.forEach(item => {
+            data.slice(0, 3).forEach(item => {
               const li = document.createElement("li");
               li.innerText = `${item.nom_estab} (${item.entidad})`;
               clientesUl.appendChild(li);
@@ -810,16 +873,13 @@
         }
       });
 
-      // Nota: Incluye esta función dentro del DOMContentLoaded
+      // Actualizar lista de clientes potenciales basada en GeoJSON (limitando a 3)
       function updateClientesList(features) {
         const clientesUl = document.getElementById("clientesUl");
         if (clientesUl) {
           clientesUl.innerHTML = "";
-          features.forEach(feature => {
-            // Si los datos vienen desde CSV, se adaptará la estructura al objeto "feature" o "item"
-            // Por ejemplo, si feature ya es el objeto obtenido del CSV:
+          features.slice(0, 3).forEach(feature => {
             const li = document.createElement("li");
-            // Se asume que las propiedades usan nombres coherentes (nom_estab y entidad)
             li.innerText = `${feature.nom_estab} (${feature.entidad})`;
             clientesUl.appendChild(li);
           });
