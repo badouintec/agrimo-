@@ -177,7 +177,7 @@
       </ul>
     </nav>
     <div class="topbar-actions">
-      <button onclick="abrirModalLogin()">
+      <button onclick="redirectToHome()">
         <i class="fas fa-user"></i> Demo Login
       </button>
     </div>
@@ -400,6 +400,19 @@
       }
       return false;
     }
+
+    // Evita que al hacer clic dentro del contenido del modal se cierre automáticamente
+    document.getElementById("demoLoginModal").addEventListener("click", function(event) {
+      event.stopPropagation();
+    });
+
+    // (Opcional) Si deseas que hacer clic fuera del modal lo cierre, agrega:
+    document.getElementById("modalLogin").addEventListener("click", function(event) {
+      // Si se hizo clic en el contenedor (no en el contenido)
+      if (event.target === document.getElementById("modalLogin")) {
+        cerrarModalLogin();
+      }
+    });
   </script>
 
   <!-- MODAL DEMO LOGIN -->
@@ -410,7 +423,6 @@
       <p>
         <small>Usuario: <strong>user</strong> | Contraseña: <strong>user</strong></small>
       </p>
-      <!-- Uso de "event" en el onsubmit para evitar el recargo -->
       <form onsubmit="return demoLogin(event)">
         <label for="loginUser">Usuario:</label><br/>
         <input type="text" id="loginUser" placeholder="user" required/>

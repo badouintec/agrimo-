@@ -234,6 +234,48 @@ document.addEventListener("DOMContentLoaded", () => {
       chatMessages.appendChild(botMsg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+
+    // Función para abrir el modal de Demo Login
+    window.abrirModalLogin = function() {
+      document.getElementById("modalLogin").style.display = "flex";
+    };
+
+    // Función para cerrar el modal de Demo Login
+    window.cerrarModalLogin = function() {
+      document.getElementById("modalLogin").style.display = "none";
+    };
+
+    // Función para validar el login y redirigir a home.html
+    window.demoLogin = function(e) {
+      e.preventDefault();
+      const user = document.getElementById("loginUser").value;
+      const pass = document.getElementById("loginPass").value;
+      if (user === "user" && pass === "user") {
+        alert("Login exitoso.");
+        window.location.href = "home.html";
+      } else {
+        alert("Usuario o contraseña incorrectos.");
+      }
+      return false;
+    };
+
+    // Evita que al hacer clic dentro del contenido del modal se cierre automáticamente
+    const modalContent = document.getElementById("demoLoginModal");
+    if (modalContent) {
+      modalContent.addEventListener("click", function(e) {
+        e.stopPropagation();
+      });
+    }
+
+    // Opcional: Si deseas que al hacer clic fuera del contenido se cierre el modal
+    const modal = document.getElementById("modalLogin");
+    if (modal) {
+      modal.addEventListener("click", function(e) {
+        if (e.target === modal) {
+          cerrarModalLogin();
+        }
+      });
+    }
   });
   
   // =======================================
@@ -322,38 +364,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-
-  /************************************************************
- * EJEMPLO DE scripts.js
- ************************************************************/
-
-// Función para abrir el modal de Demo Login
-function abrirModalLogin() {
-    const modal = document.getElementById("modalLogin");
-    if (modal) {
-      modal.style.display = "flex";
-    }
-  }
-  
-  // Función para cerrar el modal de Demo Login
-  function cerrarModalLogin() {
-    const modal = document.getElementById("modalLogin");
-    if (modal) {
-      modal.style.display = "none";
-    }
-  }
-  
-  // Función de demo login (llamada al hacer submit del form)
-  function demoLogin() {
-    const user = document.getElementById("loginUser").value;
-    const pass = document.getElementById("loginPass").value;
-  
-    // Verifica credenciales
-    if (user === "user" && pass === "user") {
-      // Redirige a home.html
-      window.location.href = "home.html";
-    } else {
-      alert('Credenciales incorrectas. Usa "user"/"user".');
-    }
-    return false; // evita recargar la página
+  function redirectToHome() {
+    window.location.href = "home.html";
   }
