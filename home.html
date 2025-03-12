@@ -30,6 +30,22 @@
       width: 100% !important;
       height: 250px !important;
     }
+
+    /* Asegura que el contenedor del mapa tenga altura */
+    .map-container {
+      width: 100%;
+      height: 400px; /* Ajusta según tu diseño */
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 1rem; /* Según el espaciado que desees */
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
   </style>
 </head>
 <body class="has-sidebar">
@@ -793,6 +809,22 @@
           }
         }
       });
+
+      // Nota: Incluye esta función dentro del DOMContentLoaded
+      function updateClientesList(features) {
+        const clientesUl = document.getElementById("clientesUl");
+        if (clientesUl) {
+          clientesUl.innerHTML = "";
+          features.forEach(feature => {
+            // Si los datos vienen desde CSV, se adaptará la estructura al objeto "feature" o "item"
+            // Por ejemplo, si feature ya es el objeto obtenido del CSV:
+            const li = document.createElement("li");
+            // Se asume que las propiedades usan nombres coherentes (nom_estab y entidad)
+            li.innerText = `${feature.nom_estab} (${feature.entidad})`;
+            clientesUl.appendChild(li);
+          });
+        }
+      }
     });
   </script>
 </body>

@@ -1097,6 +1097,13 @@ button:hover,
       align-items: flex-start;
       gap: 15px;
     }
+    .blog-card,
+    .acreditacion-card {
+      width: 100% !important;
+    }
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
 }
 
 /* Estilos para que el mapa se visualice correctamente */
@@ -1130,4 +1137,277 @@ button:hover,
   width: 100%;
   height: 100%;
   display: block;
+}
+
+/* Ajuste rápido para canvas de gráficas */
+.chart-card canvas {
+  width: 100% !important;
+  height: 250px !important;
+}
+
+/* Estilos para el mapa */
+.map-container {
+  width: 100%;
+  height: 400px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+#map {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* =============================
+   Base y tipografía
+============================= */
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+/* =============================
+   Topbar y navegación
+============================= */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  position: fixed;
+  width: 100%;
+  z-index: 2000;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+.topbar .menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+.topbar .menu ul li {
+  margin: 0 10px;
+}
+.topbar .menu ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+.topbar-actions button {
+  background: var(--primary-color, #4CAF50);
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* =============================
+   Secciones y contenedores
+============================= */
+section {
+  padding: 80px 20px 40px; /* espacio extra arriba para compensar topbar */
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #333;
+}
+.section-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =============================
+   Blog y tarjetas de equipo
+============================= */
+.blog-container, .equipo-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.blog-card, .acreditacion-card {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.blog-card:hover, .acreditacion-card:hover {
+  transform: translateY(-5px);
+}
+.blog-card img, .acreditacion-card img {
+  width: 100%;
+  display: block;
+}
+
+/* =============================
+   Dashboard, KPIs y gráficas
+============================= */
+.dashboard {
+  padding-top: 120px; /* para distanciar de la topbar */
+}
+.dashboard-details,
+.chart-card,
+.kpi-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  margin-bottom: 20px;
+}
+.kpi-card {
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.kpi-card:hover {
+  transform: translateY(-5px);
+}
+.chart-card canvas {
+  width: 100% !important;
+  height: 250px !important;
+}
+
+/* =============================
+   Mapa
+============================= */
+.map-container {
+  width: 100%;
+  height: 400px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+#map {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* =============================
+   Modales
+============================= */
+.modal, .course-modal {
+  display: none;
+  position: fixed;
+  z-index: 3000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  align-items: center;
+  justify-content: center;
+}
+.modal-content, .course-modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  text-align: center;
+}
+.close-modal, .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+/* =============================
+   Footer
+============================= */
+footer {
+  background: #f7f7f7;
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* =============================
+   Responsividad
+============================= */
+@media (max-width: 768px) {
+  /* Reducir tamaño de logo y botones */
+  .logo {
+    width: 40px;
+    height: 40px;
+  }
+  .topbar .menu ul {
+    display: none; /* Se puede implementar un menú hamburguesa */
+  }
+  .topbar-actions {
+    font-size: 0.9rem;
+  }
+  section {
+    padding: 60px 15px 30px;
+  }
+  .dashboard-details, .chart-card, .kpi-card {
+    padding: 15px;
+  }
+  .blog-container, .equipo-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mostrar menú móvil o ajustar navegación */
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .logo-container {
+    margin-bottom: 10px;
+  }
+  /* Se muestra el menú en bloque o se activa un botón hamburguesa (implementar JS si es necesario) */
+  .topbar .menu ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .topbar .menu ul li {
+    margin: 5px 0;
+  }
+  /* Ajustes generales */
+  section {
+    padding: 50px 10px 20px;
+  }
+  .blog-container, .equipo-container {
+    grid-template-columns: 1fr;
+  }
+  .topbar-actions button {
+    width: 100%;
+    text-align: center;
+  }
+  .blog-card,
+  .acreditacion-card {
+    width: 100% !important;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
 }
