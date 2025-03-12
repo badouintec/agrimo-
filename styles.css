@@ -48,12 +48,17 @@
     padding: 0.8rem 1.5rem;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
   }
   
   .logo-container {
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    margin: 5px;
   }
   
   .logo {
@@ -72,6 +77,12 @@
     list-style: none;
     display: flex;
     gap: 1rem;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    gap: 15px;
   }
   
   .menu ul li a {
@@ -80,6 +91,8 @@
     padding: 0.5rem 0.8rem;
     transition: background 0.3s ease, transform 0.3s ease;
     border-radius: 4px;
+    text-decoration: none;
+    color: #000;
   }
   
   .menu ul li a:hover,
@@ -89,18 +102,22 @@
   }
   
   .topbar-actions button {
-    background: none;
-    border: 1px solid #fff;
+    background-color: #007bff; /* Ajusta el color si tienes un tono específico */
     color: #fff;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
+    border: none;
+    padding: 10px 15px;
+    transition: transform 0.3s ease;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.3s ease;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
   }
   
   .topbar-actions button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
   }
   
   /************************************************************
@@ -219,14 +236,24 @@
     background-position: center;
     position: relative;
     color: #fff;
+    min-height: 50vh;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
   
   .inicio {
     background-image: url("https://via.placeholder.com/1200x800.png?text=Fondo+Inicio");
+    background: url('https://carbonwave.com/wp-content/uploads/2023/12/gettyimages-1166631012.jpg') center/cover no-repeat;
   }
   
   .plataforma {
     background-image: url("https://via.placeholder.com/1200x800.png?text=Fondo+Plataforma");
+    background: url('https://carbonwave.com/wp-content/uploads/2023/12/beach-cover-with-sargassum-seaweed-1-.jpeg') center/cover no-repeat;
   }
   
   .parallax-content {
@@ -261,6 +288,10 @@
     flex-wrap: wrap;
     gap: 2rem;
     justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
   }
   
   .blog-card {
@@ -274,6 +305,9 @@
   
   .blog-card:hover {
     transform: scale(1.03);
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
   }
   
   .blog-card img {
@@ -326,6 +360,8 @@
     padding: 1.5rem;
     border: 1px solid var(--color-borde);
     border-radius: 8px;
+    opacity: 0;
+    transition: opacity 1s ease;
   }
   
   .dashboard-details ul {
@@ -345,6 +381,11 @@
     font-size: 1.1rem;
   }
   
+  .contacto {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  
   /************************************************************
    * EQUIPO (index.html)
    ************************************************************/
@@ -354,6 +395,17 @@
     gap: 2rem;
     justify-content: center;
     margin-top: 2rem;
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 30px; 
+    flex-wrap: wrap;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  
+  .equipo-container.show {
+    opacity: 1;
   }
   
   .acreditacion-card {
@@ -363,6 +415,10 @@
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.3s ease;
+    flex: 1; 
+    min-width: 220px; 
+    margin: 10px; 
+    text-align: center; 
   }
   
   .acreditacion-card:hover {
@@ -373,6 +429,10 @@
     width: 100%;
     height: 240px;
     object-fit: cover;
+    max-width: 100%; 
+    height: auto; 
+    border-radius: 8px; 
+    margin-bottom: 10px;
   }
   
   .acreditacion-info {
@@ -763,6 +823,15 @@
     align-items: center;
     padding: 1rem;
     animation: fadeIn 0.3s;
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0;
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
   }
   
   .course-modal-content {
@@ -774,6 +843,10 @@
     position: relative;
     animation: slideUp 0.4s;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
   }
   
   .close-modal {
@@ -784,6 +857,11 @@
     cursor: pointer;
     color: #777;
     transition: color 0.2s;
+    cursor: pointer;
+    font-size: 1.2rem;
+    position: absolute;
+    top: 10px;
+    right: 15px;
   }
   
   .close-modal:hover {
@@ -1071,6 +1149,28 @@ button:hover,
     .dashboard-grid {
       grid-template-columns: 1fr;
     }
+    .logo-container {
+      flex: 1 0 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .menu ul {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .topbar-actions {
+      flex: 1 0 100%;
+      display: flex;
+      justify-content: center;
+    }
+    .blog-container {
+      flex-direction: column;
+      align-items: center;
+    }
+    .acreditacion-card {
+      margin: 15px 0;
+    }
   }
 
 @media (max-width: 480px) {
@@ -1096,6 +1196,38 @@ button:hover,
       flex-direction: column;
       align-items: flex-start;
       gap: 15px;
+    }
+    .blog-card,
+    .acreditacion-card {
+      width: 100% !important;
+    }
+    .dashboard-grid {
+      grid-template-columns: 1fr;
+    }
+    .topbar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .logo-container {
+      margin-bottom: 10px;
+    }
+    .topbar .menu ul {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .topbar .menu ul li {
+      margin: 5px 0;
+    }
+    section {
+      padding: 50px 10px 20px;
+    }
+    .blog-container, .equipo-container {
+      grid-template-columns: 1fr;
+    }
+    .topbar-actions button {
+      width: 100%;
+      text-align: center;
     }
     .blog-card,
     .acreditacion-card {
@@ -1410,4 +1542,45 @@ footer {
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Posiciona el modal y haz que aparezca al poner display:block en el JS */
+.course-modal {
+  display: none; 
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background: rgba(0,0,0,0.5); 
+  z-index: 9999;
+  justify-content: center; 
+  align-items: center;
+}
+
+.course-modal-content {
+  background: #fff; 
+  padding: 20px; 
+  border-radius: 5px; 
+  position: relative;
+}
+
+/* Cierra el modal al presionar la X */
+.close-modal {
+  cursor: pointer; 
+  font-size: 1.2rem;
+  position: absolute; 
+  top: 10px; 
+  right: 15px;
+}
+
+/* Animaciones simples */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
 }
