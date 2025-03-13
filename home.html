@@ -274,93 +274,12 @@
 
       <!-- SECCIÓN DERECHA: Alertas, Cursos y Clientes Potenciales -->
       <aside class="right-section">
-        <!-- Modal de Sugerencia de Seguimiento -->
-<div class="modal" id="sugerenciaSeguimientoModal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="cerrarModalSugerencia()">&times;</span>
-    <h3>Sugerencia de Seguimiento</h3>
-    <p><strong>Distribuidor:</strong> <span id="distribuidorNombre"></span></p>
-    <div class="sugerencia-contenido">
-      <p id="sugerenciaTexto">Aquí se mostrará la sugerencia de seguimiento personalizada.</p>
-      <ul>
-        <li><strong>Acción recomendada:</strong> Contactar al cliente para confirmar interés.</li>
-        <li><strong>Frecuencia:</strong> Seguimiento cada 3 días.</li>
-        <li><strong>Herramientas:</strong> Llamada telefónica o correo electrónico.</li>
-      </ul>
-    </div>
-    <button class="btn-aceptar" onclick="cerrarModalSugerencia()">Aceptar</button>
-  </div>
-</div>
-
-<!-- Estilos para el Modal -->
-<style>
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-  }
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    max-width: 90%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  .close-btn {
-    float: right;
-    font-size: 24px;
-    cursor: pointer;
-  }
-  .sugerencia-contenido {
-    margin-top: 15px;
-  }
-  .sugerencia-contenido ul {
-    list-style-type: disc;
-    padding-left: 20px;
-  }
-  .btn-aceptar {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 15px;
-  }
-  .btn-aceptar:hover {
-    background-color: #45a049;
-  }
-</style>
-
-<!-- Script para manejar el Modal -->
-<script>
-  function mostrarSugerenciaSeguimiento(distribuidor) {
-    // Actualiza el nombre del distribuidor en el modal
-    document.getElementById("distribuidorNombre").innerText = distribuidor;
-
-    // Muestra el modal
-    document.getElementById("sugerenciaSeguimientoModal").style.display = "flex";
-  }
-
-  function cerrarModalSugerencia() {
-    // Oculta el modal
-    document.getElementById("sugerenciaSeguimientoModal").style.display = "none";
-  }
-</script>
         <!-- Alertas de Seguimiento -->
         <div class="alerts">
           <h2>Alertas de Seguimiento</h2>
           <div class="alert-item">
             <p><strong>Invernaderos Bonanza</strong> (Jalisco)<br>Cliente respondió y agendó cita.</p>
-            <button onclick="mostrarSugerenciaSeguimiento('Invernaderos Bonanza (Jalisco)')">Ver Detalles</button>
+            <button onclick="mostrarAlerta('Invernaderos Bonanza (Jalisco)')">Ver Detalles</button>
           </div>
           <div class="alert-item">
             <p><strong>Finca La Paloma</strong> (CDMX)<br>Cliente confirmó interés.</p>
@@ -851,15 +770,27 @@
         if (modal) modal.style.display = "none";
       }
       
-      // Funciones para popups de alertas
-      function mostrarAlerta(titulo) {
+      // Funciones para popups de alertas (ahora globales)
+      window.mostrarAlerta = function(titulo) {
+        let detalleMensaje = "";
+        if (titulo === "OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)") {
+          detalleMensaje = "Información detallada: Oficina principal ubicada en Jalisco. Llámanos al 55-XXXX-XXXX para agendar una cita.";
+        } else if (titulo === "BAJA PK (Baja California)") {
+          detalleMensaje = "Información detallada: Oficina en Baja California. El cliente ha confirmado interés, coordina seguimiento inmediato.";
+        } else if (titulo === "HH AND SONS PRODUCE (Baja California Sur)") {
+          detalleMensaje = "Información detallada: Empresa de Baja California Sur. Se requiere revisión y seguimiento urgente.";
+        } else {
+          detalleMensaje = "Información detallada para " + titulo;
+        }
         document.getElementById("tituloAlerta").innerText = titulo;
+        document.querySelector("#overlayAlerta p").innerText = detalleMensaje;
         document.getElementById("overlayAlerta").style.display = "flex";
-      }
-      function cerrarAlerta() {
+      };
+
+      window.cerrarAlerta = function() {
         document.getElementById("overlayAlerta").style.display = "none";
-      }
-      
+      };
+
       // Funciones para el modal de Propuesta de Venta
       let salesStatus = {}; // Estado de venta por id
       window.openProposalModal = function(companyId) {
@@ -934,20 +865,20 @@
             });
           }
           const alertsContainer = document.querySelector(".alerts");
-          if (alertsContainer && data.length >= 3) {
+          if (alertsContainer) {
             alertsContainer.innerHTML = `
               <h2>Alertas de Seguimiento</h2>
               <div class="alert-item">
-                <p><strong>${data[0].nom_estab}</strong> (${data[0].entidad})<br>Cliente respondió y agendó cita.</p>
-                <button onclick="mostrarAlerta('${data[0].nom_estab} (${data[0].entidad})')">Ver Detalles</button>
+                <p><strong>OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)</strong><br>Cliente respondió y agendó cita.</p>
+                <button onclick="mostrarAlerta('OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)')">Ver Detalles</button>
               </div>
               <div class="alert-item">
-                <p><strong>${data[1].nom_estab}</strong> (${data[1].entidad})<br>Cliente confirmó interés.</p>
-                <button onclick="mostrarAlerta('${data[1].nom_estab} (${data[1].entidad})')">Ver Detalles</button>
+                <p><strong>BAJA PK (Baja California)</strong><br>Cliente confirmó interés.</p>
+                <button onclick="mostrarAlerta('BAJA PK (Baja California)')">Ver Detalles</button>
               </div>
               <div class="alert-item">
-                <p><strong>${data[2].nom_estab}</strong> (${data[2].entidad})<br>Cliente solicita seguimiento.</p>
-                <button onclick="mostrarAlerta('${data[2].nom_estab} (${data[2].entidad})')">Ver Detalles</button>
+                <p><strong>HH AND SONS PRODUCE (Baja California Sur)</strong><br>Cliente solicita seguimiento.</p>
+                <button onclick="mostrarAlerta('HH AND SONS PRODUCE (Baja California Sur)')">Ver Detalles</button>
               </div>
             `;
           }
