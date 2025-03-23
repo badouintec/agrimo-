@@ -105,22 +105,22 @@
   .content-wrapper {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 15px;
     align-items: flex-start;
-    padding: 20px 1rem;
-    margin-top: 10px;
+    padding: 0;
+    margin-top: 5px;
     align-items: stretch;
     max-width: 100%;
     box-sizing: border-box;
   }
   
   .left-section {
-    width: 70%;
+    width: 68%;
     padding: 0;
   }
   
   .right-section {
-    width: 30%;
+    width: 32%;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -385,7 +385,7 @@
   
   /* Arreglar estilos para el contenedor de gráficas */
   .chart-card {
-    padding: 20px;
+    padding: 15px;
   }
   
   .chart-card h2 {
@@ -734,9 +734,9 @@
    ************************************************************/
   .main-content {
     margin-left: 250px; /* Igual al ancho del sidebar */
-    padding: 70px 20px 20px; /* Añadir padding-top para compensar topbar */
+    padding: 70px 15px 20px; /* Añadir padding-top para compensar topbar */
     font-family: 'Poppins', sans-serif;
-    background-color: #f9f9f9;
+    background-color: #f0f2f5;
     min-height: calc(100vh - 80px);
     padding-bottom: 40px;
     max-width: 1400px;
@@ -1354,4 +1354,252 @@
 
 .popup button:hover {
   background-color: var(--color-primario-hover);
+}
+
+/* Mejoras para eliminar espacios vacíos y optimizar layout */
+.main-content {
+  padding: 70px 15px 20px;
+  background-color: #f0f2f5;
+}
+
+.content-wrapper {
+  gap: 15px;
+  padding: 0;
+  margin-top: 5px;
+}
+
+.left-section {
+  width: 68%;
+}
+
+.right-section {
+  width: 32%;
+}
+
+.land-card, 
+.schedule-section,
+.kpis,
+.alerts,
+.courses,
+.clientes,
+.dashboard-explanation {
+  margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.land-card h2,
+.schedule-section h2 {
+  margin-bottom: 10px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+  font-size: 1.1rem;
+}
+
+.land-section p {
+  padding: 0 15px;
+}
+
+.schedule-section {
+  padding-bottom: 15px;
+}
+
+.schedule-info {
+  padding: 0 15px;
+  margin-bottom: 10px;
+}
+
+.calendar {
+  margin: 0 15px;
+}
+
+.map-container {
+  margin: 15px;
+  height: 350px;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+}
+
+.kpi-card, .chart-card {
+  margin: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.kpi-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-right: 1px solid #eee;
+}
+
+.kpi-card p {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 10px 0;
+  color: var(--color-primario);
+}
+
+.chart-card {
+  padding: 15px;
+}
+
+/* Ajustes para sección derecha */
+.course-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.right-section > div {
+  padding: 15px;
+}
+
+.right-section h2 {
+  margin: -15px -15px 15px -15px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+  font-size: 1.1rem;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .kpis {
+    grid-template-columns: 1fr;
+  }
+  
+  .kpi-card {
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+}
+
+/* --------------------------------------------------
+   Chatbot Styles - UI/UX Mejorado y Centrado
+-------------------------------------------------- */
+.chat-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;       /* Centrado vertical */
+    min-height: 100vh;         /* Ocupa toda la ventana */
+    background-color: #f0f2f5;  /* Fondo claro */
+    padding: 0;
+}
+.chat-container {
+    width: 100%;
+    max-width: 480px;          /* Ancho máximo para mayor legibilidad */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 20px;
+}
+.chat-header {
+    background-color: #343541; /* Tono similar al header de ChatGPT */
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+.chat-log {
+    flex: 1;
+    padding: 20px;
+    background-color: #f7f7f8;
+    overflow-y: auto;
+    max-height: 400px;         /* Limita la altura para forzar scroll */
+    scroll-behavior: smooth;
+}
+.message {
+    margin-bottom: 20px;
+    display: flex;
+    transition: all 0.3s ease;
+}
+.message.user {
+    justify-content: flex-end;
+}
+.message.assistant {
+    justify-content: flex-start;
+}
+.bubble {
+    max-width: 75%;
+    padding: 15px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.message.user .bubble {
+    background-color: #007aff;
+    color: #fff;
+    border-radius: 20px 5px 20px 20px;
+}
+.message.assistant .bubble {
+    background-color: #e5e5ea;
+    color: #000;
+    border-radius: 5px 20px 20px 20px;
+}
+.predetermined-questions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-top: 1px solid #ddd;
+    justify-content: center;
+}
+.predetermined-questions button {
+    padding: 10px 16px;
+    background-color: #007aff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.predetermined-questions button:hover {
+    transform: scale(1.03);
+}
+.chat-input-area {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fff;
+}
+.chat-input-area input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+.chat-input-area input:focus {
+    border-color: #007aff;
+}
+.chat-input-area button {
+    margin-left: 10px;
+    padding: 12px 20px;
+    background-color: #007aff;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+}
+.chat-input-area button:hover {
+    background-color: #005bb5;
 }

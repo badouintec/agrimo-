@@ -284,7 +284,7 @@
         <ul>
           <li class="active"><a href="home.html"><i class="fas fa-home"></i> Tablero de Ventas</a></li>
           <li><a href="resumen.html"><i class="fas fa-file-alt"></i> Resumen</a></li>
-          <li><a href="perspectivas.html"><i class="fas fa-chart-pie"></i> Perspectivas</a></li>
+          <li><a href="chatbot.html"><i class="fas fa-comments"></i> Chatbot</a></li>
           <li><a href="tableros.html"><i class="fas fa-chart-bar"></i> Tableros</a></li>
           <li><a href="acreditaciones.html"><i class="fas fa-check-square"></i> Acreditaciones</a></li>
           <li><a href="acercadenosotros.html"><i class="fas fa-info-circle"></i> Acerca de Nosotros</a></li>
@@ -314,35 +314,32 @@
     </header>
 
     <div class="content-wrapper">
-      <!-- SECCIÓN IZQUIERDA: Filtros, Mapa, Calendario y KPIs -->
+      <!-- SECCIÓN IZQUIERDA -->
       <section class="left-section">
         <!-- Filtros y Mapa -->
-        <div class="land-section">
-          <div class="land-card">
-            <h2>Características de Clientes Potenciales</h2>
-            <p>Utiliza los filtros para segmentar y analizar oportunidades:</p>
-            <div class="filter-container">
-              <select id="filterEstado">
-                <option value="">Estado: Todos</option>
-                <!-- Se populará dinámicamente desde el GeoJSON -->
-              </select>
-              <select id="filterPrioridad">
-                <option value="">Prioridad: Todas</option>
-                <option value="Alta">Alta</option>
-                <option value="Media">Media</option>
-                <option value="Baja">Baja</option>
-              </select>
-              <select id="filterCanal">
-                <option value="">Canal de Compra: Todos</option>
-                <option value="Correo">Correo</option>
-                <option value="Teléfono">Teléfono</option>
-                <option value="Web">Web</option>
-                <option value="Presencial">Presencial</option>
-                <option value="No disponible">No disponible</option>
-              </select>
-            </div>
+        <div class="land-section land-card">
+          <h2>Características de Clientes Potenciales</h2>
+          <p>Utiliza los filtros para segmentar y analizar oportunidades:</p>
+          <div class="filter-container">
+            <select id="filterEstado">
+              <option value="">Estado: Todos</option>
+              <!-- Se populará dinámicamente desde el GeoJSON -->
+            </select>
+            <select id="filterPrioridad">
+              <option value="">Prioridad: Todas</option>
+              <option value="Alta">Alta</option>
+              <option value="Media">Media</option>
+              <option value="Baja">Baja</option>
+            </select>
+            <select id="filterCanal">
+              <option value="">Canal de Compra: Todos</option>
+              <option value="Correo">Correo</option>
+              <option value="Teléfono">Teléfono</option>
+              <option value="Web">Web</option>
+              <option value="Presencial">Presencial</option>
+              <option value="No disponible">No disponible</option>
+            </select>
           </div>
-          <!-- Mapa -->
           <div class="map-container">
             <div id="map"></div>
           </div>
@@ -353,8 +350,10 @@
           <h2>Calendario de Citas - Mayo 2025</h2>
           <div class="schedule-info">
             <span>Citas programadas para el mes</span>
-            <button id="prevMonthBtn">Anterior</button>
-            <button id="nextMonthBtn">Siguiente</button>
+            <div>
+              <button id="prevMonthBtn">Anterior</button>
+              <button id="nextMonthBtn">Siguiente</button>
+            </div>
           </div>
           <div class="calendar">
             <div>1</div>
@@ -394,20 +393,19 @@
         <!-- KPIs y Gráfica de Ventas -->
         <div class="kpis">
           <div class="kpi-card">
-            <h2>Ventas Realizadas</h2>
+            <h3>Ventas Realizadas</h3>
             <p id="kpiVentas">0</p>
             <small>Unidades vendidas este mes</small>
             <button class="btn-detail" onclick="abrirModalCurso('modalKpiVentas')">Ver Detalles</button>
           </div>
           <div class="chart-card">
-            <h2>Evolución de Ventas</h2>
             <canvas id="chartVentas"></canvas>
             <button class="btn-detail" onclick="abrirModalCurso('modalGraficaVentas')">Más info sobre ventas</button>
           </div>
         </div>
       </section>
 
-      <!-- SECCIÓN DERECHA: Alertas, Cursos y Clientes Potenciales -->
+      <!-- SECCIÓN DERECHA -->
       <aside class="right-section">
         <!-- Alertas de Seguimiento -->
         <div class="alerts">

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agrimonitor - Chatbot Agro</title>
+  <!-- Fuente Google: Poppins -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Librerías externas -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <!-- Todos los estilos se han movido a styles.css -->
+</head>
+<body class="has-sidebar">
+  <!-- Menú lateral (igual que en home.html) -->
+  <aside class="sidebar">
+    <div class="sidebar-profile">
+      <img src="https://media.licdn.com/dms/image/v2/D5603AQE2Kc-IuHWB2g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1723691824902?e=1747267200&amp;v=beta&amp;t=82SjkLtByXudARIYmqjd6Gncwl4Ux8ja5FCdgTlIId8" alt="Agente de Ventas" />
+      <h3>Agente de Ventas</h3>
+      <div class="profile-info">
+        <h3>Agente de Ventas</h3>
+      </div>
+    </div>
+    <nav class="menu">
+      <ul>
+        <li><a href="home.html"><i class="fas fa-home"></i> Tablero de Ventas</a></li>
+        <li><a href="resumen.html"><i class="fas fa-file-alt"></i> Resumen</a></li>
+        <li class="active"><a href="chatbot.html"><i class="fas fa-comments"></i> Chatbot</a></li>
+        <li><a href="tableros.html"><i class="fas fa-chart-bar"></i> Tableros</a></li>
+        <li><a href="acreditaciones.html"><i class="fas fa-check-square"></i> Acreditaciones</a></li>
+        <li><a href="acercadenosotros.html"><i class="fas fa-info-circle"></i> Acerca de Nosotros</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <button id="btnDashboard">Cerca de Nosotros</button>
+      <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </div>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Chatbot Agro</h1>
+      <div class="topbar-actions">
+        <div class="search-bar">
+          <input type="text" placeholder="Buscar..." />
+          <i class="fas fa-search"></i>
+        </div>
+        <div class="icons">
+          <i class="fas fa-envelope"></i>
+          <i class="fas fa-bell"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Ventana del chatbot centrada -->
+    <div class="content-wrapper">
+      <section class="left-section">
+        <div class="chat-wrapper">
+          <div class="chat-container">
+            <div class="chat-header">Chatbot Agro</div>
+            <div class="predetermined-questions">
+              <!-- Botones predefinidos -->
+              <button onclick="sendPrompt('¿Qué estados tienes?')">¿Qué estados tienes?</button>
+              <button onclick="sendPrompt('¿Cuál es la prioridad de venta?')">¿Cuál es la prioridad de venta?</button>
+              <button onclick="sendPrompt('¿Qué canal de compra recomiendas?')">¿Qué canal de compra recomiendas?</button>
+            </div>
+            <div class="chat-log" id="chatLog">
+              <!-- Los mensajes se agregarán aquí -->
+            </div>
+            <div class="chat-input-area">
+              <input type="text" id="chatInput" placeholder="Escribe tu consulta..." />
+              <button onclick="handleChat()">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <aside class="right-section">
+        <!-- Sección derecha opcional -->
+      </aside>
+    </div>
+  </main>
+  
+  <script src="chatbot.js"></script>
+</body>
+</html>
