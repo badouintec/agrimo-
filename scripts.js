@@ -276,6 +276,16 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     }
+
+    // Nuevo: Ajustar transparencia del topbar al hacer scroll
+    const topbar = document.getElementById("topbarSection");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        topbar.classList.add("scrolled");
+      } else {
+        topbar.classList.remove("scrolled");
+      }
+    });
   });
   
   // =======================================
@@ -367,3 +377,115 @@ document.addEventListener("DOMContentLoaded", () => {
   function redirectToHome() {
     window.location.href = "home.html";
   }
+
+// Función para el scroll suave
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+});
+
+// Efecto fade-in para elementos
+const fadeInElements = document.querySelectorAll('.fade-in, .dashboard-details, .contacto, .equipo-container');
+function handleScroll() {
+  fadeInElements.forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 50) {
+      el.classList.add('show');
+    }
+  });
+}
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('load', handleScroll);
+
+// Lógica para el modal Dashboard
+document.getElementById("btnDashboard")?.addEventListener("click", () => {
+  document.getElementById("dashboardModal").style.display = "flex";
+});
+document.getElementById("closeDashboardModal")?.addEventListener("click", () => {
+  document.getElementById("dashboardModal").style.display = "none";
+});
+window.addEventListener("click", (e) => {
+  if (e.target === document.getElementById("dashboardModal")) {
+    document.getElementById("dashboardModal").style.display = "none";
+  }
+});
+
+// Cargar CSV con clientes reales y actualizar lista y alertas
+Papa.parse("clientes_potenciales_fertilizantes_enhanced.csv", {
+  download: true,
+  header: true,
+  complete: function(results) {
+    const data = results.data;
+    // Actualizar lista de clientes potenciales
+    const clientesUl = document.getElementById("clientesUl");
+    if (clientesUl) {
+      clientesUl.innerHTML = "";
+      data.forEach(item => {
+        const li = document.createElement("li");
+        li.innerText = `${item.nom_estab} (${item.entidad})`;
+        clientesUl.appendChild(li);
+      });
+    }
+    // Actualizar alertas con los tres primeros clientes
+    const alertsContainer = document.querySelector(".alerts");
+    if (alertsContainer && data.length >= 3) {
+      alertsContainer.innerHTML = `
+        <h2>Alertas de Seguimiento</h2>
+        <div class="alert-item">
+          <p><strong>${data[0].nom_estab}</strong> (${data[0].entidad})<br>Cliente respondió y agendó cita.</p>
+          <button onclick="mostrarAlerta('${data[0].nom_estab} (${data[0].entidad})')">Ver Detalles</button>
+        </div>
+        <div class="alert-item">
+          <p><strong>${data[1].nom_estab}</strong> (${data[1].entidad})<br>Cliente confirmó interés.</p>
+          <button onclick="mostrarAlerta('${data[1].nom_estab} (${data[1].entidad})')">Ver Detalles</button>
+        </div>
+        <div class="alert-item">
+          <p><strong>${data[2].nom_estab}</strong> (${data[2].entidad})<br>Cliente solicita seguimiento.</p>
+          <button onclick="mostrarAlerta('${data[2].nom_estab} (${data[2].entidad})')">Ver Detalles</button>
+        </div>
+      `;
+    }
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  handleScroll(); // Llamar a handleScroll al cargar para que los elementos visibles se animen
+  
+  // Confirmar envío del formulario de contacto
+  document.getElementById("contactForm")?.addEventListener("submit", function(e) {
+    e.preventDefault();
+    alert("¡Gracias por tu mensaje! Te contactaremos pronto.");
+    this.reset();
+  });
+});
+
+// Active nav link highlighting
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('nav ul li a');
+
+const observerOptions = {
+  root: null,
+  rootMargin: '-50% 0px -50% 0px',
+  threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === `#${id}`) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+  });
+}, observerOptions);
+
+sections.forEach(section => observer.observe(section));

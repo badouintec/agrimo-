@@ -39,6 +39,7 @@
       left: 0;
       padding: 20px;
       box-sizing: border-box;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
     }
     .sidebar-profile {
       text-align: center;
@@ -56,15 +57,22 @@
       margin: 10px 0;
     }
     .sidebar .menu ul li a {
-      color: inherit;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      color: #ecf0f1;
       text-decoration: none;
-      display: block;
-      padding: 8px 10px;
       border-radius: 4px;
+      transition: background-color 0.3s ease, padding-left 0.3s ease;
+    }
+    .sidebar .menu ul li a i {
+      font-size: 1.1rem;
     }
     .sidebar .menu ul li.active a,
     .sidebar .menu ul li a:hover {
       background-color: #34495e;
+      padding-left: 20px;
     }
     .sidebar-footer {
       text-align: center;
@@ -84,6 +92,7 @@
       margin-left: 250px;
       padding: 20px;
       font-family: 'Poppins', sans-serif;
+      background-color: #fff;
     }
     
     /* Ajustes rápidos para el canvas de la gráfica */
@@ -99,7 +108,8 @@
       border: 1px solid #ccc;
       border-radius: 6px;
       overflow: hidden;
-      margin-top: 1rem; /* Según el espaciado que desees */
+      margin-top: 20px; /* Según el espaciado que desees */
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     #map {
@@ -107,14 +117,165 @@
       height: 100%;
       display: block;
     }
+
+    /* Mejoras generales de estética */
+    body {
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    /* Contenedor de filtros */
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+
+    /* Calendario con grid para mayor orden */
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .calendar div {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+    }
+
+    .calendar-event {
+      background-color: #e3f2fd;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    /* Mejoras en modales */
+    .modal .modal-content {
+      border-radius: 8px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Corregir estilo del menú izquierdo */
+    .sidebar {
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      background-color: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      z-index: 1001;
+    }
+    
+    .sidebar-profile {
+      text-align: center;
+      margin-bottom: 30px;
+      width: 100%;
+    }
+    
+    .sidebar-profile img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .sidebar .menu {
+      width: 100%;
+    }
+    
+    .sidebar .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .sidebar .menu ul li {
+      margin: 8px 0;
+      width: 100%;
+    }
+    
+    .sidebar .menu ul li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 15px;
+      color: #ecf0f1;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .sidebar .menu ul li a i {
+      width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+    
+    .sidebar .menu ul li.active a,
+    .sidebar .menu ul li a:hover {
+      background-color: #34495e;
+      padding-left: 20px;
+    }
+    
+    .sidebar-footer {
+      margin-top: auto;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      width: 100%;
+    }
+    
+    .sidebar-footer button,
+    .sidebar-footer a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 15px;
+      margin: 5px 0;
+      background: none;
+      border: none;
+      color: #ecf0f1;
+      text-align: left;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .sidebar-footer button:hover,
+    .sidebar-footer a:hover {
+      background-color: #34495e;
+    }
   </style>
 </head>
 <body class="has-sidebar">
   <!-- SIDEBAR -->
-  <aside class="sidebar">
+  <aside class="sidebar" style="display: flex; flex-direction: column;">
     <div>
       <div class="sidebar-profile">
-        <img src="https://via.placeholder.com/60x60.png?text=AV" alt="Agente de Ventas" />
+        <img src="https://media.licdn.com/dms/image/v2/D5603AQE2Kc-IuHWB2g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1723691824902?e=1747267200&amp;v=beta&amp;t=82SjkLtByXudARIYmqjd6Gncwl4Ux8ja5FCdgTlIId8" alt="Agente de Ventas" />
         <div class="profile-info">
           <h3>Agente de Ventas</h3>
         </div>
@@ -160,55 +321,29 @@
           <div class="land-card">
             <h2>Características de Clientes Potenciales</h2>
             <p>Utiliza los filtros para segmentar y analizar oportunidades:</p>
-            <div style="display: flex; flex-wrap: wrap; gap: 5px; margin-top:10px;">
+            <div class="filter-container">
+              <select id="filterEstado">
+                <option value="">Estado: Todos</option>
+                <!-- Se populará dinámicamente desde el GeoJSON -->
+              </select>
               <select id="filterPrioridad">
                 <option value="">Prioridad: Todas</option>
                 <option value="Alta">Alta</option>
                 <option value="Media">Media</option>
                 <option value="Baja">Baja</option>
               </select>
-              <select id="filterTamaño">
-                <option value="">Tamaño: Todos</option>
-                <option value="Micro">Micro</option>
-                <option value="Pequeña">Pequeña</option>
-                <option value="Mediana">Mediana</option>
-                <option value="Mediana-Grande">Mediana-Grande</option>
-                <option value="Grande">Grande</option>
-                <option value="Corporativo">Corporativo</option>
-              </select>
               <select id="filterCanal">
                 <option value="">Canal de Compra: Todos</option>
                 <option value="Correo">Correo</option>
                 <option value="Teléfono">Teléfono</option>
                 <option value="Web">Web</option>
+                <option value="Presencial">Presencial</option>
                 <option value="No disponible">No disponible</option>
               </select>
-              <select id="filterContacto">
-                <option value="">Tiene Contacto: Todos</option>
-                <option value="Sí">Sí</option>
-                <option value="No">No</option>
-              </select>
-              <select id="filterTipo">
-                <option value="">Tipo de Cliente: Todos</option>
-                <option value="Agrícola">Agrícola</option>
-                <option value="Agroindustrial">Agroindustrial</option>
-                <option value="Servicios agrícolas">Servicios agrícolas</option>
-                <option value="Otro">Otro</option>
-              </select>
-              <select id="filterEstado">
-                <option value="">Estado: Todos</option>
-                <option value="CDMX">CDMX</option>
-                <option value="Jalisco">Jalisco</option>
-                <option value="Nuevo León">Nuevo León</option>
-                <option value="Baja California">Baja California</option>
-                <option value="Veracruz">Veracruz</option>
-                <option value="Puebla">Puebla</option>
-              </select>
-              <button id="applyFiltersBtn">Aplicar</button>
             </div>
           </div>
           <!-- Mapa -->
-          <div class="map-container" style="margin-top: 1rem;">
+          <div class="map-container">
             <div id="map"></div>
           </div>
         </div>
@@ -218,8 +353,8 @@
           <h2>Calendario de Citas - Mayo 2025</h2>
           <div class="schedule-info">
             <span>Citas programadas para el mes</span>
-            <button id="prevMonthBtn" style="margin-left:10px;">Anterior</button>
-            <button id="nextMonthBtn" style="margin-left:5px;">Siguiente</button>
+            <button id="prevMonthBtn">Anterior</button>
+            <button id="nextMonthBtn">Siguiente</button>
           </div>
           <div class="calendar">
             <div>1</div>
@@ -348,34 +483,12 @@
 
         <!-- Explicación del Dashboard -->
         <div class="dashboard-explanation">
-          <h2>Explicación del Dashboard</h2>
+          <h2>¿Necesitas Ayuda?</h2>
           <p>
-            Este tablero agrupa información clave para optimizar la gestión de ventas en el sector agrícola. Utiliza los filtros para segmentar clientes potenciales según prioridad, tamaño, canal de compra, contacto, tipo y estado.
+            Si tienes alguna duda sobre cómo usar esta plataforma o requieres asistencia personalizada, 
+            contacta a nuestro equipo de soporte.
           </p>
-          <ul>
-            <li><strong>Prioridad de Venta:</strong> Alta, Media o Baja.</li>
-            <li><strong>Tamaño de Empresa:</strong> Micro, Pequeña, Mediana, Mediana-Grande, Grande, Corporativo.</li>
-            <li><strong>Canal de Compra:</strong> Correo, Teléfono, Web o No disponible.</li>
-            <li><strong>Tiene Contacto:</strong> Sí o No.</li>
-            <li><strong>Tipo de Cliente:</strong> Agrícola, Agroindustrial, Servicios agrícolas, Otro.</li>
-            <li><strong>Estado:</strong> Ubicación geográfica.</li>
-          </ul>
-          <p>Filtra y analiza para identificar las mejores oportunidades de venta.</p>
-        </div>
-
-        <!-- KPIs y Gráfica de Ventas (repetido para asegurar consistencia en la sección derecha) -->
-        <div class="kpis">
-          <div class="kpi-card">
-            <h2>Ventas Realizadas</h2>
-            <p id="kpiVentas">0</p>
-            <small>Unidades vendidas este mes</small>
-            <button class="btn-detail" onclick="abrirModalCurso('modalKpiVentas')">Ver Detalles</button>
-          </div>
-          <div class="chart-card">
-            <h2>Evolución de Ventas</h2>
-            <canvas id="chartVentas"></canvas>
-            <button class="btn-detail" onclick="abrirModalCurso('modalGraficaVentas')">Más info sobre ventas</button>
-          </div>
+          <button class="btn-detail" style="width: 100%; margin-top: 15px;">Contactar Soporte</button>
         </div>
       </aside>
     </div>
@@ -633,35 +746,50 @@
       // =======================================
       const filterEstado = document.getElementById("filterEstado");
       const filterPrioridad = document.getElementById("filterPrioridad");
-      const applyFiltersBtn = document.getElementById("applyFiltersBtn");
+      const filterCanal = document.getElementById("filterCanal");
       
       function applyFilters() {
         if (!geojsonData) return;
         const estadoValor = filterEstado ? filterEstado.value : "";
         const prioridadValor = filterPrioridad ? filterPrioridad.value : "";
+        const canalValor = filterCanal ? filterCanal.value : "";
+        
         const filteredFeatures = geojsonData.features.filter(feature => {
           const props = feature.properties;
-          const matchEstado = estadoValor ? props.estado === estadoValor : true;
+          const matchEstado = estadoValor ? props.entidad === estadoValor : true;
           const matchPrioridad = prioridadValor ? props.prioridad_venta === prioridadValor : true;
-          return matchEstado && matchPrioridad;
+          const matchCanal = canalValor ? props.canal_preferido === canalValor : true;
+          return matchEstado && matchPrioridad && matchCanal;
         });
+        
         const filteredGeoJSON = {
           type: "FeatureCollection",
           features: filteredFeatures
         };
+        
         updateGeoJSONLayer(filteredGeoJSON);
         updateClientesList(filteredFeatures);
       }
       
-      if (applyFiltersBtn) {
-        applyFiltersBtn.addEventListener("click", applyFilters);
-      }
-      if (filterEstado) {
-        filterEstado.addEventListener("change", applyFilters);
-      }
-      if (filterPrioridad) {
-        filterPrioridad.addEventListener("change", applyFilters);
-      }
+      // Aplicar filtros al cambiar cualquier selector
+      [filterEstado, filterPrioridad, filterCanal].forEach(select => {
+        if (select) select.addEventListener("change", applyFilters);
+      });
+      
+      // Ejecutar una vez para poblar el select Estado
+      const interval = setInterval(() => {
+        if (geojsonData) {
+          // Poblar select de Estado dinámicamente
+          const estados = Array.from(new Set(geojsonData.features.map(feature => 
+            feature.properties.entidad)));
+          filterEstado.innerHTML = '<option value="">Estado: Todos</option>';
+          estados.sort();
+          estados.forEach(estado => {
+            filterEstado.innerHTML += `<option value="${estado}">${estado}</option>`;
+          });
+          clearInterval(interval);
+        }
+      }, 100);
       
       // =======================================
       // 4. KPI y GRÁFICA CON CHART.JS

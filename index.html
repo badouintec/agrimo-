@@ -12,152 +12,7 @@
   <link rel="stylesheet" href="styles.css"/>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-  <!-- Animaciones simples -->
-  <style>
-    /* Animar aparición progresiva */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .fade-in.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    /* Efecto hover en las tarjetas del blog */
-    .blog-card:hover {
-      transform: scale(1.02);
-      transition: transform 0.3s ease;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-    .dashboard-details, .contacto, .equipo-container {
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
-    .dashboard-details.show, .contacto.show, .equipo-container.show {
-      opacity: 1;
-    }
-    /* Responsividad */
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .logo-container,
-    .menu,
-    .topbar-actions {
-      margin: 5px;
-    }
-    .menu ul {
-      display: flex;
-      align-items: center;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      gap: 15px;
-    }
-    .menu li {
-      margin: 0;
-    }
-    .menu li a {
-      text-decoration: none;
-      color: #000;
-    }
-    /* Ajustes para móviles */
-    @media (max-width: 768px) {
-      .logo-container {
-        flex: 1 0 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .menu ul {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .topbar-actions {
-        flex: 1 0 100%;
-        display: flex;
-        justify-content: center;
-      }
-      .blog-container {
-        flex-direction: column;
-        align-items: center;
-      }
-      .acreditacion-card {
-        margin: 15px 0;
-      }
-    }
-    /* Para que las fotos de los integrantes y sus nombres estén en una sola fila, 
-       y se ajusten bien en pantallas pequeñas. */
-    .equipo-container {
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      gap: 30px; 
-      flex-wrap: wrap; /* Permite que en pantallas muy pequeñas se ajuste y no se corte */
-    }
-    .acreditacion-card {
-      flex: 1; 
-      min-width: 220px; 
-      margin: 10px; 
-      text-align: center; 
-    }
-    .acreditacion-card img {
-      max-width: 100%; 
-      height: auto; 
-      border-radius: 8px; 
-      margin-bottom: 10px;
-    }
-    /* Asegura que el botón Demo Login no desaparezca al pasar el mouse, solo se redimensione ligeramente */
-    .topbar-actions button {
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .topbar-actions button:hover {
-      transform: scale(1.05);
-    }
-
-    /* Ajusta aún más la responsividad si es necesario */
-    @media (max-width: 768px) {
-      /* ...tus reglas responsive existentes... */
-      .topbar-actions {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-      }
-    }
-
-    /* Ejemplo de estilos para el modal de login */
-    .course-modal {
-      display: none; 
-      position: fixed; 
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      z-index: 9999; 
-      justify-content: center; 
-      align-items: center;
-    }
-
-    .course-modal-content {
-      background: #fff; 
-      padding: 20px; 
-      border-radius: 5px; 
-      position: relative;
-    }
-
-    /* Cierra el modal al presionar la “X” */
-    .close-modal {
-      cursor: pointer; 
-      font-size: 1.2rem;
-      position: absolute; 
-      top: 10px; 
-      right: 15px;
-    }
-  </style>
+  <!-- Inline styles movidos a styles.css -->
 </head>
 <body class="no-sidebar">
   <!-- TOPBAR -->
@@ -177,7 +32,7 @@
       </ul>
     </nav>
     <div class="topbar-actions">
-      <button onclick="redirectToHome()">
+      <button onclick="window.location.href='home.html'">
         <i class="fas fa-user"></i> Demo Login
       </button>
     </div>
@@ -210,9 +65,9 @@
   <!-- SECCIÓN 3: BLOG -->
   <section id="blog" class="section-content fade-in">
     <h2 class="section-title">Blog: Noticias y Artículos</h2>
-    <div class="blog-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    <div class="blog-container">
       <!-- Entrada de Blog 1 -->
-      <article class="blog-card" style="flex: 1 1 300px; max-width: 400px;">
+      <article class="blog-card">
         <img src="https://carbonwave.com/wp-content/uploads/2023/12/sargassum-1.jpg" alt="Innovando en la venta de fertilizantes orgánicos"/>
         <div class="blog-content">
           <h3>Innovando en la venta de fertilizantes orgánicos</h3>
@@ -224,7 +79,7 @@
         </div>
       </article>
       <!-- Entrada de Blog 2 -->
-      <article class="blog-card" style="flex: 1 1 300px; max-width: 400px;">
+      <article class="blog-card">
         <img src="https://carbonwave.com/wp-content/uploads/2023/12/unnamed-1.jpg" alt="¿Es el alga sargazo un buen fertilizante?"/>
         <div class="blog-content">
           <h3>¿Es el alga sargazo un buen fertilizante?</h3>
@@ -241,7 +96,7 @@
   <!-- SECCIÓN 4: DASHBOARD INTERACTIVO -->
   <section id="dashboard" class="section-content dashboard">
     <h2 class="section-title">Dashboard Interactivo</h2>
-    <p>
+    <p class="section-subtitle">
       Nuestro sistema optimiza la prospección y seguimiento de ventas mediante un dashboard interactivo que
       segmenta y prioriza la información.
     </p>
@@ -258,49 +113,67 @@
       <p>
         Estos datos te permiten filtrar por estado, tamaño y potencial de compra para identificar oportunidades estratégicas y maximizar tus ventas.
       </p>
+      <div style="text-align: center; margin-top: 20px;">
+        <button id="btnDashboard" class="btn-primario">Ver Demo Dashboard</button>
+      </div>
     </div>
   </section>
 
   <!-- SECCIÓN 5: CONTACTO -->
   <section id="contacto" class="section-content contacto">
     <h2 class="section-title">Contacto</h2>
-    <p>
+    <p class="section-subtitle">
       ¿Listo para impulsar tus ventas de fertilizantes orgánicos? Contáctanos y descubre cómo Agrimonitor puede 
       transformar tu estrategia comercial.
     </p>
+    <div style="text-align: center; margin-top: 30px;">
+      <form id="contactForm" style="max-width: 500px; margin: 0 auto;">
+        <div style="margin-bottom: 20px;">
+          <input type="text" placeholder="Nombre" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <input type="email" placeholder="Email" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <textarea placeholder="Mensaje" rows="5" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required></textarea>
+        </div>
+        <button type="submit" class="btn-primario" style="background-color: var(--color-primario); color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer;">Enviar Mensaje</button>
+      </form>
+    </div>
   </section>
 
   <!-- SECCIÓN 6: EQUIPO -->
   <section id="equipo" class="section-content equipo fade-in">
     <h2 class="section-title">Nuestro Equipo</h2>
-    <p class="section-subtitle">Conoce a los estudiantes Tec que hicieron esto posible.</p>
+    <p class="section-subtitle" style="text-align: center;">Conoce a los estudiantes Tec que hicieron esto posible.</p>
     <div class="equipo-container">
-      <div class="acreditacion-card" style="flex: 1; min-width: 200px; margin: 10px;">
+      <!-- Repetir la tarjeta de Mariel 4 veces -->
+      <div class="acreditacion-card">
         <img src="https://media.licdn.com/dms/image/v2/D5603AQE2Kc-IuHWB2g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1723691824902?e=1747267200&amp;v=beta&amp;t=82SjkLtByXudARIYmqjd6Gncwl4Ux8ja5FCdgTlIId8" alt="Mariel Gomez Olalde"/>
         <div class="acreditacion-info">
           <h3>Mariel Gomez Olalde</h3>
-          <p>Estudiante Tec</p>
+          <p>Desarrollo Frontend</p>
         </div>
       </div>
-      <div class="acreditacion-card" style="flex: 1; min-width: 200px; margin: 10px;">
-        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/479878261_2022187184946911_5919568276154915081_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=QMT8vYgBIc8Q7kNvgEiSyY_&_nc_oc=AdjLbzmPUsWi4XhRQwqXvXaE6-KXvmufZ7lw_m4FC7LacYt8QonjzGdJ27qbxN0pNNJnKfeFv_yzME8PPqZzUD6J&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=AEMOyNSrIDkF3crZsHKuoJ6&oh=00_AYHLcdzq1ZwLOiGFwt3JKj61SGZD3pbd7z6Iev-iMZKtBA&oe=67D7EC6B" alt="Ulises Torres"/>
-        <div class="acreditacion-info">
-          <h3>Ulises Torres</h3>
-          <p>Estudiante Tec</p>
-        </div>
-      </div>
-      <div class="acreditacion-card" style="flex: 1; min-width: 200px; margin: 10px;">
+      <div class="acreditacion-card">
         <img src="https://media.licdn.com/dms/image/v2/D5603AQE2Kc-IuHWB2g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1723691824902?e=1747267200&amp;v=beta&amp;t=82SjkLtByXudARIYmqjd6Gncwl4Ux8ja5FCdgTlIId8" alt="Mariel Gomez Olalde"/>
         <div class="acreditacion-info">
           <h3>Mariel Gomez Olalde</h3>
-          <p>Estudiante Tec</p>
+          <p>Desarrollo Frontend</p>
         </div>
       </div>
-      <div class="acreditacion-card" style="flex: 1; min-width: 200px; margin: 10px;">
+      <div class="acreditacion-card">
         <img src="https://media.licdn.com/dms/image/v2/D5603AQE2Kc-IuHWB2g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1723691824902?e=1747267200&amp;v=beta&amp;t=82SjkLtByXudARIYmqjd6Gncwl4Ux8ja5FCdgTlIId8" alt="Mariel Gomez Olalde"/>
         <div class="acreditacion-info">
           <h3>Mariel Gomez Olalde</h3>
-          <p>Estudiante Tec</p>
+          <p>Desarrollo Frontend</p>
+        </div>
+      </div>
+      <div class="acreditacion-card">
+        <img src="https://media.licdn.com/dms/image/v2/D5603AQE2Kc-IuHWB2g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1723691824902?e=1747267200&amp;v=beta&amp;t=82SjkLtByXudARIYmqjd6Gncwl4Ux8ja5FCdgTlIId8" alt="Mariel Gomez Olalde"/>
+        <div class="acreditacion-info">
+          <h3>Mariel Gomez Olalde</h3>
+          <p>Desarrollo Frontend</p>
         </div>
       </div>
     </div>
@@ -313,136 +186,8 @@
 
   <!-- Incluir la librería de Papa Parse si se usa en scripts -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  
   <!-- SCRIPTS -->
   <script src="scripts.js"></script>
-  <script>
-    // Lógica extra para el modal Dashboard
-    document.getElementById("btnDashboard")?.addEventListener("click", () => {
-      document.getElementById("dashboardModal").style.display = "flex";
-    });
-    document.getElementById("closeDashboardModal")?.addEventListener("click", () => {
-      document.getElementById("dashboardModal").style.display = "none";
-    });
-    window.addEventListener("click", (e) => {
-      if (e.target === document.getElementById("dashboardModal")) {
-        document.getElementById("dashboardModal").style.display = "none";
-      }
-    });
-    
-    // Cargar CSV con clientes reales y actualizar lista y alertas
-    Papa.parse("clientes_potenciales_fertilizantes_enhanced.csv", {
-      download: true,
-      header: true,
-      complete: function(results) {
-        const data = results.data;
-        // Actualizar lista de clientes potenciales
-        const clientesUl = document.getElementById("clientesUl");
-        if (clientesUl) {
-          clientesUl.innerHTML = "";
-          data.forEach(item => {
-            const li = document.createElement("li");
-            li.innerText = `${item.nom_estab} (${item.entidad})`;
-            clientesUl.appendChild(li);
-          });
-        }
-        // Actualizar alertas con los tres primeros clientes
-        const alertsContainer = document.querySelector(".alerts");
-        if (alertsContainer && data.length >= 3) {
-          alertsContainer.innerHTML = `
-            <h2>Alertas de Seguimiento</h2>
-            <div class="alert-item">
-              <p><strong>${data[0].nom_estab}</strong> (${data[0].entidad})<br>Cliente respondió y agendó cita.</p>
-              <button onclick="mostrarAlerta('${data[0].nom_estab} (${data[0].entidad})')">Ver Detalles</button>
-            </div>
-            <div class="alert-item">
-              <p><strong>${data[1].nom_estab}</strong> (${data[1].entidad})<br>Cliente confirmó interés.</p>
-              <button onclick="mostrarAlerta('${data[1].nom_estab} (${data[1].entidad})')">Ver Detalles</button>
-            </div>
-            <div class="alert-item">
-              <p><strong>${data[2].nom_estab}</strong> (${data[2].entidad})<br>Cliente solicita seguimiento.</p>
-              <button onclick="mostrarAlerta('${data[2].nom_estab} (${data[2].entidad})')">Ver Detalles</button>
-            </div>
-          `;
-        }
-      }
-    });
-
-    // Pequeño efecto: mostrar secciones con .show cuando aparecen en pantalla
-    const fadeInElements = document.querySelectorAll('.fade-in, .dashboard-details, .contacto, .equipo-container');
-    function handleScroll() {
-      fadeInElements.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 50) {
-          el.classList.add('show');
-        }
-      });
-    }
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('load', handleScroll);
-
-    // Modal DEMO LOGIN
-    function abrirModalLogin() {
-      const modal = document.getElementById("modalLogin");
-      modal.style.display = "flex"; 
-    }
-    function cerrarModalLogin() {
-      document.getElementById("modalLogin").style.display = "none";
-    }
-    function demoLogin(e) {
-      e.preventDefault();
-      const user = document.getElementById("loginUser").value;
-      const pass = document.getElementById("loginPass").value;
-      if (user === "user" && pass === "user") {
-        alert("Login exitoso.");
-        window.location.href = "home.html";
-      } else {
-        alert("Usuario o contraseña incorrectos.");
-      }
-      return false;
-    }
-
-    // Evita que al hacer clic dentro del contenido del modal se cierre automáticamente
-    document.getElementById("demoLoginModal").addEventListener("click", function(event) {
-      event.stopPropagation();
-    });
-
-    // (Opcional) Si deseas que hacer clic fuera del modal lo cierre, agrega:
-    document.getElementById("modalLogin").addEventListener("click", function(event) {
-      // Si se hizo clic en el contenedor (no en el contenido)
-      if (event.target === document.getElementById("modalLogin")) {
-        cerrarModalLogin();
-      }
-    });
-  </script>
-
-  <!-- MODAL DEMO LOGIN -->
-  <div class="course-modal" id="modalLogin">
-    <div class="course-modal-content fade-in" id="demoLoginModal">
-      <span class="close-modal" onclick="cerrarModalLogin()">&times;</span>
-      <h2>Demo Login</h2>
-      <p>
-        <small>Usuario: <strong>user</strong> | Contraseña: <strong>user</strong></small>
-      </p>
-      <form onsubmit="return demoLogin(event)">
-        <label for="loginUser">Usuario:</label><br/>
-        <input type="text" id="loginUser" placeholder="user" required/>
-        <label for="loginPass">Contraseña:</label><br/>
-        <input type="password" id="loginPass" placeholder="user" required/>
-        <button type="submit">Ingresar</button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal del Dashboard (Chatbot fake) -->
-  <div class="modal" id="dashboardModal" style="display: none;">
-    <div class="modal-content fade-in">
-      <span class="close-btn" id="closeDashboardModal">&times;</span>
-      <h3>Dashboard de Ventas</h3>
-      <p>Aquí se muestran estadísticas y un asistente virtual para ayudarte en la toma de decisiones.</p>
-      <div style="margin-top:15px; padding:10px; border:1px solid #ccc; border-radius:4px;">
-        <p><strong>Chatbot:</strong> Hola, ¿en qué puedo ayudarte hoy?</p>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
