@@ -1,4 +1,4 @@
-# Agrimonitor 🚜📈
+# Kaptia 🚜📈
 
 Este proyecto es un tablero de ventas para el sector agrícola, diseñado para ayudar a los agentes de ventas a visualizar datos, filtrar clientes potenciales y consultar estadísticas, gráficos y alertas en tiempo real.
 
@@ -46,4 +46,4 @@ Este proyecto es un tablero de ventas para el sector agrícola, diseñado para a
 - **PapaParse**: Parseo de archivos CSV.
 - **Font Awesome**: Íconos vectoriales.
 
-¡Disfruta de Agrimonitor y optimiza la gestión de tus ventas agrícolas! 🌱🚀
+¡Disfruta de Kaptia y optimiza la gestión de tus ventas agrícolas! 🌱🚀
