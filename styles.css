@@ -997,9 +997,10 @@
   }
   
   .logo-container .logo {
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: brightness(0) invert(0);
   }
   
   nav ul {
@@ -1025,7 +1026,7 @@
   }
   
   .topbar-actions button {
-    background: var(--color-primario, #007bff);
+    background: var(--color-primario, #1d5c59);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -1034,7 +1035,7 @@
   }
   
   .topbar-actions button:hover {
-    background: var(--color-primario-hover, #0056b3);
+    background: var(--color-primario-hover, #1d5c59);
   }
   
   /* Efecto hover en las tarjetas del blog */
