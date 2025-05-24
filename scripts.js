@@ -53,9 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
       geojsonLayer = L.geoJSON(data, {
         pointToLayer: function (feature, latlng) {
           // Personaliza el marcador según prioridad de venta
-          let color = "#4CAF50";
+          let color = "#1d5c59";
           if (feature.properties.prioridad_venta === "Alta") {
-            color = "#1B5E20";
+            color = "#1d5c59";
           } else if (feature.properties.prioridad_venta === "Baja") {
             color = "#C62828";
           }
@@ -169,12 +169,12 @@ document.addEventListener("DOMContentLoaded", () => {
             {
               label: "Litros Ahorrados",
               data: [500, 800, 1200, 1800, 2700, 3500],
-              borderColor: "#4CAF50",
-              backgroundColor: "rgba(76, 175, 80, 0.2)",
+              borderColor: "#1d5c59",
+              backgroundColor: "rgba(29, 92, 89, 0.2)",
               borderWidth: 2,
               tension: 0.3,
               pointRadius: 4,
-              pointBackgroundColor: "#4CAF50",
+              pointBackgroundColor: "#1d5c59",
             },
           ],
         },
