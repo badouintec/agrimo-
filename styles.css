@@ -15,6 +15,9 @@
     --color-modal-fondo: rgba(0, 0, 0, 0.7);
     --color-alertas-fondo: #f0f0f0;
     --color-alertas-borde: #ddd;
+    --color-boton-fondo: #ffb300;
+    --color-boton-texto: #1d5c59;
+    --color-boton-hover: #ffa000;
   }
   
   /************************************************************
@@ -46,7 +49,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding: 15px 20px;
+    padding: 10px 30px;
     margin-bottom: 0;
     border-bottom: 1px solid #e0e0e0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -986,7 +989,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+    padding: 10px 30px;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
@@ -997,9 +1000,14 @@
   }
   
   .logo-container .logo {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     object-fit: contain;
+    transition: transform 0.3s ease;
+  }
+  
+  .logo-container .logo:hover {
+    transform: scale(1.05);
   }
   
   nav ul {
@@ -1025,16 +1033,17 @@
   }
   
   .topbar-actions button {
-    background: var(--color-primario, #1d5c59);
-    color: #fff;
+    background: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: 500;
   }
   
   .topbar-actions button:hover {
-    background: var(--color-primario-hover, #1d5c59);
+    background: var(--color-boton-hover);
   }
   
   /* Efecto hover en las tarjetas del blog */
@@ -1094,8 +1103,8 @@
   }
   
   .course-modal-content button {
-    background-color: var(--color-primario);
-    color: white;
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
     border: none;
     padding: 10px;
     border-radius: 4px;
@@ -1104,7 +1113,7 @@
   }
   
   .course-modal-content button:hover {
-    background-color: var(--color-primario-hover);
+    background-color: var(--color-boton-hover);
   }
   
   /* Cierra el modal al presionar la "X" */
@@ -1341,8 +1350,8 @@
 }
 
 .popup button {
-  background-color: var(--color-primario);
-  color: white;
+  background-color: var(--color-boton-fondo);
+  color: var(--color-boton-texto);
   border: none;
   padding: 10px 20px;
   border-radius: 4px;
@@ -1353,7 +1362,7 @@
 }
 
 .popup button:hover {
-  background-color: var(--color-primario-hover);
+  background-color: var(--color-boton-hover);
 }
 
 /* Mejoras para eliminar espacios vacíos y optimizar layout */
@@ -1542,8 +1551,8 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 .message.user .bubble {
-    background-color: #007aff;
-    color: #fff;
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
     border-radius: 20px 5px 20px 20px;
 }
 .message.assistant .bubble {
@@ -1562,8 +1571,8 @@
 }
 .predetermined-questions button {
     padding: 10px 16px;
-    background-color: #007aff;
-    color: #fff;
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -1593,13 +1602,108 @@
 .chat-input-area button {
     margin-left: 10px;
     padding: 12px 20px;
-    background-color: #007aff;
+    background-color: var(--color-boton-fondo);
     border: none;
     border-radius: 25px;
-    color: #fff;
+    color: var(--color-boton-texto);
     cursor: pointer;
     font-size: 16px;
 }
 .chat-input-area button:hover {
-    background-color: #005bb5;
+    background-color: var(--color-boton-hover);
+}
+
+/* Estilos de botones actualizados */
+.btn-primario,
+.btn-detail,
+.filter-container button,
+.alert-item button,
+.course-extra button,
+.blog-content a,
+.course-modal-content button,
+.popup button,
+.chat-input-area button,
+.predetermined-questions button {
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.btn-primario:hover,
+.btn-detail:hover,
+.filter-container button:hover,
+.alert-item button:hover,
+.course-extra button:hover,
+.blog-content a:hover,
+.course-modal-content button:hover,
+.popup button:hover,
+.chat-input-area button:hover,
+.predetermined-questions button:hover {
+    background-color: var(--color-boton-hover);
+}
+
+/* Actualizar estilos específicos del chatbot */
+.message.user .bubble {
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
+}
+
+.predetermined-questions button {
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
+}
+
+.predetermined-questions button:hover {
+    background-color: var(--color-boton-hover);
+}
+
+.chat-input-area button {
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
+}
+
+.chat-input-area button:hover {
+    background-color: var(--color-boton-hover);
+}
+
+/* Actualizar estilos de botones en el sidebar */
+.sidebar-footer button,
+.sidebar-footer a {
+    background: none;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 5px 0;
+    font-size: 0.9rem;
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    text-align: left;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.sidebar-footer button:hover,
+.sidebar-footer a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Asegurar que los botones del formulario de contacto tengan el nuevo estilo */
+#contactForm button[type="submit"] {
+    background-color: var(--color-boton-fondo);
+    color: var(--color-boton-texto);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+#contactForm button[type="submit"]:hover {
+    background-color: var(--color-boton-hover);
 }
