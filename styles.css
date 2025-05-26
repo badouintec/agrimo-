@@ -648,17 +648,16 @@
   
   .sidebar-profile {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     width: 100%;
   }
   
   .sidebar-profile img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 8px;
-    border: 3px solid rgba(255, 255, 255, 0.2);
+    width: 200px;  /* Aumentado el tamaño */
+    height: auto;  /* Mantener proporción */
+    object-fit: contain;  /* Asegurar que la imagen se vea completa */
+    margin-bottom: 10px;
+    border: none;  /* Quitar el borde */
   }
   
   .profile-info h3 {
