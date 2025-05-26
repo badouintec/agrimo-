@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kaptia - Mapa Interactivo</title>
+  
+  <!-- Fuente Google: Poppins -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
+  
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="styles.css" />
+  
+  <!-- Librería Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  
+  <!-- Librería de íconos (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+  <!-- PapaParse para CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+  <style>
+    /* Estilos específicos para el mapa */
+    .map-container {
+      width: 100%;
+      height: 600px;
+      margin: 20px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .filter-container {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-container select {
+      flex: 1;
+      min-width: 200px;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    /* Estilos para los popups del mapa */
+    .leaflet-popup-content {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .leaflet-popup-content button {
+      background-color: var(--color-boton-fondo);
+      color: var(--color-boton-texto);
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .leaflet-popup-content button:hover {
+      background-color: var(--color-boton-hover);
+    }
+
+    /* Ajustes para el contenedor principal */
+    .left-section {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .right-section {
+      width: 300px;
+      min-width: 300px;
+    }
+
+    @media (max-width: 768px) {
+      .content-wrapper {
+        flex-direction: column;
+      }
+
+      .right-section {
+        width: 100%;
+      }
+
+      .filter-container select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body class="has-sidebar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" style="display: flex; flex-direction: column;">
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
+        <div class="profile-info">
+          <h3>KaptiaBot</h3>
+        </div>
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+          <li class="active"><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li><a href="acreditaciones.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="sidebar-footer">
+      <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Mapa Interactivo de Clientes</h1>
+      <div class="topbar-actions">
+        <div class="search-bar">
+          <input type="text" placeholder="Buscar..." />
+          <i class="fas fa-search"></i>
+        </div>
+        <div class="icons">
+          <i class="fas fa-envelope"></i>
+          <i class="fas fa-bell"></i>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <!-- SECCIÓN IZQUIERDA -->
+      <section class="left-section">
+        <!-- Filtros y Mapa -->
+        <div class="land-section land-card">
+          <h2>Mapa de Clientes Potenciales</h2>
+          <p>Utiliza los filtros para segmentar y analizar oportunidades:</p>
+          <div class="filter-container">
+            <select id="filterEstado">
+              <option value="">Estado: Todos</option>
+            </select>
+            <select id="filterPrioridad">
+              <option value="">Prioridad: Todas</option>
+              <option value="Alta">Alta</option>
+              <option value="Media">Media</option>
+              <option value="Baja">Baja</option>
+            </select>
+            <select id="filterCanal">
+              <option value="">Canal de Compra: Todos</option>
+              <option value="Correo">Correo</option>
+              <option value="Teléfono">Teléfono</option>
+              <option value="Web">Web</option>
+              <option value="Presencial">Presencial</option>
+              <option value="No disponible">No disponible</option>
+            </select>
+          </div>
+          <div class="map-container">
+            <div id="map"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN DERECHA -->
+      <aside class="right-section">
+        <!-- Lista de Clientes Potenciales -->
+        <div class="clientes">
+          <h2>Clientes Potenciales</h2>
+          <ul id="clientesUl"></ul>
+        </div>
+
+        <!-- Leyenda del Mapa -->
+        <div class="dashboard-explanation">
+          <h2>Leyenda del Mapa</h2>
+          <div style="margin: 15px 0;">
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+              <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #1B5E20; margin-right: 10px;"></span>
+              <span>Prioridad Alta</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+              <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #4CAF50; margin-right: 10px;"></span>
+              <span>Prioridad Media</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #C62828; margin-right: 10px;"></span>
+              <span>Prioridad Baja</span>
+            </div>
+          </div>
+          <p>
+            Haz clic en los marcadores para ver más detalles y generar propuestas de venta.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Modal para Propuesta de Venta -->
+  <div class="modal" id="proposalModal">
+    <div class="modal-content" id="proposalModalContent">
+      <span class="close-btn" id="closeProposalModal">&times;</span>
+      <h3>Propuesta de Venta</h3>
+      <p><strong>Empresa Seleccionada:</strong> <span id="proposalCompanyName"></span></p>
+      <p id="proposalText">Detalla la propuesta de venta de soluciones y servicios para este cliente.</p>
+      <div class="btn-group">
+        <button class="close-sale" id="markSaleClosedBtn">Venta Cerrada</button>
+        <button class="pending-sale" id="markSalePendingBtn">Mantener Pendiente</button>
+      </div>
+      <p style="margin-top:15px;"><strong>Estado de la Venta:</strong> <span id="saleStatusText">Pendiente</span></p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // =======================================
+      // 1. INICIALIZACIÓN DEL MAPA
+      // =======================================
+      const map = L.map("map").setView([23.634501, -102.552784], 5);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      
+      // =======================================
+      // 2. CARGA DEL ARCHIVO GEOJSON
+      // =======================================
+      let geojsonLayer = null;
+      let geojsonData = null;
+      
+      function updateGeoJSONLayer(data) {
+        if (geojsonLayer) {
+          map.removeLayer(geojsonLayer);
+        }
+        geojsonLayer = L.geoJSON(data, {
+          pointToLayer: function(feature, latlng) {
+            let color = "#4CAF50";
+            if (feature.properties.prioridad_venta === "Alta") {
+              color = "#1B5E20";
+            } else if (feature.properties.prioridad_venta === "Baja") {
+              color = "#C62828";
+            }
+            return L.circleMarker(latlng, {
+              radius: 8,
+              fillColor: color,
+              color: "#fff",
+              weight: 1,
+              opacity: 1,
+              fillOpacity: 0.8
+            });
+          },
+          onEachFeature: function(feature, layer) {
+            const props = feature.properties;
+            const lat = feature.geometry.coordinates[1];
+            const lng = feature.geometry.coordinates[0];
+            layer.bindPopup(`
+              <b>ID:</b> ${props.id}<br>
+              <b>Establecimiento:</b> ${props.nom_estab}<br>
+              <b>Razón Social:</b> ${props.raz_social}<br>
+              <b>Actividad:</b> ${props.nombre_act}<br>
+              <b>Teléfono:</b> ${props.telefono}<br>
+              <b>Correo:</b> ${props.correoelec}<br>
+              <b>Página Web:</b> ${props.www ? props.www : "No disponible"}<br>
+              <b>Entidad:</b> ${props.entidad}<br>
+              <b>Municipio:</b> ${props.municipio}<br>
+              <b>Localidad:</b> ${props.localidad}<br>
+              <b>Coordenadas:</b> ${lat}, ${lng}<br><br>
+              <button onclick="openProposalModal(${props.id})">Generar Propuesta</button>
+            `);
+          }
+        }).addTo(map);
+      }
+      
+      function loadGeoJSON() {
+        fetch("nube.geojson")
+          .then(response => response.json())
+          .then(data => {
+            geojsonData = data;
+            updateGeoJSONLayer(data);
+            updateClientesList(data.features);
+            populateEstadosFilter(data.features);
+          })
+          .catch(err => console.error("Error cargando el GeoJSON:", err));
+      }
+      
+      loadGeoJSON();
+      
+      // =======================================
+      // 3. FILTROS BASADOS EN GEOJSON
+      // =======================================
+      const filterEstado = document.getElementById("filterEstado");
+      const filterPrioridad = document.getElementById("filterPrioridad");
+      const filterCanal = document.getElementById("filterCanal");
+      
+      function applyFilters() {
+        if (!geojsonData) return;
+        const estadoValor = filterEstado ? filterEstado.value : "";
+        const prioridadValor = filterPrioridad ? filterPrioridad.value : "";
+        const canalValor = filterCanal ? filterCanal.value : "";
+        
+        const filteredFeatures = geojsonData.features.filter(feature => {
+          const props = feature.properties;
+          const matchEstado = estadoValor ? props.entidad === estadoValor : true;
+          const matchPrioridad = prioridadValor ? props.prioridad_venta === prioridadValor : true;
+          const matchCanal = canalValor ? props.canal_preferido === canalValor : true;
+          return matchEstado && matchPrioridad && matchCanal;
+        });
+        
+        const filteredGeoJSON = {
+          type: "FeatureCollection",
+          features: filteredFeatures
+        };
+        
+        updateGeoJSONLayer(filteredGeoJSON);
+        updateClientesList(filteredFeatures);
+      }
+      
+      // Aplicar filtros al cambiar cualquier selector
+      [filterEstado, filterPrioridad, filterCanal].forEach(select => {
+        if (select) select.addEventListener("change", applyFilters);
+      });
+
+      function populateEstadosFilter(features) {
+        const estados = Array.from(new Set(features.map(feature => feature.properties.entidad)));
+        filterEstado.innerHTML = '<option value="">Estado: Todos</option>';
+        estados.sort();
+        estados.forEach(estado => {
+          filterEstado.innerHTML += `<option value="${estado}">${estado}</option>`;
+        });
+      }
+
+      // Actualizar lista de clientes potenciales basada en GeoJSON
+      function updateClientesList(features) {
+        const clientesUl = document.getElementById("clientesUl");
+        if (clientesUl) {
+          clientesUl.innerHTML = "";
+          features.slice(0, 10).forEach(feature => {
+            const li = document.createElement("li");
+            li.innerText = `${feature.properties.nom_estab} (${feature.properties.entidad})`;
+            clientesUl.appendChild(li);
+          });
+        }
+      }
+
+      // Funciones para el modal de Propuesta de Venta
+      let salesStatus = {}; // Estado de venta por id
+      window.openProposalModal = function(companyId) {
+        window.currentCompanyId = companyId;
+        document.getElementById("proposalCompanyName").innerText = "Empresa " + companyId;
+        document.getElementById("saleStatusText").innerText = salesStatus[companyId] || "Pendiente";
+        document.getElementById("proposalModal").style.display = "flex";
+      };
+
+      const closeProposalModalBtn = document.getElementById("closeProposalModal");
+      if (closeProposalModalBtn) {
+        closeProposalModalBtn.addEventListener("click", () => {
+          document.getElementById("proposalModal").style.display = "none";
+        });
+      }
+
+      window.addEventListener("click", (e) => {
+        if (e.target === document.getElementById("proposalModal")) {
+          document.getElementById("proposalModal").style.display = "none";
+        }
+      });
+
+      const markSaleClosedBtn = document.getElementById("markSaleClosedBtn");
+      if (markSaleClosedBtn) {
+        markSaleClosedBtn.addEventListener("click", () => {
+          if (window.currentCompanyId) {
+            salesStatus[window.currentCompanyId] = "Cerrado";
+            document.getElementById("saleStatusText").innerText = "Cerrado";
+          }
+        });
+      }
+
+      const markSalePendingBtn = document.getElementById("markSalePendingBtn");
+      if (markSalePendingBtn) {
+        markSalePendingBtn.addEventListener("click", () => {
+          if (window.currentCompanyId) {
+            salesStatus[window.currentCompanyId] = "Pendiente";
+            document.getElementById("saleStatusText").innerText = "Pendiente";
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html> 
