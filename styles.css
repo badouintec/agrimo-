@@ -44,13 +44,14 @@
     top: 0;
     left: 250px;
     right: 0;
+    height: 70px;
     background: #fff;
-    padding: 15px 30px;
+    padding: 15px 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     z-index: 999;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
   }
   
   .topbar h1 {
@@ -61,16 +62,16 @@
   }
   
   .topbar-actions {
-    flex: 1;
-    max-width: 600px;
-    margin-left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
   }
   
   .search-user-section {
     display: flex;
     align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 15px;
+    margin: 0;
   }
   
   .search-bar {
@@ -171,27 +172,20 @@
    ************************************************************/
   .content-wrapper {
     display: flex;
-    flex-direction: row;
-    gap: 15px;
-    align-items: flex-start;
+    gap: 20px;
     padding: 0;
-    margin-top: 5px;
-    align-items: stretch;
-    max-width: 100%;
-    box-sizing: border-box;
+    margin-top: 0;
+    align-items: flex-start;
   }
   
   .left-section {
-    width: 68%;
-    padding: 0;
+    flex: 1;
+    min-width: 0;
   }
   
   .right-section {
-    width: 32%;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    width: 300px;
+    min-width: 300px;
   }
   
   /************************************************************
@@ -544,13 +538,11 @@
     
     .main-content {
       margin-left: 0;
-      padding-top: 130px; /* Compensar sidebar + topbar */
+      padding: 160px 15px 20px;
     }
     
     .content-wrapper {
       flex-direction: column;
-      padding: 0 15px;
-      gap: 30px;
     }
     
     .left-section,
@@ -799,13 +791,10 @@
    * MAIN CONTENT (para home.html)
    ************************************************************/
   .main-content {
-    margin-left: 250px; /* Igual al ancho del sidebar */
-    padding: 70px 15px 20px; /* Añadir padding-top para compensar topbar */
-    font-family: 'Poppins', sans-serif;
+    margin-left: 250px;
+    padding: 90px 0 20px;
     background-color: #f0f2f5;
-    min-height: calc(100vh - 80px);
-    padding-bottom: 40px;
-    max-width: 1400px;
+    min-height: 100vh;
     box-sizing: border-box;
   }
   
@@ -1048,15 +1037,6 @@
   }
   
   /* NUEVO: Estilos para la barra superior */
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 30px;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
   .logo-container {
     display: flex;
     align-items: center;
@@ -1979,4 +1959,70 @@
 .add-new {
   color: var(--color-boton-fondo);
   font-weight: 600;
+}
+
+/* Estilos para el mensaje de bienvenida */
+.welcome-message {
+  padding: 0 20px;
+  margin-bottom: 25px;
+}
+
+.welcome-message h1 {
+  font-size: 2rem;
+  color: var(--color-primario);
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.welcome-message #userName {
+  display: inline-block;
+}
+
+/* Ajuste del contenido principal para acomodar el mensaje de bienvenida */
+.main-content {
+  margin-left: 250px;
+  padding: 90px 0 20px;
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px;
+  align-items: flex-start;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding-top: 160px;
+  }
+
+  .welcome-message {
+    padding: 0 15px;
+    margin-bottom: 20px;
+  }
+
+  .welcome-message h1 {
+    font-size: 1.75rem;
+  }
+
+  .content-wrapper {
+    padding: 0 15px;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding-top: 180px;
+  }
+
+  .welcome-message h1 {
+    font-size: 1.5rem;
+  }
 }
