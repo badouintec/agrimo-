@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kaptia - Chatbot</title>
+  <title>Kaptia - Mis Clientes</title>
   <!-- Fuente Google: Poppins -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
   <!-- Hoja de estilos principal -->
@@ -18,24 +18,26 @@
 </head>
 <body class="has-sidebar">
   <!-- Menú lateral (igual que en home.html) -->
-  <aside class="sidebar">
-    <div class="sidebar-profile">
-      <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
-      <div class="profile-info">
-        <h3>KaptiaBot</h3>
+  <aside class="sidebar" style="display: flex; flex-direction: column;">
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
+        <div class="profile-info">
+          <h3>KaptiaBot</h3>
+        </div>
       </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+          <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li class="active"><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li><a href="acreditaciones.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="menu">
-      <ul>
-        <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
-        <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
-        <li class="active"><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
-        <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
-        <li><a href="acreditaciones.html"><i class="fas fa-calendar"></i> Agenda</a></li>
-        <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
-        <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
-      </ul>
-    </nav>
     <div class="sidebar-footer">
       <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
     </div>
@@ -44,47 +46,119 @@
   <!-- Contenido principal -->
   <main class="main-content">
     <header class="topbar">
-      <h1>Chatbot Agro</h1>
+      <h1>Mis Clientes</h1>
       <div class="topbar-actions">
-        <div class="search-bar">
-          <input type="text" placeholder="Buscar..." />
-          <i class="fas fa-search"></i>
-        </div>
-        <div class="icons">
-          <i class="fas fa-envelope"></i>
-          <i class="fas fa-bell"></i>
+        <div class="search-user-section">
+          <div class="search-bar">
+            <input type="text" placeholder="Buscar..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="user-profile">
+            <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="Perfil" class="avatar" />
+            <div class="dropdown-menu">
+              <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+              <a href="#"><i class="fas fa-cog"></i> Configuración</a>
+              <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+          </div>
+          <div class="icons">
+            <i class="fas fa-envelope"></i>
+            <i class="fas fa-bell"></i>
+          </div>
         </div>
       </div>
     </header>
 
     <!-- Ventana del chatbot centrada -->
     <div class="content-wrapper">
-      <section class="left-section">
-        <div class="chat-wrapper">
-          <div class="chat-container">
-            <div class="chat-header">Chatbot Agro</div>
-            <div class="predetermined-questions">
-              <!-- Botones predefinidos -->
-              <button onclick="sendPrompt('¿Qué estados tienes?')">¿Qué estados tienes?</button>
-              <button onclick="sendPrompt('¿Cuál es la prioridad de venta?')">¿Cuál es la prioridad de venta?</button>
-              <button onclick="sendPrompt('¿Qué canal de compra recomiendas?')">¿Qué canal de compra recomiendas?</button>
-            </div>
-            <div class="chat-log" id="chatLog">
-              <!-- Los mensajes se agregarán aquí -->
-            </div>
-            <div class="chat-input-area">
-              <input type="text" id="chatInput" placeholder="Escribe tu consulta..." />
-              <button onclick="handleChat()">Enviar</button>
-            </div>
+      <div class="chat-wrapper">
+        <div class="chat-container">
+          <div class="chat-header">
+            <h2>Chat con KaptiaBot</h2>
+          </div>
+          <div class="chat-log" id="chatLog">
+            <!-- Los mensajes se agregarán dinámicamente aquí -->
+          </div>
+          <div class="predetermined-questions">
+            <button onclick="sendPredeterminedQuestion('¿Cómo puedo ver mis clientes potenciales?')">Ver clientes potenciales</button>
+            <button onclick="sendPredeterminedQuestion('¿Cuáles son las prioridades de venta?')">Prioridades de venta</button>
+            <button onclick="sendPredeterminedQuestion('¿Cómo contacto a un cliente?')">Contactar cliente</button>
+          </div>
+          <div class="chat-input-area">
+            <input type="text" id="userInput" placeholder="Escribe tu mensaje aquí..." />
+            <button onclick="sendMessage()">Enviar</button>
           </div>
         </div>
-      </section>
-      <aside class="right-section">
-        <!-- Sección derecha opcional -->
-      </aside>
+      </div>
     </div>
   </main>
   
-  <script src="chatbot.js"></script>
+  <script src="topbar.js"></script>
+  <script>
+    // Inicialización del chat
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mensaje de bienvenida
+      addMessage('assistant', '¡Hola! Soy KaptiaBot, tu asistente virtual. ¿En qué puedo ayudarte hoy?');
+    });
+
+    function addMessage(type, text) {
+      const chatLog = document.getElementById('chatLog');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+      
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.textContent = text;
+      
+      messageDiv.appendChild(bubble);
+      chatLog.appendChild(messageDiv);
+      
+      // Scroll al último mensaje
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      
+      if (message) {
+        addMessage('user', message);
+        input.value = '';
+        
+        // Simular respuesta del bot (aquí irá la lógica real del chatbot)
+        setTimeout(() => {
+          addMessage('assistant', 'Gracias por tu mensaje. Estoy procesando tu consulta...');
+        }, 1000);
+      }
+    }
+
+    function sendPredeterminedQuestion(question) {
+      addMessage('user', question);
+      
+      // Simular respuesta del bot
+      setTimeout(() => {
+        let response = '';
+        switch(question) {
+          case '¿Cómo puedo ver mis clientes potenciales?':
+            response = 'Puedes ver tus clientes potenciales en la sección de "Mapa interactivo". Allí encontrarás un mapa con todos los clientes marcados según su prioridad de venta.';
+            break;
+          case '¿Cuáles son las prioridades de venta?':
+            response = 'Manejamos tres niveles de prioridad: Alta (verde oscuro), Media (verde) y Baja (rojo). La prioridad se asigna según varios factores como el tamaño de la empresa y su potencial de compra.';
+            break;
+          case '¿Cómo contacto a un cliente?':
+            response = 'Para contactar a un cliente, ve al "Mapa interactivo", selecciona el marcador del cliente y encontrarás sus datos de contacto en la ventana emergente. También puedes generar una propuesta personalizada desde allí.';
+            break;
+        }
+        addMessage('assistant', response);
+      }, 1000);
+    }
+
+    // Manejar envío con Enter
+    document.getElementById('userInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  </script>
 </body>
 </html>

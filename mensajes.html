@@ -11,24 +11,26 @@
 </head>
 <body class="has-sidebar">
   <!-- Menú lateral -->
-  <aside class="sidebar">
-    <div class="sidebar-profile">
-      <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
-      <div class="profile-info">
-        <h3>KaptiaBot</h3>
+  <aside class="sidebar" style="display: flex; flex-direction: column;">
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot"/>
+        <div class="profile-info">
+          <h3>KaptiaBot</h3>
+        </div>
       </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+          <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li><a href="acreditaciones.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li class="active"><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="menu">
-      <ul>
-        <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
-        <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
-        <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
-        <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
-        <li><a href="acreditaciones.html"><i class="fas fa-calendar"></i> Agenda</a></li>
-        <li class="active"><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
-        <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
-      </ul>
-    </nav>
     <div class="sidebar-footer">
       <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
     </div>
@@ -39,13 +41,23 @@
     <header class="topbar">
       <h1>Mensajes</h1>
       <div class="topbar-actions">
-        <div class="search-bar">
-          <input type="text" placeholder="Buscar mensajes..." />
-          <i class="fas fa-search"></i>
-        </div>
-        <div class="icons">
-          <i class="fas fa-envelope"></i>
-          <i class="fas fa-bell"></i>
+        <div class="search-user-section">
+          <div class="search-bar">
+            <input type="text" placeholder="Buscar..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="user-profile">
+            <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="Perfil" class="avatar" />
+            <div class="dropdown-menu">
+              <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+              <a href="#"><i class="fas fa-cog"></i> Configuración</a>
+              <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+          </div>
+          <div class="icons">
+            <i class="fas fa-envelope"></i>
+            <i class="fas fa-bell"></i>
+          </div>
         </div>
       </div>
     </header>

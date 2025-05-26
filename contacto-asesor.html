@@ -3,63 +3,171 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kaptia - Contacta un asesor</title>
-  <link rel="icon" type="image/png" href="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tJh3AuSi5rkQ7kNvwHSd86T&_nc_oc=AdnIQRGQh5aisLMkCwlI77dOf8e3uxbuGQQ71ixGMWU367xEGMcVrbCZw9CIAGAVPIX5y4cSNooJRRmED_-Pk2Oj&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=h4B5xRQOO6bq6jsCwHbLoA&oh=00_AfJUFyGLAQ4Sy8kMl-AmfD68XXPXLA49Yb_gGTXhkBILfg&oe=6837FAED"/>
+  <title>Kaptia - Contacta un Asesor</title>
+  
+  <!-- Fuente Google: Poppins -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet"/>
+  
+  <!-- Hoja de estilos principal -->
   <link rel="stylesheet" href="styles.css"/>
+  
+  <!-- Librería de íconos -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 </head>
 <body class="has-sidebar">
-  <!-- Menú lateral -->
-  <aside class="sidebar">
-    <div class="sidebar-profile">
-      <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
-      <div class="profile-info">
-        <h3>KaptiaBot</h3>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" style="display: flex; flex-direction: column;">
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot"/>
+        <div class="profile-info">
+          <h3>KaptiaBot</h3>
+        </div>
       </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+          <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li><a href="acreditaciones.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li class="active"><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="menu">
-      <ul>
-        <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
-        <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
-        <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
-        <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
-        <li><a href="acreditaciones.html"><i class="fas fa-calendar"></i> Agenda</a></li>
-        <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
-        <li class="active"><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
-      </ul>
-    </nav>
     <div class="sidebar-footer">
       <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
     </div>
   </aside>
 
-  <!-- Contenido principal -->
+  <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
+    <!-- TOPBAR -->
     <header class="topbar">
-      <h1>Contacta un asesor</h1>
+      <h1>Contacta un Asesor</h1>
       <div class="topbar-actions">
-        <div class="search-bar">
-          <input type="text" placeholder="Buscar asesor..." />
-          <i class="fas fa-search"></i>
-        </div>
-        <div class="icons">
-          <i class="fas fa-envelope"></i>
-          <i class="fas fa-bell"></i>
+        <div class="search-user-section">
+          <div class="search-bar">
+            <input type="text" placeholder="Buscar..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="user-profile">
+            <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="Perfil" class="avatar" />
+            <div class="dropdown-menu">
+              <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+              <a href="#"><i class="fas fa-cog"></i> Configuración</a>
+              <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            </div>
+          </div>
+          <div class="icons">
+            <i class="fas fa-envelope"></i>
+            <i class="fas fa-bell"></i>
+          </div>
         </div>
       </div>
     </header>
 
     <div class="content-wrapper">
-      <section class="left-section">
-        <div class="land-card">
-          <h2>Asesores disponibles</h2>
-          <p>Esta sección está en desarrollo. Pronto podrás contactar a nuestros asesores especializados.</p>
+      <div class="contact-container">
+        <div class="contact-info">
+          <h2>Nuestros Asesores Están Aquí para Ayudarte</h2>
+          <p>Selecciona un asesor disponible para iniciar una conversación o programa una llamada.</p>
+          
+          <div class="advisors-grid">
+            <div class="advisor-card">
+              <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Asesor 1"/>
+              <h3>Ana García</h3>
+              <p>Especialista en Ventas</p>
+              <span class="status online">Disponible</span>
+              <div class="advisor-actions">
+                <button class="btn-chat"><i class="fas fa-comment"></i> Chat</button>
+                <button class="btn-call"><i class="fas fa-phone"></i> Llamar</button>
+              </div>
+            </div>
+            
+            <div class="advisor-card">
+              <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Asesor 2"/>
+              <h3>Carlos Rodríguez</h3>
+              <p>Asesor Senior</p>
+              <span class="status busy">En llamada</span>
+              <div class="advisor-actions">
+                <button class="btn-schedule"><i class="fas fa-calendar"></i> Agendar</button>
+              </div>
+            </div>
+            
+            <div class="advisor-card">
+              <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Asesor 3"/>
+              <h3>María López</h3>
+              <p>Soporte Técnico</p>
+              <span class="status online">Disponible</span>
+              <div class="advisor-actions">
+                <button class="btn-chat"><i class="fas fa-comment"></i> Chat</button>
+                <button class="btn-call"><i class="fas fa-phone"></i> Llamar</button>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+        
+        <div class="schedule-section">
+          <h2>Agenda una Cita</h2>
+          <form id="scheduleForm">
+            <div class="form-group">
+              <label for="advisor">Asesor</label>
+              <select id="advisor" required>
+                <option value="">Selecciona un asesor</option>
+                <option value="ana">Ana García</option>
+                <option value="carlos">Carlos Rodríguez</option>
+                <option value="maria">María López</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="date">Fecha</label>
+              <input type="date" id="date" required/>
+            </div>
+            
+            <div class="form-group">
+              <label for="time">Hora</label>
+              <input type="time" id="time" required/>
+            </div>
+            
+            <div class="form-group">
+              <label for="topic">Tema a tratar</label>
+              <textarea id="topic" rows="3" placeholder="Describe brevemente el tema que deseas tratar"></textarea>
+            </div>
+            
+            <button type="submit" class="btn-schedule">Agendar Cita</button>
+          </form>
+        </div>
+      </div>
     </div>
   </main>
 
-  <script src="scripts.js"></script>
+  <!-- SCRIPTS -->
+  <script src="topbar.js"></script>
+  <script>
+    // Funcionalidad para el formulario de agenda
+    document.getElementById('scheduleForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Aquí iría la lógica para procesar la cita
+      alert('Cita agendada correctamente');
+    });
+
+    // Funcionalidad para los botones de chat y llamada
+    document.querySelectorAll('.btn-chat').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const advisor = this.closest('.advisor-card').querySelector('h3').textContent;
+        alert(`Iniciando chat con ${advisor}`);
+      });
+    });
+
+    document.querySelectorAll('.btn-call').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const advisor = this.closest('.advisor-card').querySelector('h3').textContent;
+        alert(`Llamando a ${advisor}`);
+      });
+    });
+  </script>
 </body>
 </html> 

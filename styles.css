@@ -31,7 +31,7 @@
   
   body {
     font-family: "Poppins", sans-serif;
-    background-color: var(--color-fondo);
+    background-color: #f0f2f5;
     color: var(--color-texto);
     line-height: 1.6;
   }
@@ -48,15 +48,25 @@
     background: #fff;
     padding: 15px 20px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    z-index: 999;
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
+  .topbar-spacer {
+    position: fixed;
+    top: 70px;
+    left: 250px;
+    right: 0;
+    height: 70px;
+    background: transparent;
+    z-index: 999;
+  }
+  
   .topbar h1 {
-    font-size: 1.5rem;
-    color: #333;
+    font-size: 1.2rem;
+    color: #555;
     margin: 0;
     padding-top: 10px;
   }
@@ -77,6 +87,7 @@
   .search-bar {
     flex: 1;
     position: relative;
+    min-width: 300px;
   }
   
   .search-bar input {
@@ -171,10 +182,10 @@
    * CONTENT LAYOUT
    ************************************************************/
   .content-wrapper {
+    position: relative;
     display: flex;
     gap: 20px;
-    padding: 0;
-    margin-top: 0;
+    padding: 35px 20px 0;
     align-items: flex-start;
   }
   
@@ -186,6 +197,9 @@
   .right-section {
     width: 300px;
     min-width: 300px;
+    position: sticky;
+    top: 105px;
+    margin-top: 15px;
   }
   
   /************************************************************
@@ -538,7 +552,7 @@
     
     .main-content {
       margin-left: 0;
-      padding: 160px 15px 20px;
+      padding: 25px 15px 0;
     }
     
     .content-wrapper {
@@ -617,7 +631,7 @@
     }
     
     .content-wrapper {
-      padding: 0 10px;
+      padding: 20px 15px 0;
     }
     
     .right-section .kpis {
@@ -792,10 +806,89 @@
    ************************************************************/
   .main-content {
     margin-left: 250px;
-    padding: 90px 0 20px;
+    padding-top: 90px;
     background-color: #f0f2f5;
     min-height: 100vh;
     box-sizing: border-box;
+  }
+  
+  .content-wrapper {
+    display: flex;
+    gap: 20px;
+    padding: 35px 20px 0;
+    align-items: flex-start;
+  }
+  
+  /* Sección izquierda */
+  .left-section {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  /* Estilos actualizados para el mensaje de bienvenida */
+  .welcome-message {
+    position: relative;
+    padding: 15px 0 30px 0;
+    background: transparent;
+    margin-top: 15px;
+  }
+  
+  .welcome-message h1 {
+    font-size: 2.2rem;
+    color: var(--color-primario);
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  /* Ajustes para la sección derecha y recordatorios */
+  .right-section {
+    width: 300px;
+    min-width: 300px;
+    position: sticky;
+    top: 105px;
+    margin-top: 15px;
+  }
+  
+  .reminders {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+  }
+  
+  /* Ajustes responsivos */
+  @media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding-top: 80px;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+        padding: 25px 15px 0;
+    }
+
+    .welcome-message {
+        padding: 10px 0 25px 0;
+        margin-top: 10px;
+    }
+
+    .welcome-message h1 {
+        font-size: 1.8rem;
+    }
+
+    .right-section {
+        position: relative;
+        top: 0;
+        margin-top: 10px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .welcome-message h1 {
+        font-size: 1.6rem;
+    }
   }
   
   /************************************************************
@@ -1961,68 +2054,73 @@
   font-weight: 600;
 }
 
-/* Estilos para el mensaje de bienvenida */
+/* Estilos actualizados para el mensaje de bienvenida */
 .welcome-message {
-  padding: 0 20px;
-  margin-bottom: 25px;
+    position: relative;
+    padding: 15px 0 30px 0;
+    background: transparent;
+    margin-top: 15px;
 }
 
 .welcome-message h1 {
-  font-size: 2rem;
-  color: var(--color-primario);
-  margin: 0;
-  font-weight: 600;
-  line-height: 1.2;
+    font-size: 2.2rem;
+    color: var(--color-primario);
+    margin: 0;
+    font-weight: 600;
+    line-height: 1.2;
 }
 
 .welcome-message #userName {
-  display: inline-block;
+    display: inline-block;
 }
 
-/* Ajuste del contenido principal para acomodar el mensaje de bienvenida */
+/* Ajuste del contenido principal */
 .main-content {
-  margin-left: 250px;
-  padding: 90px 0 20px;
-  background-color: #f0f2f5;
-  min-height: 100vh;
-  box-sizing: border-box;
+    margin-left: 250px;
+    padding-top: 90px; /* Espacio base para la barra superior */
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .content-wrapper {
-  display: flex;
-  gap: 20px;
-  padding: 0 20px;
-  align-items: flex-start;
+    display: flex;
+    gap: 20px;
+    padding: 35px 20px 0;
+    align-items: flex-start;
 }
 
 /* Ajustes responsivos */
 @media (max-width: 768px) {
-  .main-content {
-    margin-left: 0;
-    padding-top: 160px;
-  }
+    .topbar {
+        left: 0;
+    }
 
-  .welcome-message {
-    padding: 0 15px;
-    margin-bottom: 20px;
-  }
+    .topbar-spacer {
+        left: 0;
+    }
 
-  .welcome-message h1 {
-    font-size: 1.75rem;
-  }
+    .welcome-message {
+        padding: 10px 0 25px 0;
+        margin-top: 10px;
+    }
 
-  .content-wrapper {
-    padding: 0 15px;
-    flex-direction: column;
-  }
+    .main-content {
+        margin-left: 0;
+        padding-top: 80px;
+    }
+
+    .welcome-message h1 {
+        font-size: 1.8rem;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 480px) {
-  .main-content {
-    padding-top: 180px;
-  }
-
-  .welcome-message h1 {
-    font-size: 1.5rem;
-  }
+    .welcome-message h1 {
+        font-size: 1.6rem;
+    }
 }
