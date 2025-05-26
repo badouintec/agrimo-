@@ -42,52 +42,116 @@
   .topbar {
     position: fixed;
     top: 0;
-    left: 250px; /* Ajustar al ancho del sidebar */
+    left: 250px;
     right: 0;
     background: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    padding: 10px 30px;
-    margin-bottom: 0;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 30px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     z-index: 999;
-    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
   }
   
   .topbar h1 {
     font-size: 1.5rem;
-    margin: 0;
     color: #333;
+    margin: 0;
+    padding-top: 10px;
   }
   
   .topbar-actions {
+    flex: 1;
+    max-width: 600px;
+    margin-left: 30px;
+  }
+  
+  .search-user-section {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
+    margin-bottom: 20px;
   }
   
   .search-bar {
+    flex: 1;
     position: relative;
-    display: flex;
-    align-items: center;
   }
   
   .search-bar input {
-    padding: 8px 12px;
-    padding-right: 30px;
+    width: 100%;
+    padding: 10px 40px;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 25px;
     font-size: 0.9rem;
-    width: 200px;
+    transition: all 0.3s ease;
+  }
+  
+  .search-bar input:focus {
+    border-color: var(--color-primario);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(29, 92, 89, 0.1);
   }
   
   .search-bar i {
     position: absolute;
-    right: 10px;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
     color: #777;
+  }
+  
+  .user-profile {
+    position: relative;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--color-primario);
+    transition: transform 0.2s;
+  }
+  
+  .avatar:hover {
+    transform: scale(1.05);
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    min-width: 180px;
+    display: none;
+    z-index: 1000;
+  }
+  
+  .dropdown-menu.show {
+    display: block;
+  }
+  
+  .dropdown-menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+  }
+  
+  .dropdown-menu a i {
+    margin-right: 10px;
+    width: 20px;
+    color: var(--color-primario);
+  }
+  
+  .dropdown-menu a:hover {
+    background-color: #f5f5f5;
   }
   
   .icons {
@@ -1712,4 +1776,207 @@
 
 #contactForm button[type="submit"]:hover {
     background-color: var(--color-boton-hover);
+}
+
+/* Estilos actualizados para recordatorios */
+.reminders {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+  padding: 15px;
+}
+
+.reminders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: -15px -15px 15px -15px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #eee;
+}
+
+.title-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.title-with-icon h2 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.title-with-icon i {
+  font-size: 1.1rem;
+  color: var(--color-primario);
+}
+
+.notification-dot {
+  position: absolute;
+  top: -2px;
+  left: 12px;
+  width: 8px;
+  height: 8px;
+  background-color: #ffb300;
+  border-radius: 50%;
+}
+
+.period-selector {
+  position: relative;
+}
+
+#periodButton {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+#periodButton:hover {
+  border-color: var(--color-primario);
+}
+
+.period-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 6px 0;
+  min-width: 140px;
+  display: none;
+  z-index: 1000;
+}
+
+.period-dropdown.show {
+  display: block;
+}
+
+.period-dropdown a {
+  display: block;
+  padding: 6px 12px;
+  color: #333;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: background-color 0.2s;
+}
+
+.period-dropdown a:hover,
+.period-dropdown a.active {
+  background-color: #f5f5f5;
+}
+
+.reminders-list {
+  margin: 0 -15px;
+}
+
+.reminder-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s;
+}
+
+.reminder-item:hover {
+  background-color: #f9f9f9;
+}
+
+.reminder-item:last-child {
+  border-bottom: none;
+}
+
+.reminder-icon {
+  width: 32px;
+  height: 32px;
+  background-color: #f0f2f5;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.reminder-icon i {
+  color: var(--color-primario);
+  font-size: 0.9rem;
+}
+
+.reminder-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.reminder-content h3 {
+  font-size: 0.9rem;
+  margin: 0 0 2px 0;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reminder-content p {
+  font-size: 0.8rem;
+  color: #666;
+  margin: 0;
+}
+
+.reminder-status {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.reminder-status.pending {
+  border: 2px solid #ddd;
+}
+
+.reminder-status.completed {
+  background-color: #e0f2e9;
+  color: var(--color-primario);
+}
+
+.reminder-status.completed i {
+  font-size: 0.8rem;
+}
+
+.reminders-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 -15px -15px -15px;
+  padding: 12px 15px 0;
+  border-top: 1px solid #eee;
+}
+
+.reminders-footer a {
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.show-all {
+  color: var(--color-primario);
+}
+
+.add-new {
+  color: var(--color-boton-fondo);
+  font-weight: 600;
 }
