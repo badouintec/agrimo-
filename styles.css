@@ -1553,6 +1553,7 @@
 .message.user .bubble {
     background-color: var(--color-boton-fondo);
     color: var(--color-boton-texto);
+    font-weight: 700;
     border-radius: 20px 5px 20px 20px;
 }
 .message.assistant .bubble {
@@ -1623,14 +1624,16 @@
 .course-modal-content button,
 .popup button,
 .chat-input-area button,
-.predetermined-questions button {
+.predetermined-questions button,
+.topbar-actions button,
+#contactForm button[type="submit"] {
     background-color: var(--color-boton-fondo);
     color: var(--color-boton-texto);
     border: none;
     padding: 8px 15px;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 700;
     transition: background-color 0.2s;
 }
 
@@ -1643,7 +1646,9 @@
 .course-modal-content button:hover,
 .popup button:hover,
 .chat-input-area button:hover,
-.predetermined-questions button:hover {
+.predetermined-questions button:hover,
+.topbar-actions button:hover,
+#contactForm button[type="submit"]:hover {
     background-color: var(--color-boton-hover);
 }
 
@@ -1651,6 +1656,8 @@
 .message.user .bubble {
     background-color: var(--color-boton-fondo);
     color: var(--color-boton-texto);
+    font-weight: 700;
+    border-radius: 20px 5px 20px 20px;
 }
 
 .predetermined-questions button {
@@ -1700,7 +1707,7 @@
     padding: 12px 30px;
     border-radius: 5px;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 700;
     transition: background-color 0.2s;
 }
 
