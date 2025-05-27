@@ -434,10 +434,10 @@ Papa.parse("clientes_potenciales_fertilizantes_enhanced.csv", {
     const alertsContainer = document.querySelector(".alerts");
     if (alertsContainer && data.length >= 3) {
       alertsContainer.innerHTML = `
-        <h2>Alertas de Seguimiento</h2>
+        <h2>Notificaciones</h2>
         <div class="alert-item">
-          <p><strong>${data[0].nom_estab}</strong> (${data[0].entidad})<br>Cliente respondió y agendó cita.</p>
-          <button onclick="mostrarAlerta('${data[0].nom_estab} (${data[0].entidad})')">Ver Detalles</button>
+          <p><strong>OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)</strong><br>Cliente respondió y agendó cita.</p>
+          <button onclick="mostrarAlerta('OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)')">Ver Detalles</button>
         </div>
         <div class="alert-item">
           <p><strong>${data[1].nom_estab}</strong> (${data[1].entidad})<br>Cliente confirmó interés.</p>
