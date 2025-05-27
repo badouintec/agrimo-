@@ -1,37 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Agregar manejo de navegación del menú lateral
-    const menuLinks = document.querySelectorAll('.sidebar .menu ul li a');
-    const contentSections = document.querySelectorAll('.content-section');
-
-    menuLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            // Obtener el ID de la sección a mostrar
-            const targetId = link.getAttribute('href').substring(1);
-            
-            // Ocultar todas las secciones
-            contentSections.forEach(section => {
-                section.style.display = 'none';
-            });
-            
-            // Mostrar la sección seleccionada
-            const targetSection = document.getElementById(`${targetId}-section`);
-            if (targetSection) {
-                targetSection.style.display = 'block';
-            }
-            
-            // Actualizar clase activa en el menú
-            menuLinks.forEach(menuLink => {
-                menuLink.parentElement.classList.remove('active');
-            });
-            link.parentElement.classList.add('active');
-        });
-    });
-
-    // Mostrar la sección de inicio por defecto
-    document.getElementById('inicio-section').style.display = 'block';
-
     // =======================================
     // 1. SCROLL SUAVE Y RESALTADO DEL MENÚ (opcional)
     // =======================================
