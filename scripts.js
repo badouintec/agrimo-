@@ -434,7 +434,13 @@ Papa.parse("clientes_potenciales_fertilizantes_enhanced.csv", {
     const alertsContainer = document.querySelector(".alerts");
     if (alertsContainer && data.length >= 3) {
       alertsContainer.innerHTML = `
-        <h2>Notificaciones</h2>
+        <div class="reminders-header">
+          <div class="title-with-icon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-dot"></span>
+            <h2>Notificaciones</h2>
+          </div>
+        </div>
         <div class="alert-item">
           <p><strong>OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)</strong><br>Cliente respondió y agendó cita.</p>
           <button onclick="mostrarAlerta('OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)')">Ver Detalles</button>
