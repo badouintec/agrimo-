@@ -286,7 +286,7 @@
           <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
           <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
           <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
-          <li><a href="acreditaciones.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="#schedule-section"><i class="fas fa-calendar"></i> Agenda</a></li>
           <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
           <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
         </ul>
@@ -326,6 +326,87 @@
         <div class="welcome-message">
           <h1>¡Hola <span id="userName">Mariel</span>!</h1>
         </div>
+
+        <!-- Calendario de Citas -->
+        <section class="schedule-section">
+          <div class="schedule-header">
+            <h2>Calendario de Citas - Mayo 2025</h2>
+            <div class="schedule-actions">
+              <button class="btn-primario"><i class="fas fa-plus"></i> Nueva Cita</button>
+              <div class="schedule-navigation">
+                <button id="prevMonthBtn" class="btn-secondary"><i class="fas fa-chevron-left"></i> Anterior</button>
+                <button id="nextMonthBtn" class="btn-secondary">Siguiente <i class="fas fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <div>Lun</div>
+              <div>Mar</div>
+              <div>Mié</div>
+              <div>Jue</div>
+              <div>Vie</div>
+              <div>Sáb</div>
+              <div>Dom</div>
+            </div>
+            <div class="calendar">
+              <div>1</div>
+              <div>2</div>
+              <div>3</div>
+              <div class="calendar-event">4<br />Cita: Invernaderos Bonanza<br /><small>2 PM</small></div>
+              <div>5</div>
+              <div>6</div>
+              <div>7</div>
+              <div>8</div>
+              <div>9</div>
+              <div class="calendar-event">10<br />Llamada: Finca La Paloma<br /><small>11 AM</small></div>
+              <div>11</div>
+              <div>12</div>
+              <div>13</div>
+              <div>14</div>
+              <div class="calendar-event">15<br />Reunión: Agroindustrial El Sol<br /><small>3 PM</small></div>
+              <div>16</div>
+              <div>17</div>
+              <div>18</div>
+              <div class="calendar-event">19<br />Cita: Frutos de la Sierra<br /><small>10 AM</small></div>
+              <div>20</div>
+              <div>21</div>
+              <div>22</div>
+              <div>23</div>
+              <div class="calendar-event">24<br />Seguimiento: Hortalizas del Campo<br /><small>1 PM</small></div>
+              <div>25</div>
+              <div>26</div>
+              <div>27</div>
+              <div>28</div>
+              <div class="calendar-event">29<br />Llamada: Frutos de la Sierra<br /><small>4 PM</small></div>
+              <div>30</div>
+              <div>31</div>
+            </div>
+          </div>
+
+          <!-- Lista de próximas citas -->
+          <div class="upcoming-events">
+            <h3>Próximas Citas</h3>
+            <div class="event-list">
+              <div class="event-item">
+                <div class="event-date">
+                  <span class="day">4</span>
+                  <span class="month">MAY</span>
+                </div>
+                <div class="event-details">
+                  <h4>Invernaderos Bonanza</h4>
+                  <p><i class="fas fa-clock"></i> 2:00 PM</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Jalisco</p>
+                </div>
+                <div class="event-actions">
+                  <button class="btn-secondary">Editar</button>
+                  <button class="btn-secondary">Cancelar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <!-- KPIs y Gráfica de Ventas -->
         <div class="kpis">
