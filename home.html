@@ -334,6 +334,180 @@
     .sidebar-footer a:hover {
       background-color: #1d5c59;
     }
+
+    /* Estilos para el calendario y paneles laterales */
+    .content-wrapper {
+      padding: 20px;
+    }
+
+    .calendar-section {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .calendar-day {
+      padding: 10px;
+      min-height: 100px;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      background: #fff;
+    }
+
+    .calendar-day.header {
+      min-height: auto;
+      font-weight: bold;
+      text-align: center;
+      background: #f5f5f5;
+    }
+
+    .calendar-event {
+      margin: 2px 0;
+      padding: 4px 8px;
+      background-color: #e8f5e9;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .side-panels {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .reminders-panel, .notifications-panel {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .reminders-header, .notifications-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .title-with-icon {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .reminders-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-link {
+      color: #1d5c59;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #1d5c59;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .reminder-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .reminder-content {
+      flex: 1;
+    }
+
+    .reminder-content h3 {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    .reminder-content p {
+      margin: 5px 0 0;
+      color: #666;
+      font-size: 0.8rem;
+    }
+
+    .reminder-status {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffb74d;
+    }
+
+    .reminder-status.completed {
+      background: #81c784;
+    }
+
+    .notification-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .notification-content h3 {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .notification-content p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 0.85rem;
+    }
+
+    .notification-content button {
+      background: #1d5c59;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
+
+    /* Ajustes responsivos */
+    @media (min-width: 1024px) {
+      .side-panels {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   </style>
 </head>
 <body class="has-sidebar">
@@ -388,40 +562,87 @@
     <div class="content-wrapper">
       <!-- Contenedor para las diferentes secciones -->
       <div id="inicio-section" class="content-section active">
-        <h1>¡Bienvenido al Dashboard!</h1>
+        <h1>¡Hola Mariel!</h1>
         
         <!-- Calendario de Citas -->
-        <div class="agenda-container">
+        <div class="calendar-section">
           <div class="calendar-header">
-            <h2>Mayo 2025</h2>
-            <div class="calendar-navigation">
-              <button id="prevMonth"><i class="fas fa-chevron-left"></i> Anterior</button>
-              <button id="nextMonth">Siguiente <i class="fas fa-chevron-right"></i></button>
+            <h2>Calendario de Citas - Mayo 2025</h2>
+            <div class="calendar-actions">
+              <button class="add-event-button">
+                <i class="fas fa-plus"></i> Nueva Cita
+              </button>
+              <div class="calendar-navigation">
+                <button id="prevMonth"><i class="fas fa-chevron-left"></i> Anterior</button>
+                <button id="nextMonth">Siguiente <i class="fas fa-chevron-right"></i></button>
+              </div>
             </div>
           </div>
-
-          <button class="add-event-button">
-            <i class="fas fa-plus"></i> Nueva Cita
-          </button>
 
           <div class="calendar">
             <!-- Los días y eventos se generarán dinámicamente con JavaScript -->
           </div>
         </div>
 
-        <!-- Aquí va el resto del contenido del dashboard -->
-      </div>
+        <!-- Recordatorios y Notificaciones -->
+        <div class="side-panels">
+          <div class="reminders-panel">
+            <div class="reminders-header">
+              <div class="title-with-icon">
+                <i class="fas fa-bell"></i>
+                <h2>Recordatorios</h2>
+              </div>
+              <div class="reminders-actions">
+                <button class="btn-link">Mostrar todos</button>
+                <button class="btn-primary">Añadir+</button>
+              </div>
+            </div>
+            <div class="reminders-list">
+              <div class="reminder-item">
+                <i class="fas fa-video"></i>
+                <div class="reminder-content">
+                  <h3>Zoom Agrotienda (CDMX)</h3>
+                  <p>9:00 hrs - Vie 14 mar</p>
+                </div>
+                <div class="reminder-status"></div>
+              </div>
+              <div class="reminder-item">
+                <i class="fas fa-building"></i>
+                <div class="reminder-content">
+                  <h3>Visita Cliente Invernaderos SA</h3>
+                  <p>14:30 hrs - Vie 14 mar</p>
+                </div>
+                <div class="reminder-status completed"></div>
+              </div>
+            </div>
+          </div>
 
-      <!-- Sección de Agenda (oculta por defecto) -->
-      <div id="agenda-section" class="content-section" style="display: none;">
-        <h2>Calendario de Citas</h2>
-        <!-- Aquí va el contenido del calendario -->
-        <div class="calendar">
-          <!-- El contenido del calendario se mantiene igual -->
+          <div class="notifications-panel">
+            <div class="notifications-header">
+              <div class="title-with-icon">
+                <i class="fas fa-bell"></i>
+                <h2>Notificaciones</h2>
+              </div>
+            </div>
+            <div class="notifications-list">
+              <div class="notification-item">
+                <div class="notification-content">
+                  <h3>OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)</h3>
+                  <p>Cliente respondió y agendó cita.</p>
+                  <button onclick="mostrarAlerta('OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)')">Ver Detalles</button>
+                </div>
+              </div>
+              <div class="notification-item">
+                <div class="notification-content">
+                  <h3>BAJA PK (Baja California)</h3>
+                  <p>Cliente confirmó interés.</p>
+                  <button onclick="mostrarAlerta('BAJA PK (Baja California)')">Ver Detalles</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <!-- Otras secciones... -->
     </div>
   </main>
 
