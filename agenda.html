@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kaptia - Agenda</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tJh3AuSi5rkQ7kNvwHSd86T&_nc_oc=AdnIQRGQh5aisLMkCwlI77dOf8e3uxbuGQQ71ixGMWU367xEGMcVrbCZw9CIAGAVPIX5y4cSNooJRRmED_-Pk2Oj&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=h4B5xRQOO6bq6jsCwHbLoA&oh=00_AfJUFyGLAQ4Sy8kMl-AmfD68XXPXLA49Yb_gGTXhkBILfg&oe=6837FAED"/>
+  <!-- Fuente Google: Poppins -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet"/>
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="styles.css"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <style>
+    /* Estilos para el calendario */
+    .schedule-section {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .schedule-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .schedule-info button {
+      background-color: var(--color-primario);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .schedule-info button:hover {
+      background-color: var(--color-primario-hover);
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .calendar div {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      min-height: 80px;
+    }
+
+    .calendar-event {
+      background-color: #e3f2fd;
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .calendar-event small {
+      display: block;
+      font-size: 0.8rem;
+      color: #666;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .calendar {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+      }
+
+      .calendar div {
+        padding: 4px;
+        font-size: 0.8rem;
+        min-height: 60px;
+      }
+    }
+  </style>
+</head>
+<body class="has-sidebar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" style="display: flex; flex-direction: column;">
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot"/>
+        <div class="profile-info">
+          <h3>KaptiaBot</h3>
+        </div>
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+          <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li class="active"><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="sidebar-footer">
+      <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Agenda</h1>
+      <div class="topbar-actions">
+        <div class="search-user-section">
+          <div class="search-bar">
+            <input type="text" placeholder="Buscar..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="user-profile">
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQEw-UoZ06Kb-A/profile-displayphoto-shrink_200_200/B56ZcELhdZHwAc-/0/1748121819494?e=1753315200&v=beta&t=umlB7AE5ew2DhHiSiN3-sUj3KmX2enK5mF7vCQyGtME" alt="Usuario" class="avatar" />
+            <div class="dropdown-menu">
+              <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
+              <a href="#"><i class="fas fa-cog"></i> Configuración</a>
+              <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+            </div>
+          </div>
+          <div class="icons">
+            <i class="fas fa-bell"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <!-- Calendario de Citas -->
+      <div class="schedule-section">
+        <h2>Calendario de Citas - Mayo 2025</h2>
+        <div class="schedule-info">
+          <span>Citas programadas para el mes</span>
+          <div>
+            <button id="prevMonthBtn">Anterior</button>
+            <button id="nextMonthBtn">Siguiente</button>
+          </div>
+        </div>
+        <div class="calendar">
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div class="calendar-event">4<br />Cita: Invernaderos Bonanza<br /><small>2 PM</small></div>
+          <div>5</div>
+          <div>6</div>
+          <div>7</div>
+          <div>8</div>
+          <div>9</div>
+          <div class="calendar-event">10<br />Llamada: Finca La Paloma<br /><small>11 AM</small></div>
+          <div>11</div>
+          <div>12</div>
+          <div>13</div>
+          <div>14</div>
+          <div class="calendar-event">15<br />Reunión: Agroindustrial El Sol<br /><small>3 PM</small></div>
+          <div>16</div>
+          <div>17</div>
+          <div>18</div>
+          <div class="calendar-event">19<br />Cita: Frutos de la Sierra<br /><small>10 AM</small></div>
+          <div>20</div>
+          <div>21</div>
+          <div>22</div>
+          <div>23</div>
+          <div class="calendar-event">24<br />Seguimiento: Hortalizas del Campo<br /><small>1 PM</small></div>
+          <div>25</div>
+          <div>26</div>
+          <div>27</div>
+          <div>28</div>
+          <div class="calendar-event">29<br />Llamada: Frutos de la Sierra<br /><small>4 PM</small></div>
+          <div>30</div>
+          <div>31</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="scripts.js"></script>
+  <script src="topbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const prevMonthBtn = document.getElementById('prevMonthBtn');
+      const nextMonthBtn = document.getElementById('nextMonthBtn');
+      const monthTitle = document.querySelector('.schedule-section h2');
+      
+      let currentMonth = 5; // Mayo
+      let currentYear = 2025;
+      
+      function updateCalendarTitle() {
+        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        monthTitle.textContent = `Calendario de Citas - ${months[currentMonth - 1]} ${currentYear}`;
+      }
+      
+      prevMonthBtn.addEventListener('click', function() {
+        if (currentMonth === 1) {
+          currentMonth = 12;
+          currentYear--;
+        } else {
+          currentMonth--;
+        }
+        updateCalendarTitle();
+      });
+      
+      nextMonthBtn.addEventListener('click', function() {
+        if (currentMonth === 12) {
+          currentMonth = 1;
+          currentYear++;
+        } else {
+          currentMonth++;
+        }
+        updateCalendarTitle();
+      });
+    });
+  </script>
+</body>
+</html> 
