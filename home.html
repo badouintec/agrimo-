@@ -508,32 +508,106 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    /* Estilos para la sección del mapa */
+    .map-section {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .filter-container {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .filter-container select {
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      min-width: 200px;
+      font-size: 14px;
+    }
+
+    .map-container {
+      height: 600px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+
+    /* Estilos para los marcadores y popups */
+    .leaflet-popup-content {
+      padding: 15px;
+    }
+
+    .leaflet-popup-content button {
+      background: #1d5c59;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .leaflet-popup-content button:hover {
+      background: #164542;
+    }
   </style>
 </head>
 <body class="has-sidebar">
   <!-- SIDEBAR -->
-  <aside class="sidebar" style="display: flex; flex-direction: column;">
-    <div>
-      <div class="sidebar-profile">
-        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
-        <div class="profile-info">
-          <h3>KaptiaBot</h3>
-        </div>
-      </div>
-      <nav class="menu">
-        <ul>
-          <li class="active"><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
-          <li><a href="#"><i class="fas fa-map"></i> Mapa interactivo</a></li>
-          <li><a href="#"><i class="fas fa-users"></i> Mis clientes</a></li>
-          <li><a href="#"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
-          <li><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
-          <li><a href="#"><i class="fas fa-envelope"></i> Mensajes</a></li>
-          <li><a href="#"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
-        </ul>
-      </nav>
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg" 
+           alt="Logo" 
+           class="logo-img">
+      <h2>Kaptia</h2>
     </div>
+    <nav class="menu">
+      <ul>
+        <li class="active">
+          <a href="index.html">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+          </a>
+        </li>
+        <li>
+          <a href="mapa.html" onclick="window.location.href='mapa.html'; return false;">
+            <i class="fas fa-map-marked-alt"></i>
+            <span>Mapa Interactivo</span>
+          </a>
+        </li>
+        <li>
+          <a href="clientes.html">
+            <i class="fas fa-users"></i>
+            <span>Clientes</span>
+          </a>
+        </li>
+        <li>
+          <a href="reportes.html">
+            <i class="fas fa-chart-bar"></i>
+            <span>Reportes</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
     <div class="sidebar-footer">
-      <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      <a href="index.html">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Cerrar Sesión</span>
+      </a>
     </div>
   </aside>
 
@@ -544,10 +618,10 @@
       <div class="topbar-actions">
         <!-- Buscador y Avatar -->
         <div class="search-user-section">
-        <div class="search-bar">
-          <i class="fas fa-search"></i>
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
             <input type="text" placeholder="Preguntar a KaptiaBot o buscar" />
-        </div>
+          </div>
           <div class="user-profile">
             <img src="https://media.licdn.com/dms/image/v2/D5603AQEw-UoZ06Kb-A/profile-displayphoto-shrink_200_200/B56ZcELhdZHwAc-/0/1748121819494?e=1753315200&v=beta&t=umlB7AE5ew2DhHiSiN3-sUj3KmX2enK5mF7vCQyGtME" alt="Usuario" class="avatar" />
             <div class="dropdown-menu" id="userMenu">
@@ -1323,5 +1397,4 @@
     });
   </script>
 </body>
-</html>
 </html>

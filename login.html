@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaptia - Login</title>
+    <!-- Fuente Google: Poppins -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <!-- Estilos principales -->
+    <link rel="stylesheet" href="styles.css"/>
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e0e2e5 100%);
+            padding: 20px;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .login-title {
+            color: var(--color-primario);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .login-input:focus {
+            border-color: var(--color-primario);
+            outline: none;
+        }
+
+        .login-button {
+            background: var(--color-primario);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-button:hover {
+            background: var(--color-primario-hover);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--color-primario);
+        }
+
+        .login-message {
+            color: #dc3545;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg" 
+                 alt="Kaptia Logo" 
+                 class="login-logo">
+            <h1 class="login-title">Acceso a Kaptia</h1>
+            <form id="loginForm" class="login-form" onsubmit="return handleLogin(event)">
+                <div class="form-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" 
+                           id="username" 
+                           class="login-input" 
+                           placeholder="Usuario" 
+                           required>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" 
+                           id="password" 
+                           class="login-input" 
+                           placeholder="Contraseña" 
+                           required>
+                </div>
+                <button type="submit" class="login-button">Iniciar Sesión</button>
+                <div id="loginMessage" class="login-message"></div>
+            </form>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Volver al inicio
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('loginMessage');
+            
+            // Credenciales de acceso
+            if (username === 'kaptia' && password === 'kaptia') {
+                window.location.href = 'home.html';
+            } else {
+                messageElement.style.display = 'block';
+                messageElement.textContent = 'Usuario o contraseña incorrectos. Usa kaptia/kaptia para acceder.';
+            }
+            
+            return false;
+        }
+    </script>
+</body>
+</html> 
