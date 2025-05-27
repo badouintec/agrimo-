@@ -3,13 +3,19 @@
  ************************************************************/
  :root {
     /* Paleta de Kaptia: Tonos de verde, blanco y gris */
-    --color-primario: #1d5c59;
-    --color-primario-hover: #1d5c59;
-    --color-fondo: #f8f8f8;
-    --color-glass: rgba(255, 255, 255, 0.8);
+    --color-primario: #28665A;
+    --color-secundario: #E5F2F0;
     --color-texto: #333;
+    --color-fondo: #fff;
+    --color-cita: #E8F5E9;
+    --color-amarillo: #FFC107;
+    --color-gris: #f5f5f5;
+    --color-borde: #eee;
+    --color-estado-pendiente: #FFA726;
+    --color-estado-completado: #66BB6A;
+    --color-primario-hover: #1d5c59;
+    --color-glass: rgba(255, 255, 255, 0.8);
     --color-titulos: #222;
-    --color-borde: #ccc;
     --color-eventos: #e0f2e9;
     --color-tarjeta: #fff;
     --color-modal-fondo: rgba(0, 0, 0, 0.7);
@@ -27,14 +33,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
   }
   
   body {
-    font-family: "Poppins", sans-serif;
-    background-color: #f0f2f5;
-    color: var(--color-texto);
-    line-height: 1.6;
+    display: flex;
     min-height: 100vh;
+    background-color: var(--color-gris);
   }
   
   /************************************************************
@@ -705,8 +710,8 @@
     left: 0;
     width: 250px;
     height: 100vh;
-    background-color: #1d5c59;
-    color: #ecf0f1;
+    background-color: var(--color-primario);
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1583,798 +1588,367 @@
   margin: 0 15px;
 }
 
-.map-container {
-  margin: 15px;
-  height: 350px;
+/* Variables y reseteo */
+:root {
+    --color-primario: #28665A;
+    --color-secundario: #E5F2F0;
+    --color-texto: #333;
+    --color-fondo: #fff;
+    --color-cita: #E8F5E9;
+    --color-amarillo: #FFC107;
+    --color-gris: #f5f5f5;
+    --color-borde: #eee;
+    --color-estado-pendiente: #FFA726;
+    --color-estado-completado: #66BB6A;
 }
 
-.kpis {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-}
-
-.kpi-card, .chart-card {
-  margin: 0;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-.kpi-card {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  border-right: 1px solid #eee;
-}
-
-.kpi-card p {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin: 10px 0;
-  color: var(--color-primario);
-}
-
-.chart-card {
-  padding: 15px;
-}
-
-/* Ajustes para sección derecha */
-.course-item:last-child {
-  margin-bottom: 0;
-  border-bottom: none;
-}
-
-.right-section > div {
-  padding: 15px;
-}
-
-.right-section h2 {
-  margin: -15px -15px 15px -15px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #eee;
-  font-size: 1.1rem;
-}
-
-/* Responsive fixes */
-@media (max-width: 768px) {
-  .kpis {
-    grid-template-columns: 1fr;
-  }
-  
-  .kpi-card {
-    border-right: none;
-    border-bottom: 1px solid #eee;
-  }
-}
-
-/* --------------------------------------------------
-   Chatbot Styles - UI/UX Mejorado y Centrado
--------------------------------------------------- */
-.chat-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;       /* Centrado vertical */
-    min-height: 100vh;         /* Ocupa toda la ventana */
-    background-color: #f0f2f5;  /* Fondo claro */
+* {
+    margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
-.chat-container {
-    width: 100%;
-    max-width: 480px;          /* Ancho máximo para mayor legibilidad */
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+
+body {
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    margin: 20px;
+    min-height: 100vh;
+    background-color: var(--color-gris);
 }
-.chat-header {
-    background-color: #343541; /* Tono similar al header de ChatGPT */
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: var(--color-primario);
+    color: white;
     padding: 20px;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+.sidebar .logo {
     text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    color: #fff;
+    margin-bottom: 30px;
 }
-.chat-log {
-    flex: 1;
-    padding: 20px;
-    background-color: #f7f7f8;
-    overflow-y: auto;
-    max-height: 400px;         /* Limita la altura para forzar scroll */
-    scroll-behavior: smooth;
-}
-.message {
-    margin-bottom: 20px;
+
+.sidebar .menu-item {
+    padding: 12px 15px;
+    margin: 5px 0;
+    cursor: pointer;
     display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 8px;
     transition: all 0.3s ease;
 }
-.message.user {
-    justify-content: flex-end;
-}
-.message.assistant {
-    justify-content: flex-start;
-}
-.bubble {
-    max-width: 75%;
-    padding: 15px 20px;
-    border-radius: 20px;
-    font-size: 16px;
-    line-height: 1.5;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-.message.user .bubble {
-    background-color: var(--color-boton-fondo);
-    color: var(--color-boton-texto);
-    font-weight: 700;
-    border-radius: 20px 5px 20px 20px;
-}
-.message.assistant .bubble {
-    background-color: #e5e5ea;
-    color: #000;
-    border-radius: 5px 20px 20px 20px;
-}
-.predetermined-questions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 10px;
-    background-color: #f2f2f2;
-    border-top: 1px solid #ddd;
-    justify-content: center;
-}
-.predetermined-questions button {
-    padding: 10px 16px;
-    background-color: var(--color-boton-fondo);
-    color: var(--color-boton-texto);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-.predetermined-questions button:hover {
-    transform: scale(1.03);
-}
-.chat-input-area {
-    display: flex;
-    border-top: 1px solid #ddd;
-    padding: 15px;
-    background-color: #fff;
-}
-.chat-input-area input {
-    flex: 1;
-    padding: 12px 16px;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s ease;
-}
-.chat-input-area input:focus {
-    border-color: #007aff;
-}
-.chat-input-area button {
-    margin-left: 10px;
-    padding: 12px 20px;
-    background-color: var(--color-boton-fondo);
-    border: none;
-    border-radius: 25px;
-    color: var(--color-boton-texto);
-    cursor: pointer;
-    font-size: 16px;
-}
-.chat-input-area button:hover {
-    background-color: var(--color-boton-hover);
-}
 
-/* Estilos de botones actualizados */
-.btn-primario,
-.btn-detail,
-.filter-container button,
-.alert-item button,
-.course-extra button,
-.blog-content a,
-.course-modal-content button,
-.popup button,
-.chat-input-area button,
-.predetermined-questions button,
-.topbar-actions button,
-#contactForm button[type="submit"] {
-    background-color: var(--color-boton-fondo);
-    color: var(--color-boton-texto);
-    border: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 700;
-    transition: background-color 0.2s;
-}
-
-.btn-primario:hover,
-.btn-detail:hover,
-.filter-container button:hover,
-.alert-item button:hover,
-.course-extra button:hover,
-.blog-content a:hover,
-.course-modal-content button:hover,
-.popup button:hover,
-.chat-input-area button:hover,
-.predetermined-questions button:hover,
-.topbar-actions button:hover,
-#contactForm button[type="submit"]:hover {
-    background-color: var(--color-boton-hover);
-}
-
-/* Actualizar estilos específicos del chatbot */
-.message.user .bubble {
-    background-color: var(--color-boton-fondo);
-    color: var(--color-boton-texto);
-    font-weight: 700;
-    border-radius: 20px 5px 20px 20px;
-}
-
-.predetermined-questions button {
-    background-color: var(--color-boton-fondo);
-    color: var(--color-boton-texto);
-}
-
-.predetermined-questions button:hover {
-    background-color: var(--color-boton-hover);
-}
-
-.chat-input-area button {
-    background-color: var(--color-boton-fondo);
-    color: var(--color-boton-texto);
-}
-
-.chat-input-area button:hover {
-    background-color: var(--color-boton-hover);
-}
-
-/* Actualizar estilos de botones en el sidebar */
-.sidebar-footer button,
-.sidebar-footer a {
-    background: none;
-    color: #ffffff;
-    cursor: pointer;
-    margin: 5px 0;
-    font-size: 0.9rem;
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
-    text-align: left;
-    border-radius: 4px;
-    transition: background 0.3s ease;
-}
-
-.sidebar-footer button:hover,
-.sidebar-footer a:hover {
+.sidebar .menu-item:hover,
+.sidebar .menu-item.active {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Asegurar que los botones del formulario de contacto tengan el nuevo estilo */
-#contactForm button[type="submit"] {
-    background-color: var(--color-boton-fondo);
-    color: var(--color-boton-texto);
-    border: none;
-    padding: 12px 30px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: 700;
-    transition: background-color 0.2s;
+.sidebar .menu-item i {
+    font-size: 1.2em;
 }
 
-#contactForm button[type="submit"]:hover {
-    background-color: var(--color-boton-hover);
-}
-
-/* Estilos actualizados para recordatorios */
-.reminders {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  margin-bottom: 40px; /* Aumentado el margen inferior */
-  padding: 15px;
-  position: relative; /* Para el pseudo-elemento */
-}
-
-.reminders::after {
-  content: '';
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  width: 100%;
-  height: 1px;
-  background: #e0e0e0;
-}
-
-.alerts {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  margin-top: 20px; /* Añadido margen superior */
-  padding: 15px;
-}
-
-.reminders-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: -15px -15px 15px -15px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #eee;
-}
-
-.title-with-icon {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-}
-
-.title-with-icon h2 {
-  font-size: 1.1rem;
-  margin: 0;
-  color: #333;
-  font-weight: 600;
-}
-
-.title-with-icon i {
-  font-size: 1.1rem;
-  color: var(--color-primario);
-}
-
-.notification-dot {
-  position: absolute;
-  top: -2px;
-  left: 12px;
-  width: 8px;
-  height: 8px;
-  background-color: #ffb300;
-  border-radius: 50%;
-}
-
-.period-selector {
-  position: relative;
-}
-
-#periodButton {
-  background: none;
-  border: 1px solid #ddd;
-  padding: 6px 12px;
-  border-radius: 15px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.85rem;
-  color: #555;
-}
-
-#periodButton:hover {
-  border-color: var(--color-primario);
-}
-
-.period-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 6px 0;
-  min-width: 140px;
-  display: none;
-  z-index: 1000;
-}
-
-.period-dropdown.show {
-  display: block;
-}
-
-.period-dropdown a {
-  display: block;
-  padding: 6px 12px;
-  color: #333;
-  text-decoration: none;
-  font-size: 0.85rem;
-  transition: background-color 0.2s;
-}
-
-.period-dropdown a:hover,
-.period-dropdown a.active {
-  background-color: #f5f5f5;
-}
-
-.reminders-list {
-  margin: 0 -15px;
-}
-
-.reminder-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 15px 15px;
-  background-color: #fff;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.2s;
-  margin-bottom: 5px;
-}
-
-.reminder-item:hover {
-  background-color: #f9f9f9;
-}
-
-.reminder-item:last-child {
-  border-bottom: none;
-}
-
-.reminder-icon {
-  width: 32px;
-  height: 32px;
-  background-color: #f0f2f5;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.reminder-icon i {
-  color: var(--color-primario);
-  font-size: 0.9rem;
-}
-
-.reminder-content {
-  flex: 1;
-  min-width: 0;
-}
-
-.reminder-content h3 {
-  font-size: 0.9rem;
-  margin: 0 0 2px 0;
-  color: #333;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.reminder-content p {
-  font-size: 0.8rem;
-  color: #666;
-  margin: 0;
-}
-
-.reminder-status {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.reminder-status.pending {
-  border: 2px solid #ddd;
-}
-
-.reminder-status.completed {
-  background-color: #e0f2e9;
-  color: var(--color-primario);
-}
-
-.reminder-status.completed i {
-  font-size: 0.8rem;
-}
-
-.reminders-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 -15px -15px -15px;
-  padding: 12px 15px 0;
-  border-top: 1px solid #eee;
-}
-
-.reminders-footer a {
-  text-decoration: none;
-  font-size: 0.85rem;
-}
-
-.show-all {
-  color: var(--color-boton-fondo);
-  font-weight: 600;
-}
-
-.add-new {
-  color: var(--color-boton-fondo);
-  font-weight: 600;
-}
-
-/* Estilos actualizados para el mensaje de bienvenida */
-.welcome-message {
-    position: relative;
-    padding: 15px 0 30px 0;
-    background: transparent;
-    margin-top: 15px;
-}
-
-.welcome-message h1 {
-    font-size: 2.2rem;
-    color: var(--color-primario);
-    margin: 0;
-    font-weight: 600;
-    line-height: 1.2;
-}
-
-.welcome-message #userName {
-    display: inline-block;
-}
-
-/* Ajuste del contenido principal */
+/* Main Content */
 .main-content {
+    flex: 1;
     margin-left: 250px;
-    padding-top: 90px; /* Espacio base para la barra superior */
-    background-color: #f0f2f5;
-    min-height: 100vh;
-    box-sizing: border-box;
+    padding: 30px;
+}
+
+.header {
+    margin-bottom: 30px;
+}
+
+.welcome {
+    font-size: 2em;
+    color: var(--color-primario);
+    font-weight: 600;
 }
 
 .content-wrapper {
     display: flex;
-    gap: 20px;
-    padding: 35px 20px 0;
-    align-items: flex-start;
+    gap: 30px;
 }
 
-/* Ajustes responsivos */
-@media (max-width: 768px) {
-    .topbar {
-        left: 0;
-    }
-
-    .topbar-spacer {
-        left: 0;
-    }
-
-    .welcome-message {
-        padding: 10px 0 25px 0;
-        margin-top: 10px;
-    }
-
-    .main-content {
-        margin-left: 0;
-        padding-top: 80px;
-    }
-
-    .welcome-message h1 {
-        font-size: 1.8rem;
-    }
-
-    .content-wrapper {
-        flex-direction: column;
-    }
+/* Left Section */
+.left-section {
+    flex: 1;
+    min-width: 0;
 }
 
-@media (max-width: 480px) {
-    .welcome-message h1 {
-        font-size: 1.6rem;
-    }
-}
-
-/* Estilos para la sección de herramientas */
-.tools-section {
-  padding: 20px;
-}
-
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.tool-card {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.tool-card:hover {
-  transform: translateY(-5px);
-}
-
-.tool-card i {
-  color: var(--color-primario);
-  margin-bottom: 15px;
-}
-
-.tool-card h3 {
-  margin: 10px 0;
-  color: var(--color-texto);
-}
-
-.tool-card p {
-  color: var(--color-texto-secundario);
-  font-size: 0.9em;
-}
-
-.alerts .reminders-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: -15px -15px 15px -15px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #eee;
-}
-
-.alerts .title-with-icon {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-}
-
-.alerts .title-with-icon h2 {
-  font-size: 1.1rem;
-  margin: 0;
-  color: #333;
-  font-weight: 600;
-}
-
-.alerts .title-with-icon i {
-  font-size: 1.1rem;
-  color: var(--color-primario);
-}
-
-.alerts .notification-dot {
-  position: absolute;
-  top: -2px;
-  left: 12px;
-  width: 8px;
-  height: 8px;
-  background-color: #ffb300;
-  border-radius: 50%;
-}
-
-/* Estilos para la página de agenda */
-.schedule-section {
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-.schedule-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.schedule-actions {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.schedule-navigation {
-  display: flex;
-  gap: 10px;
-}
-
-.btn-secondary {
-  padding: 8px 15px;
-  background: #f0f2f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: #333;
-  cursor: pointer;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.2s;
-}
-
-.btn-secondary:hover {
-  background: #e4e6e9;
-}
-
+/* Calendar */
 .calendar-container {
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 20px;
+    margin-top: 20px;
 }
 
 .calendar-header {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  background: #f8f9fa;
-  padding: 10px;
-  border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--color-borde);
 }
 
-.calendar-header div {
-  text-align: center;
-  font-weight: 600;
-  color: #555;
+.calendar-title {
+    font-size: 1.5em;
+    color: var(--color-texto);
+    font-weight: 600;
 }
 
-.calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
-  background: #eee;
-  padding: 1px;
+.calendar-controls {
+    display: flex;
+    gap: 10px;
 }
 
-.calendar > div {
-  background: #fff;
-  padding: 10px;
-  min-height: 100px;
-  display: flex;
-  flex-direction: column;
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-.calendar-event {
-  background-color: #e8f5e9 !important;
-  border-left: 3px solid var(--color-primario);
-  cursor: pointer;
-  transition: transform 0.2s;
+.btn-primary {
+    background-color: var(--color-amarillo);
+    color: var(--color-texto);
 }
 
-.calendar-event:hover {
-  transform: scale(1.02);
+.btn-primary:hover {
+    background-color: #FFB300;
 }
 
-.calendar-event small {
-  color: #666;
-  margin-top: 5px;
+.btn-secondary {
+    background-color: var(--color-gris);
+    color: var(--color-texto);
 }
 
-.upcoming-events {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
+.btn-secondary:hover {
+    background-color: #e0e0e0;
 }
 
-.upcoming-events h3 {
-  margin-bottom: 20px;
-  color: #333;
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
 }
 
-.event-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.calendar-day-header {
+    text-align: center;
+    font-weight: 600;
+    padding: 10px;
+    color: var(--color-texto);
 }
 
-.event-item {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 15px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  transition: transform 0.2s;
+.calendar-day {
+    border: 1px solid var(--color-borde);
+    padding: 10px;
+    min-height: 100px;
+    background-color: white;
+    border-radius: 6px;
+    transition: all 0.3s ease;
 }
 
-.event-item:hover {
-  transform: translateX(5px);
+.calendar-day.has-event {
+    background-color: var(--color-cita);
+    border-color: var(--color-primario);
+}
+
+.event {
+    background-color: white;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border-left: 3px solid var(--color-primario);
+}
+
+.event i {
+    margin-right: 5px;
+    color: var(--color-primario);
+}
+
+.event-time {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* Reminders Section */
+.reminders {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.reminders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.title-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-with-icon h2 {
+    font-size: 1.2em;
+    color: var(--color-texto);
+    margin: 0;
+}
+
+.period-selector button {
+    background: none;
+    border: 1px solid var(--color-borde);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-texto);
+}
+
+.reminder-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--color-borde);
+    gap: 15px;
+}
+
+.reminder-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-gris);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reminder-icon i {
+    color: var(--color-primario);
+    font-size: 1.2em;
+}
+
+.reminder-content {
+    flex: 1;
+}
+
+.reminder-content h3 {
+    font-size: 1em;
+    color: var(--color-texto);
+    margin-bottom: 4px;
+}
+
+.reminder-content p {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.reminder-status {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.reminder-status.pending {
+    background-color: var(--color-estado-pendiente);
+}
+
+.reminder-status.completed {
+    background-color: var(--color-estado-completado);
+}
+
+.reminders-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: var(--color-gris);
+}
+
+.reminders-footer a {
+    color: var(--color-primario);
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+/* Right Section */
+.right-section {
+    width: 300px;
+    min-width: 300px;
+}
+
+.notifications {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.notification-item {
+    padding: 15px 20px;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.notification-content {
+    margin-bottom: 10px;
+}
+
+.notification-content h3 {
+    font-size: 0.9em;
+    color: var(--color-texto);
+    margin-bottom: 5px;
+}
+
+.notification-content p {
+    font-size: 0.85em;
+    color: #666;
+}
+
+.btn-details {
+    background-color: var(--color-amarillo);
+    color: var(--color-texto);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-details:hover {
+    background-color: #FFB300;
+}
+
+.notification-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-amarillo);
+    border-radius: 50%;
+    position: absolute;
+    top: -2px;
+    right: -2px;
 }
 
 .event-date {
