@@ -166,6 +166,72 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
+    /* Estilos específicos para la agenda */
+    .agenda-container {
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .calendar-navigation {
+      display: flex;
+      gap: 10px;
+    }
+
+    .calendar-navigation button {
+      padding: 8px 15px;
+      border: none;
+      background-color: #1d5c59;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .calendar-day {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      min-height: 80px;
+    }
+
+    .calendar-event {
+      background-color: #e3f2fd;
+      padding: 5px;
+      margin: 2px 0;
+      border-radius: 3px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .add-event-button {
+      padding: 10px 20px;
+      background-color: #1d5c59;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
     /* Corregir estilo del menú izquierdo */
     .sidebar {
       width: 250px;
@@ -323,7 +389,27 @@
       <!-- Contenedor para las diferentes secciones -->
       <div id="inicio-section" class="content-section active">
         <h1>¡Bienvenido al Dashboard!</h1>
-        <!-- Aquí va el contenido inicial del dashboard -->
+        
+        <!-- Calendario de Citas -->
+        <div class="agenda-container">
+          <div class="calendar-header">
+            <h2>Mayo 2025</h2>
+            <div class="calendar-navigation">
+              <button id="prevMonth"><i class="fas fa-chevron-left"></i> Anterior</button>
+              <button id="nextMonth">Siguiente <i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+
+          <button class="add-event-button">
+            <i class="fas fa-plus"></i> Nueva Cita
+          </button>
+
+          <div class="calendar">
+            <!-- Los días y eventos se generarán dinámicamente con JavaScript -->
+          </div>
+        </div>
+
+        <!-- Aquí va el resto del contenido del dashboard -->
       </div>
 
       <!-- Sección de Agenda (oculta por defecto) -->
