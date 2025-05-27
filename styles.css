@@ -2419,3 +2419,62 @@
   display: flex;
   gap: 10px;
 }
+
+/* Estilos adicionales para eventos del calendario */
+.event {
+    background-color: rgba(40, 102, 90, 0.1);
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.event-time {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* Ajustes para el panel de recordatorios */
+.reminder-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.reminder-title h3 {
+    margin: 0;
+}
+
+.reminder-dropdown {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+/* Estilos para las notificaciones */
+.notification-badge {
+    background-color: #FFC107;
+    color: #333;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+/* Mejoras visuales para los eventos del calendario */
+.has-event {
+    position: relative;
+    overflow: hidden;
+}
+
+.has-event::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--color-primario);
+}

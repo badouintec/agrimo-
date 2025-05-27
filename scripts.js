@@ -424,7 +424,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (addEventBtn) {
         addEventBtn.addEventListener('click', () => {
           // Aquí iría la lógica para abrir un modal o formulario para agregar nueva cita
-          alert('Funcionalidad de agregar nueva cita en desarrollo');
+          alert('Funcionalidad de nueva cita en desarrollo');
         });
       }
 
@@ -643,3 +643,48 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 
 sections.forEach(section => observer.observe(section));
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Funcionalidad para los botones de navegación
+    const prevButton = document.querySelector('.btn-secondary:first-child');
+    const nextButton = document.querySelector('.btn-secondary:last-child');
+    const newEventButton = document.querySelector('.btn-primary');
+
+    // Manejador para el botón Nueva Cita
+    newEventButton.addEventListener('click', function() {
+        // Aquí iría la lógica para abrir el modal de nueva cita
+        alert('Funcionalidad de nueva cita en desarrollo');
+    });
+
+    // Manejador para los botones de navegación
+    prevButton.addEventListener('click', function() {
+        // Aquí iría la lógica para navegar al mes anterior
+        alert('Navegando al mes anterior...');
+    });
+
+    nextButton.addEventListener('click', function() {
+        // Aquí iría la lógica para navegar al mes siguiente
+        alert('Navegando al mes siguiente...');
+    });
+
+    // Funcionalidad para los botones de Ver Detalles
+    const detailButtons = document.querySelectorAll('.btn-details');
+    detailButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const notificationText = this.parentElement.querySelector('div:first-child').textContent;
+            alert(`Mostrando detalles para: ${notificationText}`);
+        });
+    });
+
+    // Marcar días con eventos
+    const daysWithEvents = document.querySelectorAll('.has-event');
+    daysWithEvents.forEach(day => {
+        day.style.cursor = 'pointer';
+        day.addEventListener('click', function() {
+            const eventText = this.querySelector('.event')?.textContent;
+            if (eventText) {
+                alert(`Detalles del evento: ${eventText}`);
+            }
+        });
+    });
+});

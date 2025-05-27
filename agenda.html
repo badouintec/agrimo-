@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KaptiaBot - Agenda</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <style>
+        :root {
+            --color-primario: #28665A;
+            --color-secundario: #E5F2F0;
+            --color-texto: #333;
+            --color-fondo: #fff;
+            --color-cita: #E8F5E9;
+            --color-amarillo: #FFC107;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--color-primario);
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar .menu-item {
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .welcome {
+            font-size: 2em;
+            color: var(--color-primario);
+        }
+
+        /* Calendar */
+        .calendar-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-title {
+            font-size: 1.5em;
+            color: var(--color-texto);
+        }
+
+        .calendar-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--color-amarillo);
+            color: var(--color-texto);
+        }
+
+        .btn-secondary {
+            background-color: #e0e0e0;
+            color: var(--color-texto);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+        }
+
+        .calendar-day {
+            border: 1px solid #ddd;
+            padding: 10px;
+            min-height: 100px;
+            background-color: white;
+        }
+
+        .calendar-day.has-event {
+            background-color: var(--color-cita);
+        }
+
+        /* Sidebar derecha */
+        .right-sidebar {
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            border-left: 1px solid #ddd;
+        }
+
+        .reminders {
+            margin-bottom: 30px;
+        }
+
+        .reminder-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reminder-item.completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .notifications {
+            margin-top: 20px;
+        }
+
+        .notification-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .btn-details {
+            background-color: var(--color-amarillo);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar izquierda -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2>KaptiaBot</h2>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-home"></i>
+            <span>Página de inicio</span>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-map"></i>
+            <span>Mapa interactivo</span>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-users"></i>
+            <span>Mis clientes</span>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-chart-line"></i>
+            <span>Métricas clave</span>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-calendar"></i>
+            <span>Agenda</span>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-envelope"></i>
+            <span>Mensajes</span>
+        </div>
+        <div class="menu-item">
+            <i class="fas fa-headset"></i>
+            <span>Contacta un asesor</span>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <div class="header">
+            <h1 class="welcome">¡Hola Mariel!</h1>
+        </div>
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <h2 class="calendar-title">Calendario de Citas - Mayo 2025</h2>
+                <div class="calendar-controls">
+                    <button class="btn btn-secondary">Anterior</button>
+                    <button class="btn btn-primary">+ Nueva Cita</button>
+                    <button class="btn btn-secondary">Siguiente</button>
+                </div>
+            </div>
+
+            <div class="calendar-grid">
+                <div class="calendar-day-header">Lun</div>
+                <div class="calendar-day-header">Mar</div>
+                <div class="calendar-day-header">Mié</div>
+                <div class="calendar-day-header">Jue</div>
+                <div class="calendar-day-header">Vie</div>
+                <div class="calendar-day-header">Sáb</div>
+                <div class="calendar-day-header">Dom</div>
+
+                <!-- Días del calendario -->
+                <div class="calendar-day">1</div>
+                <div class="calendar-day">2</div>
+                <div class="calendar-day">3</div>
+                <div class="calendar-day has-event">
+                    4
+                    <div class="event">
+                        Cita: Invernaderos Bonanza
+                        <div class="event-time">2 PM</div>
+                    </div>
+                </div>
+                <div class="calendar-day">5</div>
+                <div class="calendar-day">6</div>
+                <div class="calendar-day">7</div>
+
+                <div class="calendar-day">8</div>
+                <div class="calendar-day">9</div>
+                <div class="calendar-day has-event">
+                    10
+                    <div class="event">
+                        Llamada: Finca La Paloma
+                        <div class="event-time">11 AM</div>
+                    </div>
+                </div>
+                <div class="calendar-day">11</div>
+                <div class="calendar-day">12</div>
+                <div class="calendar-day">13</div>
+                <div class="calendar-day">14</div>
+
+                <div class="calendar-day has-event">
+                    15
+                    <div class="event">
+                        Reunión: Agroindustrial El Sol
+                        <div class="event-time">3 PM</div>
+                    </div>
+                </div>
+                <div class="calendar-day">16</div>
+                <div class="calendar-day">17</div>
+                <div class="calendar-day">18</div>
+                <div class="calendar-day has-event">
+                    19
+                    <div class="event">
+                        Cita: Frutos de la Sierra
+                    </div>
+                </div>
+                <div class="calendar-day">20</div>
+                <div class="calendar-day">21</div>
+
+                <!-- Completar el resto de los días del mes -->
+                <!-- ... -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar derecha -->
+    <div class="right-sidebar">
+        <div class="reminders">
+            <h3>Recordatorios</h3>
+            <div class="reminder-item">
+                <i class="fas fa-video"></i>
+                <div>
+                    <div>Zoom Agrotienda (CDMX)</div>
+                    <div>9:00 hrs - Vie 14 mar</div>
+                </div>
+            </div>
+            <div class="reminder-item completed">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <div>Visita Cliente Invernaderos SA</div>
+                    <div>14:30 hrs - Vie 14 mar</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="notifications">
+            <h3>Notificaciones</h3>
+            <div class="notification-item">
+                <div>OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)</div>
+                <div>Cliente respondió y agendó cita.</div>
+                <button class="btn-details">Ver Detalles</button>
+            </div>
+            <div class="notification-item">
+                <div>BAJA PK (Baja California)</div>
+                <div>Cliente confirmó interés.</div>
+                <button class="btn-details">Ver Detalles</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
