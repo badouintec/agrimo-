@@ -283,12 +283,12 @@
       <nav class="menu">
         <ul>
           <li class="active"><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
-          <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
-          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
-          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
-          <li><a href="#schedule-section"><i class="fas fa-calendar"></i> Agenda</a></li>
-          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
-          <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
+          <li><a href="#"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li><a href="#"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="#"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="#"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li><a href="#"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
         </ul>
       </nav>
     </div>
@@ -320,252 +320,22 @@
     </header>
 
     <div class="content-wrapper">
-      <!-- SECCIÓN IZQUIERDA -->
-      <section class="left-section">
-        <!-- Mensaje de bienvenida -->
-        <div class="welcome-message">
-          <h1>¡Hola <span id="userName">Mariel</span>!</h1>
+      <!-- Contenedor para las diferentes secciones -->
+      <div id="inicio-section" class="content-section active">
+        <h1>¡Bienvenido al Dashboard!</h1>
+        <!-- Aquí va el contenido inicial del dashboard -->
+      </div>
+
+      <!-- Sección de Agenda (oculta por defecto) -->
+      <div id="agenda-section" class="content-section" style="display: none;">
+        <h2>Calendario de Citas</h2>
+        <!-- Aquí va el contenido del calendario -->
+        <div class="calendar">
+          <!-- El contenido del calendario se mantiene igual -->
         </div>
+      </div>
 
-        <!-- Calendario de Citas -->
-        <section class="schedule-section">
-          <div class="schedule-header">
-            <h2>Calendario de Citas - Mayo 2025</h2>
-            <div class="schedule-actions">
-              <button class="btn-primario"><i class="fas fa-plus"></i> Nueva Cita</button>
-              <div class="schedule-navigation">
-                <button id="prevMonthBtn" class="btn-secondary"><i class="fas fa-chevron-left"></i> Anterior</button>
-                <button id="nextMonthBtn" class="btn-secondary">Siguiente <i class="fas fa-chevron-right"></i></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="calendar-container">
-            <div class="calendar-header">
-              <div>Lun</div>
-              <div>Mar</div>
-              <div>Mié</div>
-              <div>Jue</div>
-              <div>Vie</div>
-              <div>Sáb</div>
-              <div>Dom</div>
-            </div>
-            <div class="calendar">
-              <div>1</div>
-              <div>2</div>
-              <div>3</div>
-              <div class="calendar-event">4<br />Cita: Invernaderos Bonanza<br /><small>2 PM</small></div>
-              <div>5</div>
-              <div>6</div>
-              <div>7</div>
-              <div>8</div>
-              <div>9</div>
-              <div class="calendar-event">10<br />Llamada: Finca La Paloma<br /><small>11 AM</small></div>
-              <div>11</div>
-              <div>12</div>
-              <div>13</div>
-              <div>14</div>
-              <div class="calendar-event">15<br />Reunión: Agroindustrial El Sol<br /><small>3 PM</small></div>
-              <div>16</div>
-              <div>17</div>
-              <div>18</div>
-              <div class="calendar-event">19<br />Cita: Frutos de la Sierra<br /><small>10 AM</small></div>
-              <div>20</div>
-              <div>21</div>
-              <div>22</div>
-              <div>23</div>
-              <div class="calendar-event">24<br />Seguimiento: Hortalizas del Campo<br /><small>1 PM</small></div>
-              <div>25</div>
-              <div>26</div>
-              <div>27</div>
-              <div>28</div>
-              <div class="calendar-event">29<br />Llamada: Frutos de la Sierra<br /><small>4 PM</small></div>
-              <div>30</div>
-              <div>31</div>
-            </div>
-          </div>
-
-          <!-- Lista de próximas citas -->
-          <div class="upcoming-events">
-            <h3>Próximas Citas</h3>
-            <div class="event-list">
-              <div class="event-item">
-                <div class="event-date">
-                  <span class="day">4</span>
-                  <span class="month">MAY</span>
-                </div>
-                <div class="event-details">
-                  <h4>Invernaderos Bonanza</h4>
-                  <p><i class="fas fa-clock"></i> 2:00 PM</p>
-                  <p><i class="fas fa-map-marker-alt"></i> Jalisco</p>
-                </div>
-                <div class="event-actions">
-                  <button class="btn-secondary">Editar</button>
-                  <button class="btn-secondary">Cancelar</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- KPIs y Gráfica de Ventas -->
-        <div class="kpis">
-          <div class="kpi-card">
-            <h3>Ventas Realizadas</h3>
-            <p id="kpiVentas">0</p>
-            <small>Unidades vendidas este mes</small>
-            <button class="btn-detail" onclick="abrirModalCurso('modalKpiVentas')">Ver Detalles</button>
-          </div>
-          <div class="chart-card">
-            <canvas id="chartVentas"></canvas>
-            <button class="btn-detail" onclick="abrirModalCurso('modalGraficaVentas')">Más info sobre ventas</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECCIÓN DERECHA -->
-      <aside class="right-section">
-        <!-- Recordatorios -->
-        <div class="reminders">
-          <div class="reminders-header">
-            <div class="title-with-icon">
-              <i class="fas fa-bell"></i>
-              <span class="notification-dot"></span>
-              <h2>Recordatorios</h2>
-            </div>
-            <div class="period-selector">
-              <button id="periodButton">
-                Hoy <i class="fas fa-chevron-down"></i>
-              </button>
-              <div class="period-dropdown" id="periodMenu">
-                <a href="#" class="active">Hoy</a>
-                <a href="#">Ayer</a>
-                <a href="#">Esta semana</a>
-                <a href="#">Próxima semana</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="reminders-list">
-            <div class="reminder-item">
-              <div class="reminder-icon">
-                <i class="fas fa-video"></i>
-              </div>
-              <div class="reminder-content">
-                <h3>Zoom Agrotienda (CDMX)</h3>
-                <p>9:00 hrs - Vie 14 mar</p>
-              </div>
-              <div class="reminder-status pending"></div>
-            </div>
-
-            <div class="reminder-item">
-              <div class="reminder-icon">
-                <i class="fas fa-calendar"></i>
-              </div>
-              <div class="reminder-content">
-                <h3>Visita Cliente Invernaderos SA</h3>
-                <p>14:30 hrs - Vie 14 mar</p>
-              </div>
-              <div class="reminder-status completed">
-                <i class="fas fa-check"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="reminders-footer">
-            <a href="#" class="show-all">Mostrar todos</a>
-            <a href="#" class="add-new">Añadir+</a>
-          </div>
-        </div>
-
-        <!-- Notificaciones -->
-        <div class="alerts">
-          <div class="reminders-header">
-            <div class="title-with-icon">
-              <i class="fas fa-bell"></i>
-              <span class="notification-dot"></span>
-              <h2>Notificaciones</h2>
-            </div>
-          </div>
-          <div class="alert-item">
-            <p><strong>Invernaderos Bonanza</strong> (Jalisco)<br>Cliente respondió y agendó cita.</p>
-            <button onclick="mostrarAlerta('Invernaderos Bonanza (Jalisco)')">Ver Detalles</button>
-          </div>
-          <div class="alert-item">
-            <p><strong>Finca La Paloma</strong> (CDMX)<br>Cliente confirmó interés.</p>
-            <button onclick="mostrarAlerta('Finca La Paloma (CDMX)')">Ver Detalles</button>
-          </div>
-          <div class="alert-item">
-            <p><strong>Agroindustrial El Sol</strong> (Veracruz)<br>Cliente solicita seguimiento.</p>
-            <button onclick="mostrarAlerta('Agroindustrial El Sol (Veracruz)')">Ver Detalles</button>
-          </div>
-        </div>
-
-        <!-- Cursos de Ventas -->
-        <div class="courses">
-          <h2>Cursos de Ventas</h2>
-          <div class="course-item">
-            <img src="https://img.icons8.com/color/48/000000/sales-performance.png" alt="Estrategias de Venta Avanzadas" />
-            <div class="course-info">
-              <h3>Estrategias de Venta Avanzadas</h3>
-              <p>Aprende técnicas avanzadas para captar clientes y cerrar ventas en el sector agrícola.</p>
-              <small>Módulo 3 de 6</small>
-            </div>
-            <div class="course-extra">
-              <button onclick="abrirModalCurso('modalVentas')">Más Información</button>
-            </div>
-          </div>
-          <div class="course-item">
-            <img src="https://img.icons8.com/color/48/000000/prospecting.png" alt="Técnicas de Prospección" />
-            <div class="course-info">
-              <h3>Técnicas de Prospección</h3>
-              <p>Estrategias para identificar y captar clientes potenciales.</p>
-              <small>Módulo 2 de 5</small>
-            </div>
-            <div class="course-extra">
-              <button onclick="abrirModalCurso('modalRiego')">Más Información</button>
-            </div>
-          </div>
-          <div class="course-item">
-            <img src="https://img.icons8.com/color/48/000000/negotiation.png" alt="Negociación y Cierre de Ventas" />
-            <div class="course-info">
-              <h3>Negociación y Cierre de Ventas</h3>
-              <p>Descubre estrategias para negociar, superar objeciones y cerrar ventas efectivas.</p>
-              <small>Módulo 4 de 7</small>
-            </div>
-            <div class="course-extra">
-              <button onclick="abrirModalCurso('modalEco')">Más Información</button>
-            </div>
-          </div>
-          <div class="course-item">
-            <img src="https://img.icons8.com/color/48/000000/follow-up.png" alt="Manejo de Seguimiento Comercial" />
-            <div class="course-info">
-              <h3>Manejo de Seguimiento Comercial</h3>
-              <p>Herramientas para mantener relaciones efectivas con tus clientes.</p>
-              <small>Módulo 1 de 4</small>
-            </div>
-            <div class="course-extra">
-              <button onclick="abrirModalCurso('modalClima')">Más Información</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Lista de Clientes Potenciales (solo se mostrarán los 3 principales) -->
-        <div class="clientes">
-          <h2>Clientes Potenciales</h2>
-          <ul id="clientesUl"></ul>
-        </div>
-
-        <!-- Explicación del Dashboard -->
-        <div class="dashboard-explanation">
-          <h2>¿Necesitas Ayuda?</h2>
-          <p>
-            Si tienes alguna duda sobre cómo usar esta plataforma o requieres asistencia personalizada, 
-            contacta a nuestro equipo de soporte.
-          </p>
-          <button class="btn-detail" style="width: 100%; margin-top: 15px;">Contactar Soporte</button>
-        </div>
-      </aside>
+      <!-- Otras secciones... -->
     </div>
   </main>
 
