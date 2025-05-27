@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kaptia - Agenda</title>
+  
+  <!-- Fuente Google: Poppins -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
+  
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="styles.css" />
+  
+  <!-- Librería de íconos (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+</head>
+<body class="has-sidebar">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" style="display: flex; flex-direction: column;">
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
+        <div class="profile-info">
+          <h3>KaptiaBot</h3>
+        </div>
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+          <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li class="active"><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="sidebar-footer">
+      <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <header class="topbar">
+      <h1>Agenda</h1>
+      <div class="topbar-actions">
+        <!-- Buscador y Avatar -->
+        <div class="search-user-section">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Buscar en la agenda..." />
+          </div>
+          <div class="user-profile">
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQEw-UoZ06Kb-A/profile-displayphoto-shrink_200_200/B56ZcELhdZHwAc-/0/1748121819494?e=1753315200&v=beta&t=umlB7AE5ew2DhHiSiN3-sUj3KmX2enK5mF7vCQyGtME" alt="Usuario" class="avatar" />
+            <div class="dropdown-menu" id="userMenu">
+              <a href="#"><i class="fas fa-user"></i> Ver perfil</a>
+              <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <!-- Calendario de Citas -->
+      <section class="schedule-section">
+        <div class="schedule-header">
+          <h2>Calendario de Citas - Mayo 2025</h2>
+          <div class="schedule-actions">
+            <button class="btn-primario"><i class="fas fa-plus"></i> Nueva Cita</button>
+            <div class="schedule-navigation">
+              <button id="prevMonthBtn" class="btn-secondary"><i class="fas fa-chevron-left"></i> Anterior</button>
+              <button id="nextMonthBtn" class="btn-secondary">Siguiente <i class="fas fa-chevron-right"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mié</div>
+            <div>Jue</div>
+            <div>Vie</div>
+            <div>Sáb</div>
+            <div>Dom</div>
+          </div>
+          <div class="calendar">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div class="calendar-event">4<br />Cita: Invernaderos Bonanza<br /><small>2 PM</small></div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div class="calendar-event">10<br />Llamada: Finca La Paloma<br /><small>11 AM</small></div>
+            <div>11</div>
+            <div>12</div>
+            <div>13</div>
+            <div>14</div>
+            <div class="calendar-event">15<br />Reunión: Agroindustrial El Sol<br /><small>3 PM</small></div>
+            <div>16</div>
+            <div>17</div>
+            <div>18</div>
+            <div class="calendar-event">19<br />Cita: Frutos de la Sierra<br /><small>10 AM</small></div>
+            <div>20</div>
+            <div>21</div>
+            <div>22</div>
+            <div>23</div>
+            <div class="calendar-event">24<br />Seguimiento: Hortalizas del Campo<br /><small>1 PM</small></div>
+            <div>25</div>
+            <div>26</div>
+            <div>27</div>
+            <div>28</div>
+            <div class="calendar-event">29<br />Llamada: Frutos de la Sierra<br /><small>4 PM</small></div>
+            <div>30</div>
+            <div>31</div>
+          </div>
+        </div>
+
+        <!-- Lista de próximas citas -->
+        <div class="upcoming-events">
+          <h3>Próximas Citas</h3>
+          <div class="event-list">
+            <div class="event-item">
+              <div class="event-date">
+                <span class="day">4</span>
+                <span class="month">MAY</span>
+              </div>
+              <div class="event-details">
+                <h4>Invernaderos Bonanza</h4>
+                <p><i class="fas fa-clock"></i> 2:00 PM</p>
+                <p><i class="fas fa-map-marker-alt"></i> Jalisco</p>
+              </div>
+              <div class="event-actions">
+                <button class="btn-secondary">Editar</button>
+                <button class="btn-secondary">Cancelar</button>
+              </div>
+            </div>
+            <!-- Más eventos aquí -->
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="scripts.js"></script>
+</body>
+</html> 
