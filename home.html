@@ -560,89 +560,187 @@
     </header>
 
     <div class="content-wrapper">
-      <!-- Contenedor para las diferentes secciones -->
-      <div id="inicio-section" class="content-section active">
-        <h1>¡Hola Mariel!</h1>
-        
+      <!-- SECCIÓN IZQUIERDA -->
+      <section class="left-section">
+        <!-- Mensaje de bienvenida -->
+        <div class="welcome-message">
+          <h1>¡Hola <span id="userName">Mariel</span>!</h1>
+        </div>
+
         <!-- Calendario de Citas -->
-        <div class="calendar-section">
-          <div class="calendar-header">
+        <section class="schedule-section">
+          <div class="schedule-header">
             <h2>Calendario de Citas - Mayo 2025</h2>
-            <div class="calendar-actions">
-              <button class="add-event-button">
-                <i class="fas fa-plus"></i> Nueva Cita
+            <div class="schedule-actions">
+              <button class="btn-primario"><i class="fas fa-plus"></i> Nueva Cita</button>
+              <div class="schedule-navigation">
+                <button id="prevMonthBtn" class="btn-secondary"><i class="fas fa-chevron-left"></i> Anterior</button>
+                <button id="nextMonthBtn" class="btn-secondary">Siguiente <i class="fas fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <div>Lun</div>
+              <div>Mar</div>
+              <div>Mié</div>
+              <div>Jue</div>
+              <div>Vie</div>
+              <div>Sáb</div>
+              <div>Dom</div>
+            </div>
+            <div class="calendar">
+              <div>1</div>
+              <div>2</div>
+              <div>3</div>
+              <div class="calendar-event">4<br />Cita: Invernaderos Bonanza<br /><small>2 PM</small></div>
+              <div>5</div>
+              <div>6</div>
+              <div>7</div>
+              <div>8</div>
+              <div>9</div>
+              <div class="calendar-event">10<br />Llamada: Finca La Paloma<br /><small>11 AM</small></div>
+              <div>11</div>
+              <div>12</div>
+              <div>13</div>
+              <div>14</div>
+              <div class="calendar-event">15<br />Reunión: Agroindustrial El Sol<br /><small>3 PM</small></div>
+              <div>16</div>
+              <div>17</div>
+              <div>18</div>
+              <div class="calendar-event">19<br />Cita: Frutos de la Sierra<br /><small>10 AM</small></div>
+              <div>20</div>
+              <div>21</div>
+              <div>22</div>
+              <div>23</div>
+              <div class="calendar-event">24<br />Seguimiento: Hortalizas del Campo<br /><small>1 PM</small></div>
+              <div>25</div>
+              <div>26</div>
+              <div>27</div>
+              <div>28</div>
+              <div class="calendar-event">29<br />Llamada: Frutos de la Sierra<br /><small>4 PM</small></div>
+              <div>30</div>
+              <div>31</div>
+            </div>
+          </div>
+
+          <!-- Lista de próximas citas -->
+          <div class="upcoming-events">
+            <h3>Próximas Citas</h3>
+            <div class="event-list">
+              <div class="event-item">
+                <div class="event-date">
+                  <span class="day">4</span>
+                  <span class="month">MAY</span>
+                </div>
+                <div class="event-details">
+                  <h4>Invernaderos Bonanza</h4>
+                  <p><i class="fas fa-clock"></i> 2:00 PM</p>
+                  <p><i class="fas fa-map-marker-alt"></i> Jalisco</p>
+                </div>
+                <div class="event-actions">
+                  <button class="btn-secondary">Editar</button>
+                  <button class="btn-secondary">Cancelar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- KPIs y Gráfica de Ventas -->
+        <div class="kpis">
+          <div class="kpi-card">
+            <h3>Ventas Realizadas</h3>
+            <p id="kpiVentas">0</p>
+            <small>Unidades vendidas este mes</small>
+            <button class="btn-detail" onclick="abrirModalCurso('modalKpiVentas')">Ver Detalles</button>
+          </div>
+          <div class="chart-card">
+            <canvas id="chartVentas"></canvas>
+            <button class="btn-detail" onclick="abrirModalCurso('modalGraficaVentas')">Más info sobre ventas</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN DERECHA -->
+      <aside class="right-section">
+        <!-- Recordatorios -->
+        <div class="reminders">
+          <div class="reminders-header">
+            <div class="title-with-icon">
+              <i class="fas fa-bell"></i>
+              <span class="notification-dot"></span>
+              <h2>Recordatorios</h2>
+            </div>
+            <div class="period-selector">
+              <button id="periodButton">
+                Hoy <i class="fas fa-chevron-down"></i>
               </button>
-              <div class="calendar-navigation">
-                <button id="prevMonth"><i class="fas fa-chevron-left"></i> Anterior</button>
-                <button id="nextMonth">Siguiente <i class="fas fa-chevron-right"></i></button>
+              <div class="period-dropdown" id="periodMenu">
+                <a href="#" class="active">Hoy</a>
+                <a href="#">Ayer</a>
+                <a href="#">Esta semana</a>
+                <a href="#">Próxima semana</a>
               </div>
             </div>
           </div>
 
-          <div class="calendar">
-            <!-- Los días y eventos se generarán dinámicamente con JavaScript -->
-          </div>
-        </div>
-
-        <!-- Recordatorios y Notificaciones -->
-        <div class="side-panels">
-          <div class="reminders-panel">
-            <div class="reminders-header">
-              <div class="title-with-icon">
-                <i class="fas fa-bell"></i>
-                <h2>Recordatorios</h2>
-              </div>
-              <div class="reminders-actions">
-                <button class="btn-link">Mostrar todos</button>
-                <button class="btn-primary">Añadir+</button>
-              </div>
-            </div>
-            <div class="reminders-list">
-              <div class="reminder-item">
+          <div class="reminders-list">
+            <div class="reminder-item">
+              <div class="reminder-icon">
                 <i class="fas fa-video"></i>
-                <div class="reminder-content">
-                  <h3>Zoom Agrotienda (CDMX)</h3>
-                  <p>9:00 hrs - Vie 14 mar</p>
-                </div>
-                <div class="reminder-status"></div>
               </div>
-              <div class="reminder-item">
-                <i class="fas fa-building"></i>
-                <div class="reminder-content">
-                  <h3>Visita Cliente Invernaderos SA</h3>
-                  <p>14:30 hrs - Vie 14 mar</p>
-                </div>
-                <div class="reminder-status completed"></div>
+              <div class="reminder-content">
+                <h3>Zoom Agrotienda (CDMX)</h3>
+                <p>9:00 hrs - Vie 14 mar</p>
+              </div>
+              <div class="reminder-status pending"></div>
+            </div>
+
+            <div class="reminder-item">
+              <div class="reminder-icon">
+                <i class="fas fa-calendar"></i>
+              </div>
+              <div class="reminder-content">
+                <h3>Visita Cliente Invernaderos SA</h3>
+                <p>14:30 hrs - Vie 14 mar</p>
+              </div>
+              <div class="reminder-status completed">
+                <i class="fas fa-check"></i>
               </div>
             </div>
           </div>
 
-          <div class="notifications-panel">
-            <div class="notifications-header">
-              <div class="title-with-icon">
-                <i class="fas fa-bell"></i>
-                <h2>Notificaciones</h2>
-              </div>
-            </div>
-            <div class="notifications-list">
-              <div class="notification-item">
-                <div class="notification-content">
-                  <h3>OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)</h3>
-                  <p>Cliente respondió y agendó cita.</p>
-                  <button onclick="mostrarAlerta('OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)')">Ver Detalles</button>
-                </div>
-              </div>
-              <div class="notification-item">
-                <div class="notification-content">
-                  <h3>BAJA PK (Baja California)</h3>
-                  <p>Cliente confirmó interés.</p>
-                  <button onclick="mostrarAlerta('BAJA PK (Baja California)')">Ver Detalles</button>
-                </div>
-              </div>
-            </div>
+          <div class="reminders-footer">
+            <a href="#" class="show-all">Mostrar todos</a>
+            <a href="#" class="add-new">Añadir+</a>
           </div>
         </div>
-      </div>
+
+        <!-- Notificaciones -->
+        <div class="alerts">
+          <div class="reminders-header">
+            <div class="title-with-icon">
+              <i class="fas fa-bell"></i>
+              <span class="notification-dot"></span>
+              <h2>Notificaciones</h2>
+            </div>
+          </div>
+          <div class="alert-item">
+            <p><strong>Invernaderos Bonanza</strong> (Jalisco)<br>Cliente respondió y agendó cita.</p>
+            <button onclick="mostrarAlerta('Invernaderos Bonanza (Jalisco)')">Ver Detalles</button>
+          </div>
+          <div class="alert-item">
+            <p><strong>Finca La Paloma</strong> (CDMX)<br>Cliente confirmó interés.</p>
+            <button onclick="mostrarAlerta('Finca La Paloma (CDMX)')">Ver Detalles</button>
+          </div>
+          <div class="alert-item">
+            <p><strong>Agroindustrial El Sol</strong> (Veracruz)<br>Cliente solicita seguimiento.</p>
+            <button onclick="mostrarAlerta('Agroindustrial El Sol (Veracruz)')">Ver Detalles</button>
+          </div>
+        </div>
+      </aside>
     </div>
   </main>
 
@@ -1225,4 +1323,5 @@
     });
   </script>
 </body>
+</html>
 </html>

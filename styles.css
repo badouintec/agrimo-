@@ -105,8 +105,12 @@
   }
   
   .content-wrapper {
-    display: flex;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
   }
   
   /************************************************************
@@ -202,8 +206,9 @@
   
   /* Sección izquierda */
   .left-section {
-    flex: 1;
-    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   
   /* Estilos actualizados para el mensaje de bienvenida */
@@ -224,72 +229,138 @@
   
   /* Ajustes para la sección derecha y recordatorios */
   .right-section {
-    width: 300px;
-    min-width: 300px;
-    position: sticky;
-    top: 105px;
-    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   
   .reminders {
-    background-color: #fff;
+    background: #fff;
     border-radius: 8px;
+    padding: 20px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin-bottom: 40px; /* Aumentado el margen inferior */
-    padding: 15px;
-    position: relative; /* Para el pseudo-elemento */
   }
   
-  .reminders::after {
-    content: '';
+  .reminders-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .title-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
+  
+  .notification-dot {
     position: absolute;
-    bottom: -20px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: #e0e0e0;
+    top: -2px;
+    left: 12px;
+    width: 8px;
+    height: 8px;
+    background: #ffb300;
+    border-radius: 50%;
+  }
+  
+  .reminder-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.2s;
+  }
+  
+  .reminder-icon {
+    width: 40px;
+    height: 40px;
+    background: #f0f2f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primario);
+  }
+  
+  .reminder-content {
+    flex: 1;
+  }
+  
+  .reminder-content h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  .reminder-content p {
+    margin: 5px 0 0;
+    color: #666;
+    font-size: 0.8rem;
+  }
+  
+  .reminder-status {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .reminder-status.pending {
+    background: #ffb300;
+  }
+  
+  .reminder-status.completed {
+    background: #4caf50;
+    color: white;
+  }
+  
+  .reminders-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+  
+  .show-all, .add-new {
+    color: var(--color-boton-fondo);
+    font-weight: 600;
+    text-decoration: none;
   }
   
   .alerts {
-    background-color: #fff;
+    background: #fff;
     border-radius: 8px;
+    padding: 20px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    margin-top: 20px; /* Añadido margen superior */
+  }
+  
+  .alert-item {
     padding: 15px;
+    border-bottom: 1px solid #eee;
   }
   
-  /* Ajustes responsivos */
-  @media (max-width: 768px) {
-    .main-content {
-        margin-left: 0;
-        padding-top: 80px;
-    }
-
-    .content-wrapper {
-        flex-direction: column;
-        padding: 25px 15px 0;
-    }
-
-    .welcome-message {
-        padding: 10px 0 25px 0;
-        margin-top: 10px;
-    }
-
-    .welcome-message h1 {
-        font-size: 1.8rem;
-    }
-
-    .right-section {
-        position: relative;
-        top: 0;
-        margin-top: 10px;
-    }
+  .alert-item:last-child {
+    border-bottom: none;
   }
   
-  @media (max-width: 480px) {
-    .welcome-message h1 {
-        font-size: 1.6rem;
-    }
+  .alert-item p {
+    margin: 0 0 10px 0;
+  }
+  
+  .alert-item button {
+    background: var(--color-primario);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
   }
   
   /************************************************************
@@ -962,152 +1033,290 @@
   margin: 0 15px;
 }
 
-/* Variables y reseteo */
-:root {
-    --color-primario: #28665A;
-    --color-secundario: #E5F2F0;
-    --color-texto: #333;
-    --color-fondo: #fff;
-    --color-gris: #f5f5f5;
-    --color-borde: #eee;
-    --color-primario-hover: #1d5c59;
+/* Calendario */
+.schedule-section {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-body {
-    display: flex;
-    min-height: 100vh;
-    background-color: var(--color-gris);
+.schedule-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-/* Sidebar */
-.sidebar {
-    width: 250px;
-    background-color: var(--color-primario);
-    color: white;
-    padding: 20px;
-    position: fixed;
-    height: 100vh;
-    left: 0;
-    top: 0;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+.calendar-container {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.sidebar .logo {
-    text-align: center;
-    margin-bottom: 30px;
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: #f5f5f5;
+  padding: 10px;
+  text-align: center;
+  font-weight: 600;
 }
 
-.sidebar .logo-img {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 10px;
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: #eee;
+  padding: 1px;
 }
 
-.sidebar .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.calendar > div {
+  background: #fff;
+  padding: 10px;
+  min-height: 100px;
+  font-size: 0.9rem;
 }
 
-.sidebar .menu ul li {
-    margin: 10px 0;
+.calendar-event {
+  background: #e8f5e9 !important;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-.sidebar .menu ul li a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 15px;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+.calendar-event:hover {
+  transform: scale(1.02);
 }
 
-.sidebar .menu ul li a:hover,
-.sidebar .menu ul li a.active {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding-left: 20px;
+.calendar-event small {
+  color: #666;
+  display: block;
+  margin-top: 5px;
 }
 
-.sidebar .menu ul li a i {
-    font-size: 1.2em;
+/* Próximas citas */
+.upcoming-events {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
 }
 
-/* Main Content */
-.main-content {
-    flex: 1;
-    margin-left: 250px;
-    padding: 30px;
-    background-color: var(--color-gris);
+.event-list {
+  margin-top: 15px;
 }
 
-.header {
-    margin-bottom: 30px;
+.event-item {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
-.welcome {
-    font-size: 2em;
-    color: var(--color-primario);
-    font-weight: 600;
+.event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primario);
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  min-width: 60px;
 }
 
-.content-wrapper {
-    display: flex;
-    gap: 30px;
+.event-date .day {
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-/* Dashboard Content */
-.dashboard-content {
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    padding: 30px;
-    width: 100%;
+.event-date .month {
+  font-size: 0.8rem;
 }
 
-.welcome-message {
-    margin-bottom: 30px;
+.event-details {
+  flex: 1;
 }
 
-.welcome-message h2 {
-    font-size: 1.5em;
-    color: var(--color-texto);
-    margin-bottom: 10px;
+.event-details h4 {
+  margin: 0 0 5px 0;
 }
 
-.welcome-message p {
-    color: #666;
-    line-height: 1.5;
+.event-details p {
+  margin: 5px 0;
+  color: #666;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .sidebar {
-        width: 70px;
-        padding: 15px 10px;
-    }
-
-    .sidebar .logo h2,
-    .sidebar .menu ul li a span {
-        display: none;
-    }
-
-    .main-content {
-        margin-left: 70px;
-        padding: 20px;
-    }
+.event-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
-@media (max-width: 480px) {
-    .welcome-message h2 {
-        font-size: 1.3em;
-    }
+/* Estilos para el formulario de contacto */
+#contactForm input,
+#contactForm select,
+#contactForm textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-family: 'Poppins', sans-serif;
+}
+
+#contactForm textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-primario {
+  background-color: var(--color-primario);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primario:hover {
+  background-color: var(--color-primario-hover);
+}
+
+/* Estilos para la barra superior */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.topbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+}
+
+.topbar .logo {
+  height: 50px;
+  width: auto;
+}
+
+.topbar .menu ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.topbar .menu ul li a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.topbar .menu ul li a:hover,
+.topbar .menu ul li a.active {
+  color: var(--color-primario);
+}
+
+.topbar-actions button {
+  background-color: var(--color-primario);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar-actions button:hover {
+  background-color: var(--color-primario-hover);
+}
+
+/* Estilos para las secciones de parallax */
+.parallax-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  color: white;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.parallax-content {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 800px;
+  width: 90%;
+}
+
+.parallax-content h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.parallax-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Estilos para las secciones de contenido */
+.section-content {
+  padding: 100px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: var(--color-primario);
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+}
+
+/* Efectos de animación */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
 }
