@@ -3,33 +3,27 @@ var map, geojsonLayer, geojsonData; // Variables globales
 
 document.addEventListener("DOMContentLoaded", initMap);
 
-async function initMap() {
+function initMap() {
   // INICIALIZACIÓN DEL MAPA
   map = L.map("map").setView([23.634501, -102.552784], 5);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
   }).addTo(map);
-  geojsonData = await loadGeoJSON();
-  if (!geojsonData) {
-    console.error('No se pudieron cargar los datos GeoJSON');
-    return;
-  }
-  updateGeoJSONLayer(geojsonData);
-  updateClientesList(geojsonData.features);
-  setupFilters(geojsonData.features, geojsonLayer, map);
+  loadGeoJSON();
+  setupFilters();
   addLegend();
   addExtraMarkers();
 }
 
-async function loadGeoJSON() {
-  try {
-    const response = await fetch('nube.geojson');
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error cargando el GeoJSON:', error);
-    return null;
-  }
+function loadGeoJSON() {
+  fetch("nube.geojson")
+    .then(response => response.json())
+    .then(data => {
+      geojsonData = data;
+      updateGeoJSONLayer(data);
+      updateClientesList(data.features);
+    })
+    .catch(err => console.error("Error cargando el GeoJSON:", err));
 }
 
 function updateGeoJSONLayer(data) {
@@ -75,7 +69,7 @@ function updateGeoJSONLayer(data) {
   }).addTo(map);
 }
 
-function setupFilters(features, geoJSONLayer, map) {
+function setupFilters() {
   const filterEstado = document.getElementById("filterEstado");
   const filterPrioridad = document.getElementById("filterPrioridad");
   const filterCanal = document.getElementById("filterCanal");
@@ -83,24 +77,21 @@ function setupFilters(features, geoJSONLayer, map) {
 
   // Poblar select de Estado dinámicamente desde geojsonData
   function populateEstadoOptions() {
-    if (!features) return;
-    const estados = Array.from(new Set(features.map(f => f.properties.estado)));
+    if (!geojsonData) return;
+    const estados = Array.from(new Set(geojsonData.features.map(feature => feature.properties.estado)));
     filterEstado.innerHTML = '<option value="">Estado: Todos</option>';
     estados.sort();
     estados.forEach(estado => {
-      const option = document.createElement('option');
-      option.value = estado;
-      option.textContent = estado;
-      filterEstado.appendChild(option);
+      filterEstado.innerHTML += `<option value="${estado}">${estado}</option>`;
     });
   }
 
   function applyFilters() {
-    if (!features) return;
+    if (!geojsonData) return;
     const estadoValor = filterEstado ? filterEstado.value : "";
     const prioridadValor = filterPrioridad ? filterPrioridad.value : "";
     const canalValor = filterCanal ? filterCanal.value : "";
-    const filteredFeatures = features.filter(feature => {
+    const filteredFeatures = geojsonData.features.filter(feature => {
       const props = feature.properties;
       const matchEstado = estadoValor ? props.estado === estadoValor : true;
       const matchPrioridad = prioridadValor ? props.prioridad_venta === prioridadValor : true;
@@ -108,19 +99,6 @@ function setupFilters(features, geoJSONLayer, map) {
       return matchEstado && matchPrioridad && matchCanal;
     });
     const filteredGeoJSON = { type: "FeatureCollection", features: filteredFeatures };
-    map.removeLayer(geoJSONLayer);
-    geoJSONLayer = L.geoJSON(filteredGeoJSON, {
-      pointToLayer: function(feature, latlng) {
-        let color = "#4CAF50";
-        if (feature.properties.prioridad_venta === "Alta") {
-          color = "#1B5E20";
-        } else if (feature.properties.prioridad_venta === "Baja") {
-          color = "#C62828";
-        }
-        return L.circleMarker(latlng, {
-          radius: 8,
-          fillColor: color,
-          color: "#fff",
     updateGeoJSONLayer(filteredGeoJSON);
     updateClientesList(filteredFeatures);
   }

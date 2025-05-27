@@ -3,269 +3,202 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kaptia - Plataforma Inteligente de Ventas</title>
+  <title>Kaptia - Landing</title>
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg"/>
+  <link rel="icon" type="image/png" href="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tJh3AuSi5rkQ7kNvwHSd86T&_nc_oc=AdnIQRGQh5aisLMkCwlI77dOf8e3uxbuGQQ71ixGMWU367xEGMcVrbCZw9CIAGAVPIX5y4cSNooJRRmED_-Pk2Oj&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=h4B5xRQOO6bq6jsCwHbLoA&oh=00_AfJUFyGLAQ4Sy8kMl-AmfD68XXPXLA49Yb_gGTXhkBILfg&oe=6837FAED"/>
   <!-- Fuente Google: Poppins -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet"/>
+  <!-- Hoja de estilos principal -->
+  <link rel="stylesheet" href="styles.css"/>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-  <!-- AOS - Animate On Scroll -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <!-- Estilos principales -->
-  <link rel="stylesheet" href="styles.css"/>
+  <!-- Inline styles movidos a styles.css -->
 </head>
 <body class="no-sidebar">
   <!-- TOPBAR -->
   <header class="topbar fade-in" id="topbarSection">
     <div class="logo-container">
-      <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg" 
+      <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tJh3AuSi5rkQ7kNvwHSd86T&_nc_oc=AdnIQRGQh5aisLMkCwlI77dOf8e3uxbuGQQ71ixGMWU367xEGMcVrbCZw9CIAGAVPIX5y4cSNooJRRmED_-Pk2Oj&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=h4B5xRQOO6bq6jsCwHbLoA&oh=00_AfJUFyGLAQ4Sy8kMl-AmfD68XXPXLA49Yb_gGTXhkBILfg&oe=6837FAED" 
            alt="Logo" class="logo"/>
     </div>
     <nav class="menu">
       <ul>
         <li><a href="#inicio" class="scroll-link">Inicio</a></li>
-        <li><a href="#caracteristicas" class="scroll-link">Características</a></li>
         <li><a href="#plataforma" class="scroll-link">Plataforma</a></li>
-        <li><a href="#equipo" class="scroll-link">Equipo</a></li>
+        <li><a href="#blog" class="scroll-link">Blog</a></li>
         <li><a href="#contacto" class="scroll-link">Contacto</a></li>
+        <li><a href="#equipo" class="scroll-link">Equipo</a></li>
       </ul>
     </nav>
     <div class="topbar-actions">
-      <button onclick="window.location.href='login.html'" class="login-btn">
-        <i class="fas fa-user"></i> Acceder
+      <button onclick="window.location.href='home.html'">
+        <i class="fas fa-user"></i> Demo Login
       </button>
     </div>
   </header>
 
-  <!-- SECCIÓN 1: HERO SECTION -->
-  <section id="inicio" class="hero-section">
-    <div class="hero-content" data-aos="fade-up">
-      <h1>Kaptia</h1>
-      <p class="hero-subtitle">Impulsa tus ventas de fertilizantes orgánicos con inteligencia artificial</p>
-      <div class="hero-cta">
-        <button onclick="window.location.href='login.html'" class="cta-button">
-          Probar Demo <i class="fas fa-arrow-right"></i>
-        </button>
-      </div>
-    </div>
-    <div class="hero-overlay"></div>
-  </section>
-
-  <!-- SECCIÓN 2: CARACTERÍSTICAS -->
-  <section id="caracteristicas" class="features-section">
-    <div class="section-container">
-      <h2 class="section-title" data-aos="fade-up">Características Principales</h2>
-      <div class="features-grid">
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-          <i class="fas fa-chart-line"></i>
-          <h3>Análisis Inteligente</h3>
-          <p>Algoritmos avanzados para identificar las mejores oportunidades de venta</p>
-        </div>
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-          <i class="fas fa-users"></i>
-          <h3>Gestión de Clientes</h3>
-          <p>Seguimiento detallado y personalizado de cada prospecto</p>
-        </div>
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-          <i class="fas fa-map-marked-alt"></i>
-          <h3>Mapeo Geográfico</h3>
-          <p>Visualización interactiva de clientes y territorios</p>
-        </div>
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-          <i class="fas fa-tasks"></i>
-          <h3>Gestión de Tareas</h3>
-          <p>Organiza y prioriza tus actividades de ventas</p>
-        </div>
-      </div>
+  <!-- SECCIÓN 1: INICIO (Parallax) -->
+  <section id="inicio" class="parallax-section inicio fade-in"
+           style="background: url('https://carbonwave.com/wp-content/uploads/2023/12/gettyimages-1166631012.jpg') center/cover no-repeat;">
+    <div class="parallax-content">
+      <h2>Kaptia</h2>
+      <p>
+        Tu mejor opción de agente inteligente para impulsar la venta de fertilizantes orgánicos a base de sargazo.  
+        Utilizamos datos y análisis inteligente para prospectar clientes y hacer seguimiento a cada venta.
+      </p>
     </div>
   </section>
 
-  <!-- SECCIÓN 3: PLATAFORMA -->
-  <section id="plataforma" class="platform-section">
-    <div class="section-container">
-      <div class="platform-content">
-        <div class="platform-text" data-aos="fade-right">
-          <h2>Plataforma Kaptia</h2>
-          <p>Una solución integral para la venta de fertilizantes orgánicos a base de sargazo</p>
-          <ul class="platform-features">
-            <li><i class="fas fa-check-circle"></i> Dashboard interactivo personalizado</li>
-            <li><i class="fas fa-check-circle"></i> Seguimiento en tiempo real</li>
-            <li><i class="fas fa-check-circle"></i> Reportes detallados</li>
-            <li><i class="fas fa-check-circle"></i> Integración con CRM</li>
-          </ul>
-          <button class="platform-cta" onclick="window.location.href='login.html'">
-            Explorar Plataforma
-          </button>
-        </div>
-        <div class="platform-image" data-aos="fade-left">
-          <img src="https://carbonwave.com/wp-content/uploads/2023/12/beach-cover-with-sargassum-seaweed-1-.jpeg" 
-               alt="Dashboard Kaptia">
-        </div>
-      </div>
+  <!-- SECCIÓN 2: PLATAFORMA (Parallax) -->
+  <section id="plataforma" class="parallax-section plataforma fade-in"
+           style="background: url('https://carbonwave.com/wp-content/uploads/2023/12/beach-cover-with-sargassum-seaweed-1-.jpeg') center/cover no-repeat;">
+    <div class="parallax-content">
+      <h2>Plataforma Kaptia</h2>
+      <p>
+        Kaptia integra conjuntos de datos robustos y algoritmos de filtrado inteligente para identificar 
+        los mejores prospectos, hacer seguimiento a tus ventas y priorizar clientes potenciales.
+      </p>
     </div>
   </section>
 
-  <!-- SECCIÓN 4: EQUIPO -->
-  <section id="equipo" class="team-section">
-    <div class="section-container">
-      <h2 class="section-title" data-aos="fade-up">Nuestro Equipo</h2>
-      <p class="section-subtitle" data-aos="fade-up">Conoce a los estudiantes del Tec que hicieron esto posible</p>
-      <div class="team-grid">
-        <div class="team-member" data-aos="fade-up" data-aos-delay="100">
-          <div class="member-image">
-            <img src="https://media.licdn.com/dms/image/v2/D5603AQEw-UoZ06Kb-A/profile-displayphoto-shrink_200_200/B56ZcELhdZHwAc-/0/1748121819494?e=1753315200&v=beta&t=umlB7AE5ew2DhHiSiN3-sUj3KmX2enK5mF7vCQyGtME" 
-                 alt="Mariel Gómez Olalde">
-          </div>
-          <div class="member-info">
-            <h3>Mariel Gómez Olalde</h3>
-            <p>Desarrollo Frontend</p>
-            <div class="social-links">
-              <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-              <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-            </div>
-          </div>
+  <!-- SECCIÓN 3: BLOG -->
+  <section id="blog" class="section-content fade-in">
+    <h2 class="section-title">Blog: Noticias y Artículos</h2>
+    <div class="blog-container">
+      <!-- Entrada de Blog 1 -->
+      <article class="blog-card">
+        <img src="https://carbonwave.com/wp-content/uploads/2023/12/sargassum-1.jpg" alt="Innovando en la venta de fertilizantes orgánicos"/>
+        <div class="blog-content">
+          <h3>Innovando en la venta de fertilizantes orgánicos</h3>
+          <p>
+            Descubre cómo Kaptia utiliza un conjunto de datos y filtrados inteligentes para prospectar ventas y 
+            hacer seguimiento. Aprende cómo se explica cada columna clave para priorizar clientes y tomar decisiones estratégicas.
+          </p>
+          <a href="blog1.html">Leer más</a>
         </div>
+      </article>
+      <!-- Entrada de Blog 2 -->
+      <article class="blog-card">
+        <img src="https://carbonwave.com/wp-content/uploads/2023/12/unnamed-1.jpg" alt="¿Es el alga sargazo un buen fertilizante?"/>
+        <div class="blog-content">
+          <h3>¿Es el alga sargazo un buen fertilizante?</h3>
+          <p>
+            Analizamos las propiedades del alga sargazo y evaluamos su potencial como fertilizante orgánico,
+            sus ventajas y desafíos en el sector agrícola.
+          </p>
+          <a href="blog2.html">Leer más</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 4: DASHBOARD INTERACTIVO -->
+  <section id="dashboard" class="section-content dashboard">
+    <h2 class="section-title">Dashboard Interactivo</h2>
+    <p class="section-subtitle">
+      Nuestro sistema optimiza la prospección y seguimiento de ventas mediante un dashboard interactivo que
+      segmenta y prioriza la información.
+    </p>
+    <div class="dashboard-details">
+      <h3>Columnas del Archivo Mejorado:</h3>
+      <ul>
+        <li><strong>Prioridad de Venta:</strong> Alta, Media o Baja.</li>
+        <li><strong>Tamaño de Empresa:</strong> Micro, Pequeña, Mediana, Mediana-Grande, Grande, Corporativo.</li>
+        <li><strong>Potencial de Compra:</strong> Alto, Medio o Bajo.</li>
+        <li><strong>Tiene Contacto:</strong> Sí o No.</li>
+        <li><strong>Canal Preferido:</strong> Correo, Teléfono, Web o No disponible.</li>
+        <li><strong>Tipo de Cliente:</strong> Agrícola, Agroindustrial, Servicios agrícolas, Otro.</li>
+      </ul>
+      <p>
+        Estos datos te permiten filtrar por estado, tamaño y potencial de compra para identificar oportunidades estratégicas y maximizar tus ventas.
+      </p>
+      <div style="text-align: center; margin-top: 20px;">
+        <button id="btnDashboard" class="btn-primario">Ver Demo Dashboard</button>
       </div>
     </div>
   </section>
 
-  <!-- SECCIÓN 5: CONTACTO -->
-  <section id="contacto" class="contact-section">
-    <div class="section-container">
-      <h2 class="section-title" data-aos="fade-up">Contacto</h2>
-      <p class="section-subtitle" data-aos="fade-up">¿Listo para transformar tu estrategia de ventas?</p>
-      <div class="contact-content">
-        <div class="contact-form" data-aos="fade-right">
-          <form id="contactForm">
-            <div class="form-group">
-              <input type="text" placeholder="Nombre completo" required>
-            </div>
-            <div class="form-group">
-              <input type="email" placeholder="Correo electrónico" required>
-            </div>
-            <div class="form-group">
-              <input type="tel" placeholder="Teléfono (opcional)">
-            </div>
-            <div class="form-group">
-              <select required>
-                <option value="">Tipo de empresa</option>
-                <option value="agricola">Agrícola</option>
-                <option value="agroindustrial">Agroindustrial</option>
-                <option value="servicios">Servicios agrícolas</option>
-                <option value="otro">Otro</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <textarea placeholder="¿Cómo podemos ayudarte?" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="submit-button">Enviar Mensaje</button>
-          </form>
+  <!-- SECCIÓN 5: CONTÁCTANOS -->
+  <section id="contacto" class="section-content contacto">
+    <h2 class="section-title">Contacto</h2>
+    <p class="section-subtitle">
+      ¿Listo para impulsar tus ventas de fertilizantes orgánicos? Contáctanos y descubre cómo Kaptia puede 
+      transformar tu estrategia comercial.
+    </p>
+    <div style="text-align: center; margin-top: 30px;">
+      <form id="contactForm" style="max-width: 500px; margin: 0 auto;">
+        <div style="margin-bottom: 20px;">
+          <input type="text" placeholder="Nombre completo" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required>
         </div>
-        <div class="contact-info" data-aos="fade-left">
-          <div class="info-card">
-            <i class="fas fa-envelope"></i>
-            <h3>Correo Electrónico</h3>
-            <p>contacto@kaptia.com</p>
-          </div>
-          <div class="info-card">
-            <i class="fas fa-phone"></i>
-            <h3>Teléfono</h3>
-            <p>+52 (123) 456-7890</p>
-          </div>
-          <div class="info-card">
-            <i class="fas fa-map-marker-alt"></i>
-            <h3>Ubicación</h3>
-            <p>Ciudad de México, México</p>
-          </div>
+        <div style="margin-bottom: 20px;">
+          <input type="email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <input type="tel" placeholder="Teléfono (opcional)" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+        </div>
+        <div style="margin-bottom: 20px;">
+          <select style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required>
+            <option value="">Selecciona tu tipo de empresa</option>
+            <option value="agricola">Agrícola</option>
+            <option value="agroindustrial">Agroindustrial</option>
+            <option value="servicios">Servicios agrícolas</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <textarea placeholder="¿Cómo podemos ayudarte?" rows="5" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required></textarea>
+        </div>
+        <button type="submit" class="btn-primario" style="background-color: var(--color-primario); color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer;">Enviar Mensaje</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- SECCIÓN 6: EQUIPO -->
+  <section id="equipo" class="section-content equipo fade-in">
+    <h2 class="section-title">Nuestro Equipo</h2>
+    <p class="section-subtitle" style="text-align: center;">Conoce a los estudiantes Tec que hicieron esto posible.</p>
+    <div class="equipo-container">
+      <!-- Repetir la tarjeta de Mariel 4 veces -->
+      <div class="acreditacion-card">
+        <img src="https://media.licdn.com/dms/image/v2/D5603AQEw-UoZ06Kb-A/profile-displayphoto-shrink_200_200/B56ZcELhdZHwAc-/0/1748121819494?e=1753315200&v=beta&t=umlB7AE5ew2DhHiSiN3-sUj3KmX2enK5mF7vCQyGtME" alt="Mariel Gómez Olalde"/>
+        <div class="acreditacion-info">
+          <h3>Mariel Gómez Olalde</h3>
+          <p>Desarrollo Frontend</p>
+        </div>
+      </div>
+      <div class="acreditacion-card">
+        <img src="https://media.licdn.com/dms/image/v2/D5603AQE2Kc-IuHWB2g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1723691824902?e=1747267200&amp;v=beta&amp;t=82SjkLtByXudARIYmqjd6Gncwl4Ux8ja5FCdgTlIId8" alt="Mariel Gomez Olalde"/>
+        <div class="acreditacion-info">
+          <h3>Mariel Gomez Olalde</h3>
+          <p>Desarrollo Frontend</p>
+        </div>
+      </div>
+      <div class="acreditacion-card">
+        <img src="https://media.licdn.com/dms/image/v2/D5603AQE2Kc-IuHWB2g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1723691824902?e=1747267200&amp;v=beta&amp;t=82SjkLtByXudARIYmqjd6Gncwl4Ux8ja5FCdgTlIId8" alt="Mariel Gomez Olalde"/>
+        <div class="acreditacion-info">
+          <h3>Mariel Gomez Olalde</h3>
+          <p>Desarrollo Frontend</p>
+        </div>
+      </div>
+      <div class="acreditacion-card">
+        <img src="https://media.licdn.com/dms/image/v2/D5603AQE2Kc-IuHWB2g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1723691824902?e=1747267200&amp;v=beta&amp;t=82SjkLtByXudARIYmqjd6Gncwl4Ux8ja5FCdgTlIId8" alt="Mariel Gomez Olalde"/>
+        <div class="acreditacion-info">
+          <h3>Mariel Gomez Olalde</h3>
+          <p>Desarrollo Frontend</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="main-footer">
-    <div class="footer-content">
-      <div class="footer-logo">
-        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg" 
-             alt="Kaptia Logo">
-        <p>Transformando la venta de fertilizantes orgánicos</p>
-      </div>
-      <div class="footer-links">
-        <div class="footer-section">
-          <h4>Navegación</h4>
-          <ul>
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#caracteristicas">Características</a></li>
-            <li><a href="#plataforma">Plataforma</a></li>
-            <li><a href="#equipo">Equipo</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h4>Legal</h4>
-          <ul>
-            <li><a href="#">Términos y Condiciones</a></li>
-            <li><a href="#">Política de Privacidad</a></li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h4>Síguenos</h4>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-facebook"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 Kaptia. Todos los derechos reservados.</p>
-    </div>
+  <footer>
+    <p>© 2025 Kaptia. Todos los derechos reservados.</p>
   </footer>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // Inicializar AOS
-      AOS.init({
-        duration: 800,
-        once: true
-      });
-
-      // Scroll suave
-      const navLinks = document.querySelectorAll(".scroll-link");
-      navLinks.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const targetId = link.getAttribute("href").substring(1);
-          document.getElementById(targetId).scrollIntoView({ 
-            behavior: "smooth",
-            block: "start"
-          });
-        });
-      });
-
-      // Cambio de color del topbar al hacer scroll
-      const topbar = document.getElementById("topbarSection");
-      window.addEventListener("scroll", () => {
-        if (window.scrollY > 50) {
-          topbar.classList.add("scrolled");
-        } else {
-          topbar.classList.remove("scrolled");
-        }
-      });
-
-      // Formulario de contacto
-      const contactForm = document.getElementById("contactForm");
-      if (contactForm) {
-        contactForm.addEventListener("submit", (e) => {
-          e.preventDefault();
-          alert("Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.");
-          contactForm.reset();
-        });
-      }
-    });
-  </script>
+  <!-- Incluir la librería de Papa Parse si se usa en scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  
+  <!-- SCRIPTS -->
+  <script src="scripts.js"></script>
 </body>
 </html>
