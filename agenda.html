@@ -73,34 +73,43 @@
       box-shadow: 0 0 0 3px rgba(29, 92, 89, 0.1);
     }
 
-    .schedule-info button {
-      background-color: var(--color-primario);
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
+    .calendar-navigation {
       display: flex;
       align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
+      gap: 15px;
+      margin-bottom: 20px;
     }
 
-    .schedule-info button:hover {
-      background-color: var(--color-primario-hover);
-      transform: translateY(-1px);
+    .calendar-navigation h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .calendar-navigation button {
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      color: var(--color-primario);
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .calendar-navigation button:hover {
+      background-color: rgba(29, 92, 89, 0.1);
     }
 
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      grid-template-rows: repeat(5, 1fr); /* 5 filas en lugar de 6 */
+      grid-template-rows: repeat(5, 1fr);
       gap: 8px;
       background-color: #fff;
       padding: 15px;
       border-radius: 8px;
-      aspect-ratio: 7/5; /* Nueva proporción */
+      aspect-ratio: 7/5;
       min-height: 700px;
     }
 
@@ -176,7 +185,7 @@
     }
 
     .calendar-events {
-      margin-top: 32px; /* Espacio para el número del día */
+      margin-top: 32px;
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -232,35 +241,6 @@
       margin-top: 1px;
     }
 
-    /* Mejoras en la navegación del calendario */
-    .calendar-navigation {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .calendar-navigation h2 {
-      margin: 0;
-      font-size: 1.2rem;
-      min-width: 200px;
-      text-align: center;
-    }
-
-    .calendar-navigation button {
-      background: none;
-      border: none;
-      padding: 8px;
-      cursor: pointer;
-      color: var(--color-primario);
-      border-radius: 4px;
-      transition: all 0.2s ease;
-    }
-
-    .calendar-navigation button:hover {
-      background-color: rgba(29, 92, 89, 0.1);
-    }
-
     /* Estilos para múltiples eventos */
     .calendar-day.has-events::after {
       content: '';
@@ -279,94 +259,165 @@
       border-radius: 3px;
     }
 
-    /* Botón flotante para nuevo evento */
-    .floating-button {
+    /* Estilos para los tipos de eventos */
+    .event-tag.visita {
+      background-color: #e3f2fd;
+      color: #1565c0;
+    }
+
+    .event-tag.llamada {
+      background-color: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    .event-tag.reunion {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .event-tag.entrega {
+      background-color: #fff3e0;
+      color: #ef6c00;
+    }
+
+    /* Notificaciones */
+    .notification {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background-color: var(--color-primario);
-      color: white;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 1002;
+      opacity: 0;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      min-width: 300px;
       justify-content: center;
-      font-size: 24px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 1000;
     }
 
-    .floating-button:hover {
-      background-color: var(--color-primario-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    .notification.error {
+      background-color: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
     }
 
-    /* Estilos para modales */
-    .modal {
-      display: none;
+    .notification.success {
+      background-color: #dcfce7;
+      color: #16a34a;
+      border: 1px solid #bbf7d0;
+    }
+
+    .notification i {
+      font-size: 1.2em;
+    }
+
+    .notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Ajustes responsivos */
+    @media (max-width: 768px) {
+      .calendar {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+      }
+
+      .calendar div {
+        padding: 5px;
+        min-height: 80px;
+        font-size: 0.8rem;
+      }
+
+      .event-tag {
+        padding: 2px 6px;
+        font-size: 0.7rem;
+      }
+
+      .schedule-filters {
+        flex-wrap: wrap;
+      }
+
+      .filter-select {
+        width: 100%;
+      }
+    }
+
+    /* Slide-over panel para nuevo evento */
+    .slide-over {
       position: fixed;
       top: 0;
-      left: 0;
+      right: -500px;
       width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.5);
+      max-width: 500px;
+      height: 100vh;
+      background-color: #fff;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+      transition: right 0.3s ease-in-out;
       z-index: 1001;
-      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-over.active {
+      right: 0;
+    }
+
+    .slide-over-header {
+      padding: 20px 25px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
     }
 
-    .modal-content {
-      background-color: #fff;
-      padding: 25px;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 500px;
-      position: relative;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
-
-    .modal h2 {
-      margin-top: 0;
-      color: #333;
+    .slide-over-header h2 {
+      margin: 0;
       font-size: 1.5rem;
-      margin-bottom: 20px;
-    }
-
-    .close-modal {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 24px;
-      color: #666;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-
-    .close-modal:hover {
       color: #333;
+    }
+
+    .slide-over-content {
+      padding: 25px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .slide-over-footer {
+      padding: 20px 25px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #fff;
+    }
+
+    /* Mejoras en el formulario */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
     }
 
     .form-group {
       margin-bottom: 20px;
     }
 
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
     .form-group label {
       display: block;
       margin-bottom: 8px;
-      color: #333;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
+      color: #555;
       font-weight: 500;
-    }
-
-    .form-group label.required .required-icon {
-      color: var(--color-primario);
-      margin-right: 8px;
-      font-size: 0.9em;
+      font-size: 0.95rem;
     }
 
     .form-group input,
@@ -376,29 +427,100 @@
       padding: 12px;
       border: 1px solid #e0e0e0;
       border-radius: 8px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #333;
       transition: all 0.3s ease;
-      background-color: #fff;
     }
 
-    /* Estilos específicos para inputs de fecha y hora */
-    .form-group input[type="date"],
-    .form-group input[type="time"] {
-      position: relative;
+    .form-group input:hover,
+    .form-group select:hover,
+    .form-group textarea:hover {
+      border-color: var(--color-primario);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-primario);
+      box-shadow: 0 0 0 3px rgba(29, 92, 89, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* Botones mejorados */
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      appearance: none;
-      -webkit-appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 1v2M16 1v2M3 5h18M3 5v14a2 2 0 002 2h14a2 2 0 002-2V5'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      background-size: 16px;
-      padding-right: 40px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .form-group input[type="time"] {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 6v6l4 2'/%3E%3C/svg%3E");
+    .btn i {
+      font-size: 1.1rem;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primario);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primario-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e0e0e0;
+      transform: translateY(-1px);
+    }
+
+    /* Overlay para el fondo */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+      .slide-over {
+        max-width: 100%;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     /* Estilos para el calendario nativo */
@@ -460,47 +582,6 @@
       outline: none;
       border-color: var(--color-primario);
       box-shadow: 0 0 0 3px rgba(29, 92, 89, 0.1);
-    }
-
-    /* Ajustes responsivos */
-    @media (max-width: 768px) {
-      .calendar {
-        grid-template-columns: repeat(7, 1fr);
-        gap: 5px;
-      }
-
-      .calendar div {
-        padding: 5px;
-        min-height: 80px;
-        font-size: 0.8rem;
-      }
-
-      .event-tag {
-        padding: 2px 6px;
-        font-size: 0.7rem;
-      }
-
-      .schedule-filters {
-        flex-wrap: wrap;
-      }
-
-      .filter-select {
-        width: 100%;
-      }
-
-      .floating-button {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-        bottom: 20px;
-        right: 20px;
-      }
-
-      .form-group input[type="date"],
-      .form-group input[type="time"],
-      .time-select {
-        font-size: 16px; /* Previene zoom en iOS */
-      }
     }
 
     /* Slide-over panel para nuevo evento */
@@ -745,30 +826,374 @@
       background: var(--color-primario);
       color: white;
     }
+
+    /* Estilos para el selector de vistas */
+    .view-selector {
+      position: relative;
+      z-index: 100;
+    }
+
+    .view-selector-button {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      color: #333;
+      transition: all 0.3s ease;
+      min-width: 120px;
+      justify-content: space-between;
+    }
+
+    .view-options {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      min-width: 160px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+    }
+
+    .view-selector.active .view-options {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .view-option {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .view-option:hover {
+      background: #f8f9fa;
+    }
+
+    .view-option.active {
+      background: var(--color-primario);
+      color: white;
+    }
+
+    /* Vista Semanal */
+    .week-view {
+      display: none;
+      height: 800px;
+      overflow-y: auto;
+    }
+
+    .week-view.active {
+      display: block;
+    }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: 60px repeat(7, 1fr);
+      gap: 1px;
+      background: #eee;
+      border: 1px solid #eee;
+    }
+
+    .week-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: #fff;
+    }
+
+    .week-header-cell {
+      background: #fff;
+      padding: 12px 8px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .week-header-cell.today {
+      background: #f0f7f7;
+      color: var(--color-primario);
+    }
+
+    .time-column {
+      background: #fff;
+      position: sticky;
+      left: 0;
+      z-index: 5;
+    }
+
+    .time-slot {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: #666;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+    }
+
+    .week-cell {
+      background: #fff;
+      height: 60px;
+      border-bottom: 1px solid #eee;
+      position: relative;
+    }
+
+    .week-event {
+      position: absolute;
+      left: 4px;
+      right: 4px;
+      padding: 4px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      z-index: 1;
+    }
+
+    /* Vista Diaria */
+    .day-view {
+      display: none;
+      height: 800px;
+      overflow-y: auto;
+    }
+
+    .day-view.active {
+      display: block;
+    }
+
+    .day-header {
+      padding: 16px;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .day-grid {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 1px;
+      background: #eee;
+      border: 1px solid #eee;
+    }
+
+    .day-event {
+      margin: 4px;
+      padding: 8px;
+      background: #fff;
+      border-radius: 4px;
+      border-left: 3px solid var(--color-primario);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .day-event-time {
+      font-size: 0.75rem;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .day-event-title {
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+
+    .day-event-location {
+      font-size: 0.75rem;
+      color: #666;
+    }
+
+    /* Navegación entre vistas */
+    .view-navigation {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .nav-button {
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      color: #666;
+      transition: all 0.2s ease;
+    }
+
+    .nav-button:hover {
+      color: var(--color-primario);
+    }
+
+    .nav-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    /* Ajustes responsivos */
+    @media (max-width: 768px) {
+      .week-grid {
+        grid-template-columns: 40px repeat(7, 1fr);
+      }
+
+      .time-slot {
+        font-size: 0.7rem;
+      }
+
+      .week-event {
+        font-size: 0.75rem;
+      }
+    }
+
+    /* Estilos para la barra lateral */
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #1d5c59;
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding: 20px 0;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .sidebar-profile {
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-profile img {
+      width: 80px;
+      height: auto;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .profile-info h3 {
+      font-size: 1.5rem;
+      margin: 10px 0;
+      color: white;
+      font-weight: 600;
+    }
+
+    .menu {
+      flex: 1;
+    }
+
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu li {
+      margin-bottom: 5px;
+    }
+
+    .menu a {
+      display: flex;
+      align-items: center;
+      padding: 12px 25px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+      gap: 12px;
+    }
+
+    .menu a i {
+      width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu li.active a {
+      background-color: rgba(255, 255, 255, 0.15);
+      font-weight: 500;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .sidebar-footer img {
+      width: 100px;
+      height: auto;
+      margin-bottom: 15px;
+      filter: brightness(1.2);
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-footer img:hover {
+      transform: scale(1.05);
+      filter: brightness(1.3);
+    }
+
+    .sidebar-footer a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      padding: 10px;
+    }
+
+    .sidebar-footer a:hover {
+      color: white;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
   </style>
 </head>
 <body class="has-sidebar">
   <!-- SIDEBAR -->
-  <aside class="sidebar" style="display: flex; flex-direction: column;">
-    <div>
-      <div class="sidebar-profile">
-        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot"/>
-        <div class="profile-info">
-          <h3>KaptiaBot</h3>
-        </div>
-      </div>
-      <nav class="menu">
-        <ul>
-          <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
-          <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
-          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
-          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
-          <li class="active"><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
-          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
-          <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
-        </ul>
-      </nav>
+  <aside class="sidebar">
+    <div class="sidebar-profile">
+      <img src="https://media.licdn.com/dms/image/D4E0BAQGTdN5wnYDQxg/company-logo_200_200/0/1709055666461?e=1717027200&v=beta&t=8zWn4D_uPTnqnJxEiOKRr_dOEeIoaQOOOGN_Ow4q0Eo" alt="KaptiaBot"/>
     </div>
+    <nav class="menu">
+      <ul>
+        <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+        <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+        <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+        <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+        <li class="active"><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+        <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+        <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
+      </ul>
+    </nav>
     <div class="sidebar-footer">
       <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
     </div>
@@ -781,7 +1206,7 @@
       <div class="topbar-actions">
         <div class="search-user-section">
           <div class="search-bar">
-            <input type="text" placeholder="Buscar..." />
+            <input type="text" placeholder="Preguntar a KaptiaBot o buscar" />
             <i class="fas fa-search"></i>
           </div>
           <div class="user-profile">
@@ -791,9 +1216,6 @@
               <a href="#"><i class="fas fa-cog"></i> Configuración</a>
               <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
             </div>
-          </div>
-          <div class="icons">
-            <i class="fas fa-bell"></i>
           </div>
         </div>
       </div>
@@ -808,8 +1230,28 @@
           <h2>Mayo 2025</h2>
           <button id="nextMonthBtn"><i class="fas fa-angle-right"></i></button>
           <button id="nextYearBtn"><i class="fas fa-angle-double-right"></i></button>
-          <button id="todayBtn">Hoy</button>
+          <div class="view-selector">
+            <button class="view-selector-button">
+              <span>Mes</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="view-options">
+              <div class="view-option active" data-view="month">
+                <i class="fas fa-calendar-alt"></i>
+                Mes
+              </div>
+              <div class="view-option" data-view="week">
+                <i class="fas fa-calendar-week"></i>
+                Semana
+              </div>
+              <div class="view-option" data-view="day">
+                <i class="fas fa-calendar-day"></i>
+                Itinerario diario
+              </div>
+            </div>
+          </div>
         </div>
+
         <div class="schedule-filters">
           <select class="filter-select" id="eventTypeFilter">
             <option value="todos">Todos los eventos</option>
@@ -819,16 +1261,46 @@
             <option value="entrega">Entregas</option>
           </select>
         </div>
-        <div class="calendar-header">
-          <div>Dom</div>
-          <div>Lun</div>
-          <div>Mar</div>
-          <div>Mié</div>
-          <div>Jue</div>
-          <div>Vie</div>
-          <div>Sáb</div>
+
+        <!-- Vista Mensual -->
+        <div class="month-view active">
+          <div class="calendar-header">
+            <div>Dom</div>
+            <div>Lun</div>
+            <div>Mar</div>
+            <div>Mié</div>
+            <div>Jue</div>
+            <div>Vie</div>
+            <div>Sáb</div>
+          </div>
+          <div class="calendar" id="calendarGrid"></div>
         </div>
-        <div class="calendar" id="calendarGrid"></div>
+
+        <!-- Vista Semanal -->
+        <div class="week-view">
+          <div class="time-column">
+            <div class="time-slot">7:00</div>
+            <div class="time-slot">8:00</div>
+            <div class="time-slot">9:00</div>
+            <div class="time-slot">10:00</div>
+            <div class="time-slot">11:00</div>
+            <div class="time-slot">12:00</div>
+            <div class="time-slot">13:00</div>
+            <div class="time-slot">14:00</div>
+            <div class="time-slot">15:00</div>
+            <div class="time-slot">16:00</div>
+            <div class="time-slot">17:00</div>
+            <div class="time-slot">18:00</div>
+            <div class="time-slot">19:00</div>
+            <div class="time-slot">20:00</div>
+          </div>
+          <div class="week-day-column" id="weekViewGrid"></div>
+        </div>
+
+        <!-- Vista Diaria -->
+        <div class="day-view">
+          <div class="day-timeline" id="dayViewGrid"></div>
+        </div>
       </div>
     </div>
 
@@ -976,16 +1448,12 @@
       const nextYearBtn = document.getElementById('nextYearBtn');
       const prevMonthBtn = document.getElementById('prevMonthBtn');
       const nextMonthBtn = document.getElementById('nextMonthBtn');
-      const todayBtn = document.getElementById('todayBtn');
-      const newEventBtn = document.getElementById('newEventBtn');
-      const newEventSlideOver = document.getElementById('newEventSlideOver');
-      const newEventOverlay = document.getElementById('newEventOverlay');
       const eventTypeFilter = document.getElementById('eventTypeFilter');
       const newEventForm = document.getElementById('newEventForm');
 
       // Estado del calendario
       let currentDate = new Date();
-      let selectedDate = new Date(2025, 4, 1); // Iniciar en Mayo 2025
+      let selectedDate = new Date(2025, 4, 1); // Mayo 2025
       let events = JSON.parse(localStorage.getItem('calendarEvents')) || {};
 
       // Datos de ejemplo
@@ -1044,91 +1512,6 @@
       if (Object.keys(events).length === 0) {
         events = sampleEvents;
         localStorage.setItem('calendarEvents', JSON.stringify(events));
-      }
-
-      // Funciones para el manejo del slide-over
-      function openNewEvent() {
-        newEventSlideOver.classList.add('active');
-        newEventOverlay.classList.add('active');
-      }
-
-      function closeNewEvent() {
-        newEventSlideOver.classList.remove('active');
-        newEventOverlay.classList.remove('active');
-        newEventForm.reset();
-      }
-
-      // Generar opciones de hora
-      function generateTimeOptions() {
-        const timeSelect = document.getElementById('eventTime');
-        const startHour = 7;
-        const endHour = 20;
-
-        timeSelect.innerHTML = '<option value="">Seleccionar</option>';
-
-        for (let hour = startHour; hour <= endHour; hour++) {
-          for (let minutes = 0; minutes < 60; minutes += 15) {
-            const hourStr = hour.toString().padStart(2, '0');
-            const minutesStr = minutes.toString().padStart(2, '0');
-            const timeStr = `${hourStr}:${minutesStr}`;
-            const option = document.createElement('option');
-            option.value = timeStr;
-            option.textContent = timeStr;
-            timeSelect.appendChild(option);
-          }
-        }
-        
-        // Agregar event listener para validar la selección
-        timeSelect.addEventListener('change', function() {
-          console.log('Hora seleccionada:', this.value);
-        });
-      }
-
-      // Filtrado de eventos
-      eventTypeFilter.addEventListener('change', function() {
-        const selectedType = this.value;
-        const allEvents = document.querySelectorAll('.calendar-event');
-        
-        allEvents.forEach(event => {
-          const eventType = event.querySelector('.event-tag').classList[1];
-          if (selectedType === 'todos' || eventType === selectedType) {
-            event.style.display = 'block';
-          } else {
-            event.style.display = 'none';
-          }
-        });
-      });
-
-      // Event listeners
-      newEventBtn.addEventListener('click', openNewEvent);
-      newEventOverlay.addEventListener('click', closeNewEvent);
-
-      // Función para mostrar notificación
-      function showNotification(message, type = 'error') {
-        // Remover notificación anterior si existe
-        const existingNotification = document.querySelector('.notification');
-        if (existingNotification) {
-          existingNotification.remove();
-        }
-
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        notification.textContent = message;
-        
-        // Agregar icono según el tipo
-        const icon = document.createElement('i');
-        icon.className = type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-check-circle';
-        notification.insertBefore(icon, notification.firstChild);
-        
-        document.body.appendChild(notification);
-
-        setTimeout(() => {
-          notification.classList.add('show');
-          setTimeout(() => {
-            notification.classList.remove('show');
-            setTimeout(() => notification.remove(), 300);
-          }, 3000);
-        }, 100);
       }
 
       // Funciones del calendario
@@ -1267,134 +1650,22 @@
         updateCalendar();
       });
 
-      todayBtn.addEventListener('click', () => {
-        selectedDate = new Date();
-        updateCalendar();
+      // Filtrado de eventos
+      eventTypeFilter.addEventListener('change', function() {
+        const selectedType = this.value;
+        const allEvents = document.querySelectorAll('.calendar-event');
+        
+        allEvents.forEach(event => {
+          const eventType = event.querySelector('.event-tag').classList[1];
+          if (selectedType === 'todos' || eventType === selectedType) {
+            event.style.display = 'block';
+          } else {
+            event.style.display = 'none';
+          }
+        });
       });
 
-      // Función mejorada para guardar nuevo evento
-      window.saveNewEvent = function() {
-        // Obtener elementos del formulario
-        const typeElement = document.getElementById('eventType');
-        const clientElement = document.getElementById('eventClient');
-        const dateElement = document.getElementById('eventDate');
-        const timeElement = document.getElementById('eventTime');
-        const locationElement = document.getElementById('eventLocation');
-        const notesElement = document.getElementById('eventNotes');
-
-        // Obtener valores y hacer trim() para eliminar espacios en blanco
-        const type = typeElement.value.trim();
-        const client = clientElement.value.trim();
-        const date = dateElement.value.trim();
-        const time = timeElement.value.trim();
-        const location = locationElement.value.trim();
-        const notes = notesElement.value.trim();
-
-        // Validar campos requeridos
-        const requiredFields = [
-          { name: 'Tipo de Evento', value: type, element: typeElement },
-          { name: 'Cliente', value: client, element: clientElement },
-          { name: 'Fecha', value: date, element: dateElement },
-          { name: 'Hora', value: time, element: timeElement }
-        ];
-
-        // Verificar cada campo requerido
-        for (const field of requiredFields) {
-          if (!field.value) {
-            field.element.focus();
-            showNotification(`El campo ${field.name} es requerido`);
-            return;
-          }
-        }
-
-        try {
-          // Crear el nuevo evento
-          const newEvent = {
-            id: Date.now(),
-            type,
-            client,
-            time,
-            location,
-            notes
-          };
-
-          // Obtener eventos existentes o inicializar array
-          if (!events[date]) {
-            events[date] = [];
-          }
-          
-          // Agregar nuevo evento
-          events[date].push(newEvent);
-          
-          // Guardar en localStorage
-          localStorage.setItem('calendarEvents', JSON.stringify(events));
-          
-          // Actualizar calendario
-          updateCalendar();
-          
-          // Mostrar notificación de éxito
-          showNotification('Evento guardado exitosamente', 'success');
-          
-          // Cerrar el panel
-          closeNewEvent();
-          
-        } catch (error) {
-          console.error('Error al guardar el evento:', error);
-          showNotification('Error al guardar el evento', 'error');
-        }
-
-        try {
-          // Validar fecha y hora
-          const dateObj = new Date(`${date}T${time}`);
-          if (isNaN(dateObj.getTime())) {
-            throw new Error('Fecha u hora inválida');
-          }
-
-          // Crear nuevo evento
-          const newEvent = {
-            id: Date.now(),
-            type,
-            client,
-            date,
-            time,
-            location,
-            notes
-          };
-
-          // Guardar evento
-          const dateStr = formatDate(dateObj);
-          if (!events[dateStr]) {
-            events[dateStr] = [];
-          }
-          events[dateStr].push(newEvent);
-
-          // Guardar en localStorage
-          localStorage.setItem('calendarEvents', JSON.stringify(events));
-
-          // Actualizar calendario
-          updateCalendar();
-
-          // Cerrar formulario y mostrar confirmación
-          closeNewEvent();
-          showNotification('Evento guardado exitosamente');
-
-          // Si el mes del evento no es el actual, preguntar si desea ir a ese mes
-          const eventMonth = dateObj.getMonth();
-          const eventYear = dateObj.getFullYear();
-          if (eventMonth !== selectedDate.getMonth() || eventYear !== selectedDate.getFullYear()) {
-            if (confirm('¿Deseas ir al mes del evento creado?')) {
-              selectedDate = new Date(eventYear, eventMonth, 1);
-              updateCalendar();
-            }
-          }
-        } catch (error) {
-          console.error('Error al guardar el evento:', error);
-          alert('Error al guardar el evento. Por favor verifica los datos ingresados.');
-        }
-      };
-
       // Inicialización
-      generateTimeOptions();
       updateCalendar();
     });
   </script>

@@ -104,6 +104,60 @@
         width: 100%;
       }
     }
+
+    /* Estilos para la barra lateral */
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #1d5c59;
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding: 20px 0;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .menu li {
+      margin-bottom: 0;
+    }
+
+    .menu a {
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      gap: 10px;
+    }
+
+    .menu a i {
+      width: 16px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .menu a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu li.active a {
+      background-color: rgba(255, 255, 255, 0.15);
+      font-weight: 500;
+    }
+
+    .sidebar-profile img {
+      width: 75px;
+      height: auto;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+    }
   </style>
 </head>
 <body class="has-sidebar">
@@ -112,9 +166,6 @@
     <div>
       <div class="sidebar-profile">
         <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
-        <div class="profile-info">
-          <h3>KaptiaBot</h3>
-        </div>
       </div>
       <nav class="menu">
         <ul>
