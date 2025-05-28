@@ -20,6 +20,9 @@
       border-radius: 12px;
       box-shadow: 0 2px 15px rgba(0,0,0,0.08);
       margin-bottom: 20px;
+      max-width: 1200px; /* Aumentar el ancho máximo */
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .schedule-info {
@@ -41,15 +44,33 @@
       display: flex;
       gap: 15px;
       margin-bottom: 20px;
+      position: relative;
     }
 
     .filter-select {
-      padding: 8px 12px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+      padding: 10px 35px 10px 15px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
       background-color: #fff;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #333;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      transition: all 0.3s ease;
+      min-width: 200px;
+    }
+
+    .filter-select:hover {
+      border-color: var(--color-primario);
+    }
+
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--color-primario);
+      box-shadow: 0 0 0 3px rgba(29, 92, 89, 0.1);
     }
 
     .schedule-info button {
@@ -74,7 +95,7 @@
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
+      gap: 12px; /* Aumentar espacio entre días */
       background-color: #fff;
       padding: 15px;
       border-radius: 8px;
@@ -95,60 +116,123 @@
       font-size: 0.9rem;
     }
 
-    .calendar div {
+    .calendar-day {
       padding: 10px;
-      min-height: 100px;
+      min-height: 120px; /* Aumentar altura mínima */
       border: 1px solid #eee;
       border-radius: 8px;
       transition: all 0.3s ease;
       cursor: pointer;
+      position: relative;
+      background: #fff;
     }
 
-    .calendar div:hover {
+    .calendar-day.other-month {
+      background-color: #f9f9f9;
+      color: #999;
+    }
+
+    .calendar-day.today {
+      background-color: #f0f7f7;
+      border-color: var(--color-primario);
+    }
+
+    .calendar-day:hover {
       box-shadow: 0 2px 12px rgba(0,0,0,0.1);
       transform: translateY(-2px);
     }
 
-    .calendar-event {
-      position: relative;
-      padding-top: 35px !important;
-    }
-
-    .event-tag {
+    .calendar-day-number {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
+      top: 5px;
+      right: 5px;
+      font-size: 0.9rem;
+      color: #666;
       font-weight: 500;
     }
 
-    .event-tag.visita {
-      background-color: #e3f2fd;
-      color: #1565c0;
+    .calendar-events {
+      margin-top: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
 
-    .event-tag.llamada {
-      background-color: #f3e5f5;
-      color: #7b1fa2;
+    .calendar-event {
+      background-color: #fff;
+      border-radius: 4px;
+      padding: 5px;
+      font-size: 0.85rem;
+      margin-bottom: 2px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      position: relative;
     }
 
-    .event-tag.reunion {
-      background-color: #e8f5e9;
-      color: #2e7d32;
+    .calendar-event:hover {
+      transform: translateX(2px);
     }
 
-    .event-tag.entrega {
-      background-color: #fff3e0;
-      color: #ef6c00;
+    .event-tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 3px;
     }
 
-    .calendar-event small {
-      display: block;
-      font-size: 0.8rem;
+    .event-time {
+      font-size: 0.75rem;
       color: #666;
-      margin-top: 4px;
+      margin-top: 2px;
+    }
+
+    /* Mejoras en la navegación del calendario */
+    .calendar-navigation {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .calendar-navigation h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .calendar-navigation button {
+      background: none;
+      border: none;
+      padding: 8px;
+      cursor: pointer;
+      color: var(--color-primario);
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .calendar-navigation button:hover {
+      background-color: rgba(29, 92, 89, 0.1);
+    }
+
+    /* Estilos para múltiples eventos */
+    .calendar-day.has-events::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--color-primario);
+    }
+
+    .calendar-day.has-many-events::after {
+      width: 12px;
+      height: 6px;
+      border-radius: 3px;
     }
 
     /* Botón flotante para nuevo evento */
@@ -229,56 +313,112 @@
     .form-group label {
       display: block;
       margin-bottom: 8px;
-      color: #555;
+      color: #333;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
       font-weight: 500;
+    }
+
+    .form-group label.required::after {
+      content: "*";
+      color: var(--color-primario);
+      margin-left: 4px;
     }
 
     .form-group input,
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
       font-size: 0.9rem;
       color: #333;
-    }
-
-    .form-group textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .form-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 500;
       transition: all 0.3s ease;
+      background-color: #fff;
     }
 
-    .btn-primary {
-      background-color: var(--color-primario);
-      color: white;
+    /* Estilos específicos para inputs de fecha y hora */
+    .form-group input[type="date"],
+    .form-group input[type="time"] {
+      position: relative;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 1v2M16 1v2M3 5h18M3 5v14a2 2 0 002 2h14a2 2 0 002-2V5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 40px;
     }
 
-    .btn-secondary {
-      background-color: #e0e0e0;
-      color: #333;
+    .form-group input[type="time"] {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 6v6l4 2'/%3E%3C/svg%3E");
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
+    /* Estilos para el calendario nativo */
+    ::-webkit-calendar-picker-indicator {
+      opacity: 0;
+      cursor: pointer;
+      position: absolute;
+      right: 8px;
+      width: 24px;
+      height: 24px;
     }
 
+    ::-webkit-datetime-edit {
+      padding: 0;
+    }
+
+    ::-webkit-datetime-edit-fields-wrapper {
+      padding: 0;
+    }
+
+    ::-webkit-datetime-edit-text {
+      padding: 0 2px;
+    }
+
+    ::-webkit-datetime-edit-month-field,
+    ::-webkit-datetime-edit-day-field,
+    ::-webkit-datetime-edit-year-field,
+    ::-webkit-datetime-edit-hour-field,
+    ::-webkit-datetime-edit-minute-field,
+    ::-webkit-datetime-edit-ampm-field {
+      padding: 0 2px;
+    }
+
+    /* Estilos para el select personalizado de hora */
+    .time-select-wrapper {
+      position: relative;
+    }
+
+    .time-select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 40px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+    }
+
+    /* Estados de hover y focus mejorados */
+    .form-group input:hover,
+    .form-group select:hover,
+    .form-group textarea:hover {
+      border-color: var(--color-primario);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-primario);
+      box-shadow: 0 0 0 3px rgba(29, 92, 89, 0.1);
+    }
+
+    /* Ajustes responsivos */
     @media (max-width: 768px) {
       .calendar {
         grid-template-columns: repeat(7, 1fr);
@@ -311,6 +451,229 @@
         bottom: 20px;
         right: 20px;
       }
+
+      .form-group input[type="date"],
+      .form-group input[type="time"],
+      .time-select {
+        font-size: 16px; /* Previene zoom en iOS */
+      }
+    }
+
+    /* Slide-over panel para nuevo evento */
+    .slide-over {
+      position: fixed;
+      top: 0;
+      right: -500px;
+      width: 100%;
+      max-width: 500px;
+      height: 100vh;
+      background-color: #fff;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.1);
+      transition: right 0.3s ease-in-out;
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slide-over.active {
+      right: 0;
+    }
+
+    .slide-over-header {
+      padding: 20px 25px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slide-over-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .slide-over-content {
+      padding: 25px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .slide-over-footer {
+      padding: 20px 25px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #fff;
+    }
+
+    /* Mejoras en el formulario */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group.full-width {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #555;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #333;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:hover,
+    .form-group select:hover,
+    .form-group textarea:hover {
+      border-color: var(--color-primario);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-primario);
+      box-shadow: 0 0 0 3px rgba(29, 92, 89, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* Botones mejorados */
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn i {
+      font-size: 1.1rem;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primario);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primario-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background-color: #e0e0e0;
+      transform: translateY(-1px);
+    }
+
+    /* Overlay para el fondo */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+      .slide-over {
+        max-width: 100%;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Estilos para los tipos de eventos */
+    .event-tag.visita {
+      background-color: #e3f2fd;
+      color: #1565c0;
+    }
+
+    .event-tag.llamada {
+      background-color: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    .event-tag.reunion {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .event-tag.entrega {
+      background-color: #fff3e0;
+      color: #ef6c00;
+    }
+
+    /* Notificaciones */
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100%);
+      background-color: var(--color-primario);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      z-index: 1002;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .notification.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
     }
   </style>
 </head>
@@ -369,21 +732,22 @@
     <div class="content-wrapper">
       <!-- Calendario de Citas -->
       <div class="schedule-section">
-        <h2>Calendario de Citas - Mayo 2025</h2>
-        <div class="schedule-info">
-          <div class="schedule-filters">
-            <select class="filter-select" id="eventTypeFilter">
-              <option value="todos">Todos los eventos</option>
-              <option value="visita">Visitas</option>
-              <option value="llamada">Llamadas</option>
-              <option value="reunion">Reuniones</option>
-              <option value="entrega">Entregas</option>
-            </select>
-          </div>
-          <div class="schedule-actions">
-            <button id="prevMonthBtn"><i class="fas fa-chevron-left"></i> Anterior</button>
-            <button id="nextMonthBtn">Siguiente <i class="fas fa-chevron-right"></i></button>
-          </div>
+        <div class="calendar-navigation">
+          <button id="prevYearBtn"><i class="fas fa-angle-double-left"></i></button>
+          <button id="prevMonthBtn"><i class="fas fa-angle-left"></i></button>
+          <h2>Mayo 2025</h2>
+          <button id="nextMonthBtn"><i class="fas fa-angle-right"></i></button>
+          <button id="nextYearBtn"><i class="fas fa-angle-double-right"></i></button>
+          <button id="todayBtn">Hoy</button>
+        </div>
+        <div class="schedule-filters">
+          <select class="filter-select" id="eventTypeFilter">
+            <option value="todos">Todos los eventos</option>
+            <option value="visita">Visitas</option>
+            <option value="llamada">Llamadas</option>
+            <option value="reunion">Reuniones</option>
+            <option value="entrega">Entregas</option>
+          </select>
         </div>
         <div class="calendar-header">
           <div>Dom</div>
@@ -394,63 +758,7 @@
           <div>Vie</div>
           <div>Sáb</div>
         </div>
-        <div class="calendar">
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-          <div class="calendar-event" data-event-id="1">
-            <span class="event-tag visita">Visita</span>
-            Invernaderos Bonanza<br />
-            <small>2 PM</small>
-          </div>
-          <div>5</div>
-          <div>6</div>
-          <div>7</div>
-          <div>8</div>
-          <div>9</div>
-          <div class="calendar-event" data-event-id="2">
-            <span class="event-tag llamada">Llamada</span>
-            Finca La Paloma<br />
-            <small>11 AM</small>
-          </div>
-          <div>11</div>
-          <div>12</div>
-          <div>13</div>
-          <div>14</div>
-          <div class="calendar-event" data-event-id="3">
-            <span class="event-tag reunion">Reunión</span>
-            Agroindustrial El Sol<br />
-            <small>3 PM</small>
-          </div>
-          <div>16</div>
-          <div>17</div>
-          <div>18</div>
-          <div class="calendar-event" data-event-id="4">
-            <span class="event-tag visita">Visita</span>
-            Frutos de la Sierra<br />
-            <small>10 AM</small>
-          </div>
-          <div>20</div>
-          <div>21</div>
-          <div>22</div>
-          <div>23</div>
-          <div class="calendar-event" data-event-id="5">
-            <span class="event-tag entrega">Entrega</span>
-            Hortalizas del Campo<br />
-            <small>1 PM</small>
-          </div>
-          <div>25</div>
-          <div>26</div>
-          <div>27</div>
-          <div>28</div>
-          <div class="calendar-event" data-event-id="6">
-            <span class="event-tag llamada">Llamada</span>
-            Frutos de la Sierra<br />
-            <small>4 PM</small>
-          </div>
-          <div>30</div>
-          <div>31</div>
-        </div>
+        <div class="calendar" id="calendarGrid"></div>
       </div>
     </div>
 
@@ -491,46 +799,62 @@
       </div>
     </div>
 
-    <!-- Modal para nuevo evento -->
-    <div class="modal" id="newEventModal">
-      <div class="modal-content">
-        <span class="close-modal" id="closeNewEvent">&times;</span>
+    <!-- Slide-over panel para nuevo evento -->
+    <div class="overlay" id="newEventOverlay"></div>
+    <div class="slide-over" id="newEventSlideOver">
+      <div class="slide-over-header">
         <h2>Nuevo Evento</h2>
+        <button class="btn btn-secondary" onclick="closeNewEvent()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="slide-over-content">
         <form id="newEventForm">
-          <div class="form-group">
-            <label for="eventType">Tipo de Evento</label>
-            <select id="eventType" required>
-              <option value="visita">Visita</option>
-              <option value="llamada">Llamada</option>
-              <option value="reunion">Reunión</option>
-              <option value="entrega">Entrega</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="eventClient">Cliente</label>
-            <input type="text" id="eventClient" required>
-          </div>
-          <div class="form-group">
-            <label for="eventDate">Fecha</label>
-            <input type="date" id="eventDate" required>
-          </div>
-          <div class="form-group">
-            <label for="eventTime">Hora</label>
-            <input type="time" id="eventTime" required>
-          </div>
-          <div class="form-group">
-            <label for="eventLocation">Ubicación</label>
-            <input type="text" id="eventLocation">
-          </div>
-          <div class="form-group">
-            <label for="eventNotes">Notas</label>
-            <textarea id="eventNotes"></textarea>
-          </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-secondary" onclick="closeNewEvent()">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="eventType" class="required">Tipo de Evento</label>
+              <select id="eventType" required>
+                <option value="">Seleccionar tipo...</option>
+                <option value="visita">Visita</option>
+                <option value="llamada">Llamada</option>
+                <option value="reunion">Reunión</option>
+                <option value="entrega">Entrega</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="eventClient" class="required">Cliente</label>
+              <input type="text" id="eventClient" required placeholder="Nombre del cliente">
+            </div>
+            <div class="form-group">
+              <label for="eventDate" class="required">Fecha</label>
+              <input type="date" id="eventDate" required min="${new Date().toISOString().split('T')[0]}">
+            </div>
+            <div class="form-group">
+              <label for="eventTime" class="required">Hora</label>
+              <div class="time-select-wrapper">
+                <select id="eventTime" class="time-select" required>
+                  <option value="">Seleccionar hora...</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group full-width">
+              <label for="eventLocation">Ubicación</label>
+              <input type="text" id="eventLocation" placeholder="Dirección o enlace de reunión virtual">
+            </div>
+            <div class="form-group full-width">
+              <label for="eventNotes">Notas</label>
+              <textarea id="eventNotes" placeholder="Detalles adicionales del evento"></textarea>
+            </div>
           </div>
         </form>
+      </div>
+      <div class="slide-over-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeNewEvent()">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" onclick="saveNewEvent()">
+          <i class="fas fa-check"></i> Finalizado
+        </button>
       </div>
     </div>
 
@@ -541,52 +865,122 @@
   <script src="topbar.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Variables para los modales
-      const eventDetailsModal = document.getElementById('eventDetailsModal');
-      const newEventModal = document.getElementById('newEventModal');
-      const closeEventDetails = document.getElementById('closeEventDetails');
-      const closeNewEvent = document.getElementById('closeNewEvent');
-      const newEventBtn = document.getElementById('newEventBtn');
-      const eventTypeFilter = document.getElementById('eventTypeFilter');
-
-      // Datos de ejemplo para los eventos
-      const eventData = {
-        '1': {
-          type: 'visita',
-          client: 'Invernaderos Bonanza',
-          dateTime: '2025-05-04 14:00',
-          location: 'Av. Principal #123, Jalisco',
-          notes: 'Presentación de nuevos productos y demostración de sistema de riego.'
-        },
-        '2': {
-          type: 'llamada',
-          client: 'Finca La Paloma',
-          dateTime: '2025-05-10 11:00',
-          location: 'Llamada virtual',
-          notes: 'Seguimiento de cotización anterior y discusión de nuevos productos.'
-        },
-        // ... más datos de eventos
-      };
-
-      // Navegación del calendario
+      // Variables globales
+      const calendarGrid = document.getElementById('calendarGrid');
+      const monthTitle = document.querySelector('.calendar-navigation h2');
+      const prevYearBtn = document.getElementById('prevYearBtn');
+      const nextYearBtn = document.getElementById('nextYearBtn');
       const prevMonthBtn = document.getElementById('prevMonthBtn');
       const nextMonthBtn = document.getElementById('nextMonthBtn');
-      const monthTitle = document.querySelector('.schedule-section h2');
-      
-      let currentMonth = 5; // Mayo
-      let currentYear = 2025;
-      
-      function updateCalendarTitle() {
-        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        monthTitle.textContent = `Calendario de Citas - ${months[currentMonth - 1]} ${currentYear}`;
+      const todayBtn = document.getElementById('todayBtn');
+      const newEventBtn = document.getElementById('newEventBtn');
+      const newEventSlideOver = document.getElementById('newEventSlideOver');
+      const newEventOverlay = document.getElementById('newEventOverlay');
+      const eventTypeFilter = document.getElementById('eventTypeFilter');
+      const newEventForm = document.getElementById('newEventForm');
+
+      // Estado del calendario
+      let currentDate = new Date();
+      let selectedDate = new Date(2025, 4, 1); // Iniciar en Mayo 2025
+      let events = JSON.parse(localStorage.getItem('calendarEvents')) || {};
+
+      // Datos de ejemplo
+      const sampleEvents = {
+        '2025-05-04': [{
+          id: 1,
+          type: 'visita',
+          client: 'Invernaderos Bonanza',
+          time: '14:00',
+          location: 'Carretera Principal km 5',
+          notes: 'Revisión de instalaciones'
+        }],
+        '2025-05-10': [{
+          id: 2,
+          type: 'llamada',
+          client: 'Finca La Paloma',
+          time: '11:00',
+          location: 'Llamada virtual',
+          notes: 'Seguimiento de pedido'
+        }],
+        '2025-05-15': [{
+          id: 3,
+          type: 'reunion',
+          client: 'Agroindustrial El Sol',
+          time: '15:00',
+          location: 'Oficinas centrales',
+          notes: 'Presentación de nuevos productos'
+        }],
+        '2025-05-19': [{
+          id: 4,
+          type: 'visita',
+          client: 'Frutos de la Sierra',
+          time: '10:00',
+          location: 'Valle Norte',
+          notes: 'Inspección de cultivos'
+        }],
+        '2025-05-24': [{
+          id: 5,
+          type: 'entrega',
+          client: 'Hortalizas del Campo',
+          time: '13:00',
+          location: 'Centro de distribución',
+          notes: 'Entrega de pedido mensual'
+        }],
+        '2025-05-29': [{
+          id: 6,
+          type: 'llamada',
+          client: 'Frutos de la Sierra',
+          time: '16:00',
+          location: 'Llamada virtual',
+          notes: 'Seguimiento de visita'
+        }]
+      };
+
+      // Si no hay eventos guardados, usar los de ejemplo
+      if (Object.keys(events).length === 0) {
+        events = sampleEvents;
+        localStorage.setItem('calendarEvents', JSON.stringify(events));
+      }
+
+      // Funciones para el manejo del slide-over
+      function openNewEvent() {
+        newEventSlideOver.classList.add('active');
+        newEventOverlay.classList.add('active');
+      }
+
+      function closeNewEvent() {
+        newEventSlideOver.classList.remove('active');
+        newEventOverlay.classList.remove('active');
+        newEventForm.reset();
+      }
+
+      // Generar opciones de hora
+      function generateTimeOptions() {
+        const timeSelect = document.getElementById('eventTime');
+        const startHour = 7;
+        const endHour = 20;
+
+        timeSelect.innerHTML = '<option value="">Seleccionar hora...</option>';
+
+        for (let hour = startHour; hour <= endHour; hour++) {
+          for (let minutes = 0; minutes < 60; minutes += 15) {
+            const hourStr = hour.toString().padStart(2, '0');
+            const minutesStr = minutes.toString().padStart(2, '0');
+            const timeStr = `${hourStr}:${minutesStr}`;
+            const option = document.createElement('option');
+            option.value = timeStr;
+            option.textContent = timeStr;
+            timeSelect.appendChild(option);
+          }
+        }
       }
 
       // Filtrado de eventos
       eventTypeFilter.addEventListener('change', function() {
         const selectedType = this.value;
-        const events = document.querySelectorAll('.calendar-event');
+        const allEvents = document.querySelectorAll('.calendar-event');
         
-        events.forEach(event => {
+        allEvents.forEach(event => {
           const eventType = event.querySelector('.event-tag').classList[1];
           if (selectedType === 'todos' || eventType === selectedType) {
             event.style.display = 'block';
@@ -596,91 +990,235 @@
         });
       });
 
-      // Mostrar detalles del evento
-      document.querySelectorAll('.calendar-event').forEach(event => {
-        event.addEventListener('click', function() {
-          const eventId = this.dataset.eventId;
-          const data = eventData[eventId] || {
-            type: this.querySelector('.event-tag').textContent,
-            client: this.textContent.split('\n')[1].trim(),
-            dateTime: `2025-05-${this.textContent.match(/\d+/)[0]} ${this.querySelector('small').textContent}`,
-            location: 'Por definir',
-            notes: 'Sin notas adicionales'
+      // Event listeners
+      newEventBtn.addEventListener('click', openNewEvent);
+      newEventOverlay.addEventListener('click', closeNewEvent);
+
+      // Función para mostrar notificación
+      function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.classList.add('show');
+          setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+          }, 2000);
+        }, 100);
+      }
+
+      // Funciones del calendario
+      function updateCalendar() {
+        const year = selectedDate.getFullYear();
+        const month = selectedDate.getMonth();
+        
+        // Actualizar título
+        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        monthTitle.textContent = `${months[month]} ${year}`;
+
+        // Limpiar calendario
+        calendarGrid.innerHTML = '';
+
+        // Obtener primer día del mes
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        
+        // Obtener días del mes anterior para completar la primera semana
+        const firstDayOfWeek = firstDay.getDay();
+        const prevMonthDays = new Date(year, month, 0).getDate();
+        
+        // Agregar días del mes anterior
+        for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+          const day = prevMonthDays - i;
+          const date = new Date(year, month - 1, day);
+          createDayElement(date, true);
+        }
+
+        // Agregar días del mes actual
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+          const date = new Date(year, month, day);
+          createDayElement(date, false);
+        }
+
+        // Agregar días del mes siguiente
+        const remainingDays = 42 - (firstDayOfWeek + lastDay.getDate());
+        for (let day = 1; day <= remainingDays; day++) {
+          const date = new Date(year, month + 1, day);
+          createDayElement(date, true);
+        }
+      }
+
+      function createDayElement(date, isOtherMonth) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'calendar-day';
+        if (isOtherMonth) dayElement.classList.add('other-month');
+        
+        // Verificar si es hoy
+        if (isSameDate(date, new Date())) {
+          dayElement.classList.add('today');
+        }
+
+        // Agregar número del día
+        const dayNumber = document.createElement('span');
+        dayNumber.className = 'calendar-day-number';
+        dayNumber.textContent = date.getDate();
+        dayElement.appendChild(dayNumber);
+
+        // Contenedor para eventos
+        const eventsContainer = document.createElement('div');
+        eventsContainer.className = 'calendar-events';
+        dayElement.appendChild(eventsContainer);
+
+        // Agregar eventos del día
+        const dateStr = formatDate(date);
+        const dayEvents = events[dateStr] || [];
+        
+        if (dayEvents.length > 0) {
+          dayElement.classList.add('has-events');
+          if (dayEvents.length > 2) {
+            dayElement.classList.add('has-many-events');
+          }
+          
+          dayEvents.slice(0, 3).forEach(event => {
+            const eventElement = createEventElement(event);
+            eventsContainer.appendChild(eventElement);
+          });
+
+          if (dayEvents.length > 3) {
+            const moreEvents = document.createElement('div');
+            moreEvents.className = 'event-more';
+            moreEvents.textContent = `+${dayEvents.length - 3} más`;
+            eventsContainer.appendChild(moreEvents);
+          }
+        }
+
+        calendarGrid.appendChild(dayElement);
+      }
+
+      function createEventElement(event) {
+        const eventElement = document.createElement('div');
+        eventElement.className = 'calendar-event';
+        eventElement.innerHTML = `
+          <span class="event-tag ${event.type}">${event.type.charAt(0).toUpperCase() + event.type.slice(1)}</span>
+          <div>${event.client}</div>
+          <div class="event-time">${formatTime(event.time)}</div>
+        `;
+        
+        eventElement.addEventListener('click', () => showEventDetails(event));
+        return eventElement;
+      }
+
+      // Funciones auxiliares
+      function formatDate(date) {
+        return date.toISOString().split('T')[0];
+      }
+
+      function formatTime(time) {
+        return time.substring(0, 5);
+      }
+
+      function isSameDate(date1, date2) {
+        return date1.getDate() === date2.getDate() &&
+               date1.getMonth() === date2.getMonth() &&
+               date1.getFullYear() === date2.getFullYear();
+      }
+
+      // Event Listeners para navegación
+      prevYearBtn.addEventListener('click', () => {
+        selectedDate.setFullYear(selectedDate.getFullYear() - 1);
+        updateCalendar();
+      });
+
+      nextYearBtn.addEventListener('click', () => {
+        selectedDate.setFullYear(selectedDate.getFullYear() + 1);
+        updateCalendar();
+      });
+
+      prevMonthBtn.addEventListener('click', () => {
+        selectedDate.setMonth(selectedDate.getMonth() - 1);
+        updateCalendar();
+      });
+
+      nextMonthBtn.addEventListener('click', () => {
+        selectedDate.setMonth(selectedDate.getMonth() + 1);
+        updateCalendar();
+      });
+
+      todayBtn.addEventListener('click', () => {
+        selectedDate = new Date();
+        updateCalendar();
+      });
+
+      // Función mejorada para guardar nuevo evento
+      window.saveNewEvent = function() {
+        const type = document.getElementById('eventType').value;
+        const client = document.getElementById('eventClient').value;
+        const date = document.getElementById('eventDate').value;
+        const time = document.getElementById('eventTime').value;
+        const location = document.getElementById('eventLocation').value;
+        const notes = document.getElementById('eventNotes').value;
+
+        if (!type || !client || !date || !time) {
+          alert('Por favor completa todos los campos requeridos');
+          return;
+        }
+
+        try {
+          // Validar fecha y hora
+          const dateObj = new Date(`${date}T${time}`);
+          if (isNaN(dateObj.getTime())) {
+            throw new Error('Fecha u hora inválida');
+          }
+
+          // Crear nuevo evento
+          const newEvent = {
+            id: Date.now(),
+            type,
+            client,
+            date,
+            time,
+            location,
+            notes
           };
 
-          document.getElementById('eventType').textContent = data.type.charAt(0).toUpperCase() + data.type.slice(1);
-          document.getElementById('eventClient').textContent = data.client;
-          document.getElementById('eventDateTime').textContent = data.dateTime;
-          document.getElementById('eventLocation').textContent = data.location;
-          document.getElementById('eventNotes').textContent = data.notes;
+          // Guardar evento
+          const dateStr = formatDate(dateObj);
+          if (!events[dateStr]) {
+            events[dateStr] = [];
+          }
+          events[dateStr].push(newEvent);
 
-          eventDetailsModal.style.display = 'flex';
-        });
-      });
+          // Guardar en localStorage
+          localStorage.setItem('calendarEvents', JSON.stringify(events));
 
-      // Navegación del calendario
-      prevMonthBtn.addEventListener('click', function() {
-        if (currentMonth === 1) {
-          currentMonth = 12;
-          currentYear--;
-        } else {
-          currentMonth--;
+          // Actualizar calendario
+          updateCalendar();
+
+          // Cerrar formulario y mostrar confirmación
+          closeNewEvent();
+          showNotification('Evento guardado exitosamente');
+
+          // Si el mes del evento no es el actual, preguntar si desea ir a ese mes
+          const eventMonth = dateObj.getMonth();
+          const eventYear = dateObj.getFullYear();
+          if (eventMonth !== selectedDate.getMonth() || eventYear !== selectedDate.getFullYear()) {
+            if (confirm('¿Deseas ir al mes del evento creado?')) {
+              selectedDate = new Date(eventYear, eventMonth, 1);
+              updateCalendar();
+            }
+          }
+        } catch (error) {
+          console.error('Error al guardar el evento:', error);
+          alert('Error al guardar el evento. Por favor verifica los datos ingresados.');
         }
-        updateCalendarTitle();
-      });
-      
-      nextMonthBtn.addEventListener('click', function() {
-        if (currentMonth === 12) {
-          currentMonth = 1;
-          currentYear++;
-        } else {
-          currentMonth++;
-        }
-        updateCalendarTitle();
-      });
-
-      // Manejo de modales
-      newEventBtn.addEventListener('click', () => {
-        newEventModal.style.display = 'flex';
-      });
-
-      closeEventDetails.addEventListener('click', () => {
-        eventDetailsModal.style.display = 'none';
-      });
-
-      closeNewEvent.addEventListener('click', () => {
-        newEventModal.style.display = 'none';
-      });
-
-      window.closeEventDetails = function() {
-        eventDetailsModal.style.display = 'none';
       };
 
-      window.closeNewEvent = function() {
-        newEventModal.style.display = 'none';
-      };
-
-      window.editEvent = function() {
-        alert('Función de edición en desarrollo');
-      };
-
-      // Manejo del formulario de nuevo evento
-      document.getElementById('newEventForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        // Aquí iría la lógica para guardar el nuevo evento
-        alert('Evento guardado exitosamente');
-        newEventModal.style.display = 'none';
-      });
-
-      // Cerrar modales al hacer clic fuera
-      window.addEventListener('click', function(e) {
-        if (e.target === eventDetailsModal) {
-          eventDetailsModal.style.display = 'none';
-        }
-        if (e.target === newEventModal) {
-          newEventModal.style.display = 'none';
-        }
-      });
+      // Inicialización
+      generateTimeOptions();
+      updateCalendar();
     });
   </script>
 </body>
