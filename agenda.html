@@ -20,7 +20,7 @@
       border-radius: 12px;
       box-shadow: 0 2px 15px rgba(0,0,0,0.08);
       margin-bottom: 20px;
-      max-width: 1200px; /* Aumentar el ancho máximo */
+      max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -95,60 +95,75 @@
     .calendar {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 12px; /* Aumentar espacio entre días */
+      grid-template-rows: repeat(6, 1fr); /* Siempre 6 filas */
+      gap: 12px;
       background-color: #fff;
       padding: 15px;
       border-radius: 8px;
+      aspect-ratio: 7/6; /* Mantener proporción */
+      min-height: 800px; /* Altura mínima fija */
     }
 
     .calendar-header {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 12px;
+      margin-bottom: 12px;
       font-weight: 600;
       color: #666;
+      height: 40px;
     }
 
     .calendar-header div {
       text-align: center;
       padding: 10px;
       font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f8f9fa;
+      border-radius: 8px;
     }
 
     .calendar-day {
       padding: 10px;
-      min-height: 120px; /* Aumentar altura mínima */
+      height: 100%; /* Llenar todo el espacio disponible */
+      min-height: 120px;
       border: 1px solid #eee;
       border-radius: 8px;
       transition: all 0.3s ease;
       cursor: pointer;
       position: relative;
       background: #fff;
+      display: flex;
+      flex-direction: column;
     }
 
     .calendar-day.other-month {
-      background-color: #f9f9f9;
-      color: #999;
-    }
-
-    .calendar-day.today {
-      background-color: #f0f7f7;
-      border-color: var(--color-primario);
+      background-color: #f8f9fa;
+      opacity: 0.7;
     }
 
     .calendar-day:hover {
+      border-color: var(--color-primario);
       box-shadow: 0 2px 12px rgba(0,0,0,0.1);
       transform: translateY(-2px);
     }
 
     .calendar-day-number {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      font-size: 0.9rem;
-      color: #666;
+      font-size: 1rem;
       font-weight: 500;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .calendar-day.other-month .calendar-day-number {
+      color: #999;
+    }
+
+    .calendar-day.today {
+      border: 2px solid var(--color-primario);
+      background-color: #f0f7f7;
     }
 
     .calendar-events {
@@ -156,21 +171,41 @@
       display: flex;
       flex-direction: column;
       gap: 5px;
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .calendar-events::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .calendar-events::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 2px;
+    }
+
+    .calendar-events::-webkit-scrollbar-thumb {
+      background: var(--color-primario);
+      border-radius: 2px;
     }
 
     .calendar-event {
       background-color: #fff;
       border-radius: 4px;
-      padding: 5px;
+      padding: 6px 8px;
       font-size: 0.85rem;
-      margin-bottom: 2px;
       cursor: pointer;
       transition: all 0.2s ease;
       position: relative;
+      border: 1px solid #eee;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
 
     .calendar-event:hover {
       transform: translateX(2px);
+      background-color: #f8f8f8;
+      border-color: var(--color-primario);
     }
 
     .event-tag {
@@ -1097,29 +1132,28 @@
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
         
-        // Obtener días del mes anterior para completar la primera semana
-        const firstDayOfWeek = firstDay.getDay();
-        const prevMonthDays = new Date(year, month, 0).getDate();
+        // Calcular el primer día de la primera semana del calendario
+        let firstDayOfWeek = firstDay.getDay();
+        if (firstDayOfWeek === 0) firstDayOfWeek = 7; // Ajustar domingo a 7
+        firstDayOfWeek--; // Ajustar a base 0
         
-        // Agregar días del mes anterior
-        for (let i = firstDayOfWeek - 1; i >= 0; i--) {
-          const day = prevMonthDays - i;
-          const date = new Date(year, month - 1, day);
-          createDayElement(date, true);
+        // Calcular fecha del primer día a mostrar (último mes)
+        const prevMonthDays = new Date(year, month, 0).getDate();
+        const firstVisibleDate = prevMonthDays - firstDayOfWeek;
+        
+        // Generar array de 42 días (6 semanas)
+        const totalDays = 42;
+        let currentDate = new Date(year, month - 1, firstVisibleDate);
+        
+        // Crear la cuadrícula de 6 semanas
+        for (let i = 0; i < totalDays; i++) {
+          const isCurrentMonth = currentDate.getMonth() === month;
+          createDayElement(new Date(currentDate), !isCurrentMonth);
+          currentDate.setDate(currentDate.getDate() + 1);
         }
 
-        // Agregar días del mes actual
-        for (let day = 1; day <= lastDay.getDate(); day++) {
-          const date = new Date(year, month, day);
-          createDayElement(date, false);
-        }
-
-        // Agregar días del mes siguiente
-        const remainingDays = 42 - (firstDayOfWeek + lastDay.getDate());
-        for (let day = 1; day <= remainingDays; day++) {
-          const date = new Date(year, month + 1, day);
-          createDayElement(date, true);
-        }
+        // Asegurar que el grid tenga 6 filas
+        calendarGrid.style.gridTemplateRows = 'repeat(6, 1fr)';
       }
 
       function createDayElement(date, isOtherMonth) {
@@ -1256,6 +1290,42 @@
             showNotification(`El campo ${field.name} es requerido`);
             return;
           }
+        }
+
+        try {
+          // Crear el nuevo evento
+          const newEvent = {
+            id: Date.now(),
+            type,
+            client,
+            time,
+            location,
+            notes
+          };
+
+          // Obtener eventos existentes o inicializar array
+          if (!events[date]) {
+            events[date] = [];
+          }
+          
+          // Agregar nuevo evento
+          events[date].push(newEvent);
+          
+          // Guardar en localStorage
+          localStorage.setItem('calendarEvents', JSON.stringify(events));
+          
+          // Actualizar calendario
+          updateCalendar();
+          
+          // Mostrar notificación de éxito
+          showNotification('Evento guardado exitosamente', 'success');
+          
+          // Cerrar el panel
+          closeNewEvent();
+          
+        } catch (error) {
+          console.error('Error al guardar el evento:', error);
+          showNotification('Error al guardar el evento', 'error');
         }
 
         try {
