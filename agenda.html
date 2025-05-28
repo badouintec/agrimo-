@@ -319,10 +319,10 @@
       font-weight: 500;
     }
 
-    .form-group label.required::after {
-      content: "*";
+    .form-group label.required .required-icon {
       color: var(--color-primario);
-      margin-left: 4px;
+      margin-right: 8px;
+      font-size: 0.9em;
     }
 
     .form-group input,
@@ -661,14 +661,34 @@
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%) translateY(100%);
-      background-color: var(--color-primario);
-      color: white;
       padding: 12px 24px;
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       z-index: 1002;
       opacity: 0;
       transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      min-width: 300px;
+      justify-content: center;
+    }
+
+    .notification.error {
+      background-color: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .notification.success {
+      background-color: #dcfce7;
+      color: #16a34a;
+      border: 1px solid #bbf7d0;
+    }
+
+    .notification i {
+      font-size: 1.2em;
     }
 
     .notification.show {
@@ -812,9 +832,12 @@
         <form id="newEventForm">
           <div class="form-grid">
             <div class="form-group">
-              <label for="eventType" class="required">Tipo de Evento</label>
+              <label for="eventType" class="required">
+                <i class="fas fa-tag required-icon"></i>
+                Tipo de Evento
+              </label>
               <select id="eventType" required>
-                <option value="">Seleccionar tipo...</option>
+                <option value="">Seleccionar</option>
                 <option value="visita">Visita</option>
                 <option value="llamada">Llamada</option>
                 <option value="reunion">Reunión</option>
@@ -822,18 +845,27 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="eventClient" class="required">Cliente</label>
+              <label for="eventClient" class="required">
+                <i class="fas fa-user required-icon"></i>
+                Cliente
+              </label>
               <input type="text" id="eventClient" required placeholder="Nombre del cliente">
             </div>
             <div class="form-group">
-              <label for="eventDate" class="required">Fecha</label>
+              <label for="eventDate" class="required">
+                <i class="fas fa-calendar required-icon"></i>
+                Fecha
+              </label>
               <input type="date" id="eventDate" required min="${new Date().toISOString().split('T')[0]}">
             </div>
             <div class="form-group">
-              <label for="eventTime" class="required">Hora</label>
+              <label for="eventTime" class="required">
+                <i class="fas fa-clock required-icon"></i>
+                Hora
+              </label>
               <div class="time-select-wrapper">
                 <select id="eventTime" class="time-select" required>
-                  <option value="">Seleccionar hora...</option>
+                  <option value="">Seleccionar</option>
                 </select>
               </div>
             </div>
@@ -849,13 +881,35 @@
         </form>
       </div>
       <div class="slide-over-footer">
-        <button type="button" class="btn btn-secondary" onclick="closeNewEvent()">
+        <button type="button" class="btn btn-secondary" id="cancelEventBtn">
           <i class="fas fa-times"></i> Cancelar
         </button>
-        <button type="button" class="btn btn-primary" onclick="saveNewEvent()">
+        <button type="button" class="btn btn-primary" id="saveEventBtn">
           <i class="fas fa-check"></i> Finalizado
         </button>
       </div>
+      <script>
+        // Event listeners para los botones
+        document.getElementById('cancelEventBtn').addEventListener('click', function() {
+          closeNewEvent();
+        });
+
+        document.getElementById('saveEventBtn').addEventListener('click', function() {
+          saveNewEvent();
+        });
+
+        // Función para cerrar el panel
+        function closeNewEvent() {
+          const slideOver = document.getElementById('newEventSlideOver');
+          const overlay = document.getElementById('newEventOverlay');
+          
+          slideOver.classList.remove('active');
+          overlay.classList.remove('active');
+          
+          // Limpiar el formulario
+          document.getElementById('newEventForm').reset();
+        }
+      </script>
     </div>
 
   </main>
@@ -960,7 +1014,7 @@
         const startHour = 7;
         const endHour = 20;
 
-        timeSelect.innerHTML = '<option value="">Seleccionar hora...</option>';
+        timeSelect.innerHTML = '<option value="">Seleccionar</option>';
 
         for (let hour = startHour; hour <= endHour; hour++) {
           for (let minutes = 0; minutes < 60; minutes += 15) {
@@ -973,6 +1027,11 @@
             timeSelect.appendChild(option);
           }
         }
+        
+        // Agregar event listener para validar la selección
+        timeSelect.addEventListener('change', function() {
+          console.log('Hora seleccionada:', this.value);
+        });
       }
 
       // Filtrado de eventos
@@ -995,10 +1054,22 @@
       newEventOverlay.addEventListener('click', closeNewEvent);
 
       // Función para mostrar notificación
-      function showNotification(message) {
+      function showNotification(message, type = 'error') {
+        // Remover notificación anterior si existe
+        const existingNotification = document.querySelector('.notification');
+        if (existingNotification) {
+          existingNotification.remove();
+        }
+
         const notification = document.createElement('div');
-        notification.className = 'notification';
+        notification.className = `notification ${type}`;
         notification.textContent = message;
+        
+        // Agregar icono según el tipo
+        const icon = document.createElement('i');
+        icon.className = type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-check-circle';
+        notification.insertBefore(icon, notification.firstChild);
+        
         document.body.appendChild(notification);
 
         setTimeout(() => {
@@ -1006,7 +1077,7 @@
           setTimeout(() => {
             notification.classList.remove('show');
             setTimeout(() => notification.remove(), 300);
-          }, 2000);
+          }, 3000);
         }, 100);
       }
 
@@ -1154,16 +1225,37 @@
 
       // Función mejorada para guardar nuevo evento
       window.saveNewEvent = function() {
-        const type = document.getElementById('eventType').value;
-        const client = document.getElementById('eventClient').value;
-        const date = document.getElementById('eventDate').value;
-        const time = document.getElementById('eventTime').value;
-        const location = document.getElementById('eventLocation').value;
-        const notes = document.getElementById('eventNotes').value;
+        // Obtener elementos del formulario
+        const typeElement = document.getElementById('eventType');
+        const clientElement = document.getElementById('eventClient');
+        const dateElement = document.getElementById('eventDate');
+        const timeElement = document.getElementById('eventTime');
+        const locationElement = document.getElementById('eventLocation');
+        const notesElement = document.getElementById('eventNotes');
 
-        if (!type || !client || !date || !time) {
-          alert('Por favor completa todos los campos requeridos');
-          return;
+        // Obtener valores y hacer trim() para eliminar espacios en blanco
+        const type = typeElement.value.trim();
+        const client = clientElement.value.trim();
+        const date = dateElement.value.trim();
+        const time = timeElement.value.trim();
+        const location = locationElement.value.trim();
+        const notes = notesElement.value.trim();
+
+        // Validar campos requeridos
+        const requiredFields = [
+          { name: 'Tipo de Evento', value: type, element: typeElement },
+          { name: 'Cliente', value: client, element: clientElement },
+          { name: 'Fecha', value: date, element: dateElement },
+          { name: 'Hora', value: time, element: timeElement }
+        ];
+
+        // Verificar cada campo requerido
+        for (const field of requiredFields) {
+          if (!field.value) {
+            field.element.focus();
+            showNotification(`El campo ${field.name} es requerido`);
+            return;
+          }
         }
 
         try {
