@@ -17,7 +17,7 @@
   <!-- Todos los estilos se han movido a styles.css -->
 </head>
 <body class="has-sidebar">
-  <!-- Menú lateral (igual que en home.html) -->
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div>
       <div class="sidebar-profile">
@@ -40,6 +40,34 @@
       <a href="contacto-asesor.html"><i class="fas fa-question-circle"></i> Contacta un asesor</a>
     </div>
   </aside>
+
+  <!-- Botones de acción del mapa -->
+  <div class="map-action-buttons">
+    <button class="map-action-button" id="zoomInBtn">
+      <i class="fas fa-plus"></i>
+      <span class="map-action-tooltip">Acercar</span>
+    </button>
+    <button class="map-action-button" id="zoomOutBtn">
+      <i class="fas fa-minus"></i>
+      <span class="map-action-tooltip">Alejar</span>
+    </button>
+    <button class="map-action-button" id="centerMapBtn">
+      <i class="fas fa-crosshairs"></i>
+      <span class="map-action-tooltip">Centrar mapa</span>
+    </button>
+    <button class="map-action-button" id="filterBtn">
+      <i class="fas fa-filter"></i>
+      <span class="map-action-tooltip">Filtros</span>
+    </button>
+    <button class="map-action-button" id="exportBtn">
+      <i class="fas fa-download"></i>
+      <span class="map-action-tooltip">Exportar datos</span>
+    </button>
+    <button class="map-action-button" id="refreshBtn">
+      <i class="fas fa-sync-alt"></i>
+      <span class="map-action-tooltip">Actualizar datos</span>
+    </button>
+  </div>
 
   <!-- Contenido principal -->
   <main class="main-content">
@@ -158,5 +186,9 @@
       }
     });
   </script>
+
+  <!-- Scripts -->
+  <script src="scripts.js"></script>
+  <script src="map-actions.js"></script>
 </body>
 </html>
