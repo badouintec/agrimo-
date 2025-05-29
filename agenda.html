@@ -1083,52 +1083,46 @@
     .sidebar-profile {
       padding: 15px;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .sidebar-profile img {
-      width: 80px;
+      width: 120px;
+      height: auto;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-profile .secondary-logo {
+      width: 100px;
       height: auto;
       margin-bottom: 10px;
       transition: all 0.3s ease;
     }
 
-    .profile-info h3 {
-      font-size: 1.5rem;
-      margin: 10px 0;
-      color: white;
-      font-weight: 600;
-    }
-
-    .menu {
-      flex: 1;
-    }
-
-    .menu ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
     .menu li {
-      margin-bottom: 5px;
+      margin-bottom: 0;
     }
 
     .menu a {
       display: flex;
       align-items: center;
-      padding: 12px 25px;
+      padding: 8px 20px;
       color: white;
       text-decoration: none;
       transition: all 0.3s ease;
-      font-size: 1rem;
-      gap: 12px;
+      font-size: 0.95rem;
+      gap: 10px;
+      font-weight: 400;
     }
 
     .menu a i {
-      width: 20px;
+      width: 16px;
       text-align: center;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
 
     .menu a:hover {
@@ -1137,65 +1131,59 @@
 
     .menu li.active a {
       background-color: rgba(255, 255, 255, 0.15);
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .sidebar-footer {
       margin-top: auto;
       padding: 20px;
-      text-align: center;
-    }
-
-    .sidebar-footer img {
-      width: 100px;
-      height: auto;
-      margin-bottom: 15px;
-      filter: brightness(1.2);
-      transition: all 0.3s ease;
-    }
-
-    .sidebar-footer img:hover {
-      transform: scale(1.05);
-      filter: brightness(1.3);
     }
 
     .sidebar-footer a {
-      color: rgba(255, 255, 255, 0.7);
-      text-decoration: none;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.9rem;
+      padding: 8px 20px;
+      color: white;
+      text-decoration: none;
       transition: all 0.3s ease;
-      padding: 10px;
+      font-size: 0.8rem;
+      gap: 10px;
+      font-weight: 400;
     }
 
     .sidebar-footer a:hover {
-      color: white;
       background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-footer a i {
+      width: 14px;
+      text-align: center;
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body class="has-sidebar">
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sidebar-profile">
-      <img src="https://media.licdn.com/dms/image/D4E0BAQGTdN5wnYDQxg/company-logo_200_200/0/1709055666461?e=1717027200&v=beta&t=8zWn4D_uPTnqnJxEiOKRr_dOEeIoaQOOOGN_Ow4q0Eo" alt="KaptiaBot"/>
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
+        <img class="secondary-logo" src="https://scontent-qro1-1.xx.fbcdn.net/v/t39.30808-6/500738011_687111284206903_2823906794035529988_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=8ZLP2CkI5EMQ7kNvwGi2eTc&_nc_oc=AdnnUJAvTgy0IV_co3BInX7qs8xVOocsdUK-0CNQifdrMTvLD9ilvsCNpPiITASgiRM&_nc_zt=23&_nc_ht=scontent-qro1-1.xx&_nc_gid=PhckQI5PZ10HHAMwTJseaA&oh=00_AfK4D10Anecx3Kjj1wfMo5DJMm1owQGnt1ufJ98Os-GZ5g&oe=683D2EF9" alt="Logo secundario" />
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+          <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li class="active"><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li><a href="herramientas.html"><i class="fas fa-tools"></i> Herramientas</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="menu">
-      <ul>
-        <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
-        <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
-        <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
-        <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
-        <li class="active"><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
-        <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
-        <li><a href="contacto-asesor.html"><i class="fas fa-headset"></i> Contacta un asesor</a></li>
-      </ul>
-    </nav>
     <div class="sidebar-footer">
-      <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+      <a href="contacto-asesor.html"><i class="fas fa-question-circle"></i> Contacta un asesor</a>
     </div>
   </aside>
 
