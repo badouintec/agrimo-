@@ -4,20 +4,26 @@
  :root {
   /* Paleta de Kaptia: Tonos de verde, blanco y gris */
   --color-primario: #1d5c59;
-  --color-primario-hover: #1d5c59;
-    --color-fondo: #f8f8f8;
-    --color-glass: rgba(255, 255, 255, 0.8);
-    --color-texto: #333;
-    --color-titulos: #222;
-    --color-borde: #ccc;
-    --color-eventos: #e0f2e9;
-    --color-tarjeta: #fff;
-    --color-modal-fondo: rgba(0, 0, 0, 0.7);
-    --color-alertas-fondo: #f0f0f0;
-    --color-alertas-borde: #ddd;
+  --color-primario-hover: #164542;
+  --color-secundario: #f8f9fa;
+  --color-fondo: #f5f5f5;
+  --color-glass: rgba(255, 255, 255, 0.8);
+  --color-texto: #333;
+  --color-texto-claro: #666;
+  --color-titulos: #222;
+  --color-borde: #ddd;
+  --color-eventos: #e0f2e9;
+  --color-tarjeta: #fff;
+  --color-modal-fondo: rgba(0, 0, 0, 0.7);
+  --color-alertas-fondo: #f0f0f0;
+  --color-alertas-borde: #ddd;
   --color-boton-fondo: #ffb300;
   --color-boton-texto: #1d5c59;
   --color-boton-hover: #ffa000;
+  --sombra-suave: 0 2px 4px rgba(0,0,0,0.1);
+  --sombra-media: 0 4px 6px rgba(0,0,0,0.1);
+  --radio-borde: 8px;
+  --espaciado: 20px;
   }
   
   /************************************************************
@@ -27,14 +33,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
   }
   
   body {
-    font-family: "Poppins", sans-serif;
-  background-color: #f0f2f5;
+    background-color: var(--color-fondo);
     color: var(--color-texto);
     line-height: 1.6;
-  min-height: 100vh;
+    min-height: 100vh;
   }
   
   /************************************************************
@@ -43,16 +49,17 @@
   .topbar {
     position: fixed;
     top: 0;
-  left: 250px;
+    left: 250px;
     right: 0;
-  height: 70px;
-    background: #fff;
-  padding: 15px 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  z-index: 1000;
+    height: 70px;
+    background: white;
+    padding: 20px;
+    box-shadow: var(--sombra-suave);
+    z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: var(--radio-borde);
 }
 
 .topbar-spacer {
@@ -66,39 +73,35 @@
   }
   
   .topbar h1 {
-  font-size: 1.2rem;
-  color: #555;
     margin: 0;
-  padding-top: 10px;
+    font-size: 1.5rem;
+    color: var(--color-texto);
   }
   
   .topbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
 
 .search-user-section {
     display: flex;
     align-items: center;
-    gap: 15px;
-  margin: 0;
+    gap: 20px;
   }
   
   .search-bar {
-  flex: 1;
     position: relative;
-  min-width: 300px;
+    width: 300px;
   }
   
   .search-bar input {
-  width: 100%;
-  padding: 10px 40px;
-    border: 1px solid #ddd;
-  border-radius: 25px;
+    width: 100%;
+    padding: 8px 15px 8px 35px;
+    border: 1px solid var(--color-borde);
+    border-radius: 20px;
     font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
+  }
 
 .search-bar input:focus {
   border-color: var(--color-primario);
@@ -108,10 +111,10 @@
   
   .search-bar i {
     position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-    color: #777;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-texto-claro);
   }
 
 .user-profile {
@@ -123,8 +126,7 @@
   height: 40px;
   border-radius: 50%;
   cursor: pointer;
-  border: 2px solid var(--color-primario);
-  transition: transform 0.2s;
+  object-fit: cover;
 }
 
 .avatar:hover {
@@ -136,10 +138,11 @@
   top: 100%;
   right: 0;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 8px 0;
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-media);
   min-width: 180px;
+  padding: 8px 0;
+  margin-top: 10px;
   display: none;
   z-index: 1000;
 }
@@ -149,25 +152,25 @@
 }
 
 .dropdown-menu a {
-  display: flex;
-  align-items: center;
-  padding: 10px 15px;
-  color: #333;
+  display: block;
+  padding: 8px 20px;
+  color: var(--color-texto);
   text-decoration: none;
-  transition: background-color 0.2s;
-}
-
-.dropdown-menu a i {
-  margin-right: 10px;
-  width: 20px;
-  color: var(--color-primario);
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
 }
 
 .dropdown-menu a:hover {
-  background-color: #f5f5f5;
+  background-color: var(--color-secundario);
 }
-  
-  .icons {
+
+.dropdown-menu i {
+  margin-right: 8px;
+  width: 16px;
+  text-align: center;
+}
+
+.icons {
     display: flex;
     gap: 15px;
   }
@@ -183,25 +186,21 @@
    * CONTENT LAYOUT
    ************************************************************/
   .content-wrapper {
-  position: relative;
     display: flex;
-  gap: 20px;
-  padding: 35px 20px 0;
-    align-items: flex-start;
-  background-color: transparent;
+    gap: 20px;
+    flex: 1;
   }
   
   .left-section {
-  flex: 1;
-  min-width: 0;
+    flex: 1;
+    min-width: 0;
   }
   
   .right-section {
-  width: 300px;
-  min-width: 300px;
-  position: sticky;
-  top: 105px;
-  margin-top: 15px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   
   /************************************************************
@@ -213,10 +212,10 @@
   .dashboard-explanation,
   .kpi-card,
   .chart-card {
-  background-color: #fff;
-  border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    background-color: white;
+    border-radius: var(--radio-borde);
+    padding: 20px;
+    box-shadow: var(--sombra-suave);
     margin-bottom: 15px;
   }
   
@@ -233,41 +232,34 @@
   }
   
   .alert-item {
-    margin-bottom: 16px;
-    padding: 15px;
-  background-color: #fff;
-    border-radius: 6px;
-    border-left: 3px solid var(--color-primario);
-    transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    padding: 15px 0;
+    border-bottom: 1px solid var(--color-borde);
   }
   
-  .alert-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  .alert-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
   
   .alert-item p {
-    margin: 0 0 12px 0;
-    line-height: 1.5;
+    margin: 0 0 10px;
+    font-size: 0.9rem;
+    line-height: 1.4;
   }
   
   .alert-item button {
-    margin-top: 8px;
-    padding: 8px 12px;
-    background: var(--color-primario);
-    color: white;
+    background-color: var(--color-secundario);
     border: none;
+    padding: 6px 12px;
     border-radius: 4px;
-    cursor: pointer;
+    color: var(--color-texto);
     font-size: 0.85rem;
-    display: block;
-    margin-left: auto;
-    transition: background-color 0.2s;
+    cursor: pointer;
+    transition: background-color 0.3s;
   }
   
   .alert-item button:hover {
-    background-color: var(--color-primario-hover);
+    background-color: var(--color-borde);
   }
   
   .course-item {
@@ -275,10 +267,10 @@
     gap: 15px;
     align-items: flex-start;
     margin-bottom: 20px;
-  padding: 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   }
   
   .course-item:last-child {
@@ -405,13 +397,13 @@
   
   .filter-container {
     display: flex;
-  flex-wrap: wrap;
+    flex-wrap: wrap;
     gap: 10px;
-  margin-top: 15px;
-  padding: 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   }
   
   .filter-container select {
@@ -498,208 +490,57 @@
   /************************************************************
    * RESPONSIVE DESIGN - UPDATED
    ************************************************************/
-  @media (max-width: 768px) {
-    .sidebar {
-      width: 100%;
-      height: auto;
-      position: fixed;
-      top: 0;
-      left: 0;
-      padding: 10px 15px;
-      overflow-x: auto;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 1001;
-    }
-    
-    .sidebar-profile {
-      width: auto;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 0;
-    }
-    
-    .sidebar-profile img {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 0;
-    }
-    
-    .sidebar-profile .secondary-logo {
-      width: 30px;
-      height: 30px;
-      margin-bottom: 0;
-    }
-    
-    .menu ul {
-      display: flex;
-      flex-direction: row;
-      overflow-x: auto;
-      gap: 10px;
-      padding: 5px 0;
-    }
-    
-    .menu ul li {
-      border-bottom: none;
-      margin: 0;
-      flex-shrink: 0;
-      width: auto;
-    }
-    
-    .menu ul li a {
-      padding: 8px 12px;
-      white-space: nowrap;
-    }
-    
-    .sidebar-footer {
-      display: none;
-    }
-    
-    .main-content {
-      margin-left: 0;
-    padding: 25px 15px 0;
-    }
-    
-    .content-wrapper {
-      flex-direction: column;
-    }
-    
-    .left-section,
+  @media (max-width: 1200px) {
     .right-section {
-      width: 100%;
-    }
-    
-    /* Mejorar visualización en dispositivos medianos */
-    .right-section .kpis {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-    
-    .right-section .kpi-card,
-    .right-section .chart-card {
-      flex: 1;
-      min-width: calc(50% - 15px);
-    }
-    
-    .alerts,
-    .courses,
-    .clientes,
-    .dashboard-explanation {
-      margin-bottom: 20px;
-    }
-    
-    .course-item {
-      gap: 12px;
-    }
-    
-    .course-extra button {
-      padding: 6px 10px;
-      font-size: 0.75rem;
-    }
-    
-    .filter-container {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-    
-    .filter-container select,
-    .filter-container button {
-      grid-column: span 1;
-    }
-    
-    .filter-container button {
-      grid-column: span 2;
-    }
-    
-    .kpis {
-      grid-template-columns: 1fr;
-    }
-    
-    /* Eliminar duplicado de KPI al final */
-    .right-section .kpis:last-child {
-      display: none;
+      width: 280px;
     }
   }
   
-  @media (max-width: 480px) {
-    .topbar {
-      top: 80px; /* Altura del sidebar en móvil pequeño */
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    
-    .main-content {
-      padding-top: 180px; /* Sidebar + topbar más altos */
-    }
-    
+  @media (max-width: 992px) {
     .content-wrapper {
-    padding: 20px 15px 0;
-    }
-    
-    .right-section .kpis {
       flex-direction: column;
     }
-    
-    .right-section .kpi-card,
-    .right-section .chart-card {
-      width: 100%;
-      min-width: 100%;
-    }
-    
-    .course-item {
-      flex-direction: column;
-      gap: 10px;
-      align-items: flex-start;
-    }
-    
-    .course-item img {
-      margin-bottom: 5px;
-    }
-    
-    .course-info {
+
+    .right-section {
       width: 100%;
     }
-    
-    .course-extra {
-      width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      width: 0;
+      transform: translateX(-100%);
+      transition: all 0.3s ease;
+    }
+
+    .sidebar.show {
+      width: 250px;
+      transform: translateX(0);
+    }
+
+    .main-content {
       margin-left: 0;
-      margin-top: 10px;
     }
-    
-    .course-extra button {
-      width: 100%;
+
+    .search-bar {
+      width: 200px;
     }
-    
-    .alert-item {
-      padding: 12px;
-    }
-    
-    .alert-item button {
-      width: 100%;
-    }
-    
-    .filter-container {
+  }
+  
+  @media (max-width: 576px) {
+    .topbar {
       flex-direction: column;
-      align-items: stretch;
+      gap: 15px;
     }
-    
-    .filter-container select {
-      max-width: 100%;
+
+    .search-user-section {
+      width: 100%;
+      justify-content: space-between;
     }
-    
-    .kpis {
-      grid-template-columns: 1fr;
-    }
-    
-    .calendar {
-      grid-template-columns: repeat(4, 1fr);
+
+    .search-bar {
+      width: 100%;
+      max-width: none;
     }
   }
   
@@ -707,183 +548,117 @@
    * SIDEBAR (común para todas las páginas)
    ************************************************************/
   .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 250px;
     height: 100vh;
-    background-color: #1d5c59;
-    color: #ecf0f1;
+    background-color: var(--color-primario);
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 20px 0;
+    color: white;
     display: flex;
     flex-direction: column;
     z-index: 1000;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    padding: 20px;
-    box-sizing: border-box;
   }
   
   .sidebar-profile {
+    padding: 20px;
     text-align: center;
-    margin-bottom: 30px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    margin-bottom: 20px;
   }
   
   .sidebar-profile img {
-    width: 200px;
-    height: auto;
-    object-fit: contain;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
     margin-bottom: 10px;
-    border: none;
   }
   
-  .sidebar-profile .secondary-logo {
-    width: 100px;
-    height: auto;
-    margin-bottom: 10px;
-    transition: all 0.3s ease;
-  }
-  
-  .sidebar .menu {
-    width: 100%;
-  }
-  
-  .sidebar .menu ul {
+  .menu ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
   }
   
-  .sidebar .menu ul li {
-    margin: 8px 0;
-    width: 100%;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  .menu li {
+    margin-bottom: 5px;
   }
   
-  .sidebar .menu ul li a {
-    color: #ffffff;
-    text-decoration: none;
+  .menu a {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 15px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, padding-left 0.3s ease;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 0.95rem;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
   }
   
-  .sidebar .menu ul li a i {
+  .menu a i {
+    margin-right: 10px;
     width: 20px;
     text-align: center;
-    font-size: 1.1rem;
   }
   
-  .sidebar .menu ul li.active a,
-  .sidebar .menu ul li a:hover {
+  .menu a:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    padding-left: 20px;
+  }
+  
+  .menu li.active a {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 500;
   }
   
   .sidebar-footer {
     margin-top: auto;
-    padding-top: 20px;
+    padding: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    width: 100%;
   }
   
-  .sidebar-footer button,
   .sidebar-footer a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    padding: 10px 15px;
-    margin: 5px 0;
-    background: none;
-    border: none;
-    color: #ecf0f1;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.3s ease;
+    display: block;
+    color: white;
     text-decoration: none;
+    padding: 8px 0;
     font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s;
   }
   
-  .sidebar-footer button:hover,
   .sidebar-footer a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 1;
+  }
+  
+  .sidebar-footer i {
+    margin-right: 8px;
+  }
+  
+  /* Ajuste del contenedor principal para dar espacio a la sidebar */
+  .main-content {
+    margin-left: 250px;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
   
   /* Ajustes responsivos para la barra lateral */
   @media (max-width: 768px) {
     .sidebar {
-      width: 100%;
-      height: auto;
-      position: fixed;
-      top: 0;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.active {
+      transform: translateX(0);
+    }
+
+    .main-content {
+      margin-left: 0;
+    }
+
+    .topbar {
       left: 0;
-      padding: 10px 15px;
-      overflow-x: auto;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      z-index: 1001;
-    }
-    
-    .sidebar-profile {
-      width: auto;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 0;
-    }
-    
-    .sidebar-profile img {
-      width: 40px;
-      height: 40px;
-      margin-bottom: 0;
-    }
-    
-    .sidebar-profile .secondary-logo {
-      width: 30px;
-      height: 30px;
-      margin-bottom: 0;
-    }
-    
-    .menu ul {
-      display: flex;
-      flex-direction: row;
-      overflow-x: auto;
-      gap: 10px;
-      padding: 5px 0;
-    }
-    
-    .menu ul li {
-      border-bottom: none;
-      margin: 0;
-      flex-shrink: 0;
-      width: auto;
-    }
-    
-    .menu ul li a {
-      padding: 8px 12px;
-      white-space: nowrap;
-    }
-    
-    .sidebar-footer {
-      display: none;
     }
   }
   
@@ -891,10 +666,10 @@
    * MAIN CONTENT (para home.html)
    ************************************************************/
   .main-content {
-  margin-left: 250px;
-  padding-top: 90px;
+    margin-left: 250px;
+    padding-top: 90px;
     background-color: #f0f2f5;
-  min-height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
   }
 
@@ -995,7 +770,7 @@
   .welcome-message h1 {
       font-size: 1.6rem;
   }
-}
+  }
   
   /************************************************************
    * PARALLAX SECTIONS (para index.html)
@@ -1923,38 +1698,12 @@ background-color: var(--color-boton-hover);
 /* Actualizar estilos de botones en el sidebar */
 .sidebar-footer button,
 .sidebar-footer a {
-  background: none;
-  color: #ffffff;
-  cursor: pointer;
-  margin: 5px 0;
-  font-size: 0.9rem;
-  display: block;
-  width: 100%;
-  padding: 10px 15px;
-  text-align: left;
-  border-radius: 4px;
-  transition: background 0.3s ease;
-}
-
-.sidebar-footer button:hover,
-.sidebar-footer a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  /* Eliminar estilos específicos añadidos recientemente */
 }
 
 /* Asegurar que los botones del formulario de contacto tengan el nuevo estilo */
 #contactForm button[type="submit"] {
-  background-color: var(--color-boton-fondo);
-  color: var(--color-boton-texto);
-  border: none;
-  padding: 12px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 700;
-  transition: background-color 0.2s;
-}
-
-#contactForm button[type="submit"]:hover {
-  background-color: var(--color-boton-hover);
+  /* Eliminar estilos específicos añadidos recientemente */
 }
 
 /* Estilos actualizados para recordatorios */
@@ -2142,7 +1891,6 @@ border-radius: 4px;
 display: flex;
 align-items: center;
 justify-content: center;
-flex-shrink: 0;
 }
 
 .reminder-status.pending {
@@ -2289,7 +2037,7 @@ color: var(--color-texto);
 }
 
 .tool-card p {
-color: var(--color-texto-secundario);
+color: var(--color-texto-claro);
 font-size: 0.9em;
 }
 

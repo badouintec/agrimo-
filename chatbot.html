@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kaptia - Mis Clientes</title>
+  <title>Kaptia - Contacta a un asesor</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tJh3AuSi5rkQ7kNvwHSd86T&_nc_oc=AdnIQRGQh5aisLMkCwlI77dOf8e3uxbuGQQ71ixGMWU367xEGMcVrbCZw9CIAGAVPIX5y4cSNooJRRmED_-Pk2Oj&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=h4B5xRQOO6bq6jsCwHbLoA&oh=00_AfJUFyGLAQ4Sy8kMl-AmfD68XXPXLA49Yb_gGTXhkBILfg&oe=6837FAED"/>
   <!-- Fuente Google: Poppins -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
   <!-- Hoja de estilos principal -->
@@ -15,6 +17,208 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   <!-- Todos los estilos se han movido a styles.css -->
+
+  <style>
+    /* Estilos específicos para la página de chatbot */
+    .chat-container {
+      background: white;
+      border-radius: var(--radio-borde);
+      box-shadow: var(--sombra-suave);
+      height: calc(100vh - 140px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--color-borde);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .chat-header .bot-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--color-primario);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+    }
+
+    .chat-header .bot-info h2 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--color-texto);
+    }
+
+    .chat-header .bot-info p {
+      margin: 5px 0 0;
+      font-size: 0.9rem;
+      color: var(--color-texto-claro);
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .message {
+      max-width: 70%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .message.bot {
+      align-self: flex-start;
+      background-color: var(--color-secundario);
+      color: var(--color-texto);
+    }
+
+    .message.user {
+      align-self: flex-end;
+      background-color: var(--color-primario);
+      color: white;
+    }
+
+    .chat-input {
+      padding: 20px;
+      border-top: 1px solid var(--color-borde);
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input textarea {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid var(--color-borde);
+      border-radius: 8px;
+      resize: none;
+      height: 45px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .chat-input button {
+      background-color: var(--color-primario);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-input button:hover {
+      background-color: var(--color-primario-hover);
+    }
+
+    .chat-input button i {
+      font-size: 1.1rem;
+    }
+
+    .suggestions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding: 0 20px 20px;
+    }
+
+    .suggestion-chip {
+      background-color: var(--color-secundario);
+      color: var(--color-texto);
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .suggestion-chip:hover {
+      background-color: var(--color-borde);
+    }
+
+    /* Estilos para la barra lateral */
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background-color: #1d5c59;
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding: 20px 0;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .sidebar-profile {
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sidebar-profile img {
+      width: 120px;
+      height: auto;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+      border-radius: 0;
+    }
+
+    .sidebar-profile .secondary-logo {
+      width: 100px;
+      height: auto;
+      margin-bottom: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 20px;
+    }
+
+    .sidebar-footer a {
+      display: flex;
+      align-items: center;
+      padding: 8px 20px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.8rem;
+      gap: 10px;
+      font-weight: 400;
+    }
+
+    .sidebar-footer a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-footer a i {
+      width: 14px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+  </style>
 </head>
 <body class="has-sidebar">
   <!-- SIDEBAR -->
@@ -72,21 +276,20 @@
   <!-- Contenido principal -->
   <main class="main-content">
     <header class="topbar">
-      <h1>Mis Clientes</h1>
+      <h1>Contacta a un asesor</h1>
       <div class="topbar-actions">
         <div class="search-user-section">
         <div class="search-bar">
-          <input type="text" placeholder="Buscar..." />
           <i class="fas fa-search"></i>
+          <input type="text" placeholder="Buscar en el historial..." />
         </div>
           <div class="user-profile">
-            <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="Perfil" class="avatar" />
-            <div class="dropdown-menu">
-              <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
-              <a href="#"><i class="fas fa-cog"></i> Configuración</a>
-              <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQEw-UoZ06Kb-A/profile-displayphoto-shrink_200_200/B56ZcELhdZHwAc-/0/1748121819494?e=1753315200&v=beta&t=umlB7AE5ew2DhHiSiN3-sUj3KmX2enK5mF7vCQyGtME" alt="Usuario" class="avatar" />
+            <div class="dropdown-menu" id="userMenu">
+              <a href="#"><i class="fas fa-user"></i> Ver perfil</a>
+              <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
             </div>
-          </div>
+        </div>
         <div class="icons">
           <i class="fas fa-envelope"></i>
           <i class="fas fa-bell"></i>
@@ -100,19 +303,29 @@
         <div class="chat-wrapper">
           <div class="chat-container">
           <div class="chat-header">
-            <h2>Chat con KaptiaBot</h2>
+            <div class="bot-avatar">
+              <i class="fas fa-robot"></i>
             </div>
-            <div class="chat-log" id="chatLog">
+            <div class="bot-info">
+              <h2>KaptiaBot</h2>
+              <p>Asistente Virtual</p>
+            </div>
+          </div>
+            <div class="chat-messages">
             <!-- Los mensajes se agregarán dinámicamente aquí -->
           </div>
-          <div class="predetermined-questions">
-            <button onclick="sendPredeterminedQuestion('¿Cómo puedo ver mis clientes potenciales?')">Ver clientes potenciales</button>
-            <button onclick="sendPredeterminedQuestion('¿Cuáles son las prioridades de venta?')">Prioridades de venta</button>
-            <button onclick="sendPredeterminedQuestion('¿Cómo contacto a un cliente?')">Contactar cliente</button>
-            </div>
-            <div class="chat-input-area">
-            <input type="text" id="userInput" placeholder="Escribe tu mensaje aquí..." />
-            <button onclick="sendMessage()">Enviar</button>
+          <div class="suggestions">
+            <div class="suggestion-chip">Sistemas de riego por goteo</div>
+            <div class="suggestion-chip">Riego por aspersión</div>
+            <div class="suggestion-chip">Control automático</div>
+            <div class="suggestion-chip">Precios y planes</div>
+          </div>
+          <div class="chat-input">
+            <textarea placeholder="Escribe tu mensaje..."></textarea>
+            <button>
+              <i class="fas fa-paper-plane"></i>
+              Enviar
+            </button>
           </div>
         </div>
       </div>
@@ -128,7 +341,7 @@
     });
 
     function addMessage(type, text) {
-      const chatLog = document.getElementById('chatLog');
+      const chatLog = document.querySelector('.chat-messages');
       const messageDiv = document.createElement('div');
       messageDiv.className = `message ${type}`;
       
@@ -144,7 +357,7 @@
     }
 
     function sendMessage() {
-      const input = document.getElementById('userInput');
+      const input = document.querySelector('.chat-input textarea');
       const message = input.value.trim();
       
       if (message) {
@@ -180,10 +393,70 @@
     }
 
     // Manejar envío con Enter
-    document.getElementById('userInput').addEventListener('keypress', function(e) {
+    document.querySelector('.chat-input textarea').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         sendMessage();
       }
+    });
+
+    // Manejo del menú de usuario
+    const userAvatar = document.querySelector('.avatar');
+    const userMenu = document.getElementById('userMenu');
+    
+    userAvatar.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userMenu.classList.toggle('show');
+    });
+
+    // Manejo del selector de periodo
+    const periodButton = document.getElementById('periodButton');
+    const periodMenu = document.getElementById('periodMenu');
+    
+    periodButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      periodMenu.classList.toggle('show');
+    });
+
+    // Cerrar menús al hacer clic fuera
+    document.addEventListener('click', () => {
+      userMenu.classList.remove('show');
+      periodMenu.classList.remove('show');
+    });
+
+    // Prevenir cierre al hacer clic dentro de los menús
+    userMenu.addEventListener('click', (e) => e.stopPropagation());
+    periodMenu.addEventListener('click', (e) => e.stopPropagation());
+
+    // Actualizar el texto del botón de periodo al seleccionar una opción
+    const periodOptions = periodMenu.querySelectorAll('a');
+    periodOptions.forEach(option => {
+      option.addEventListener('click', (e) => {
+        e.preventDefault();
+        const selectedText = option.textContent;
+        periodButton.innerHTML = `${selectedText} <i class="fas fa-chevron-down"></i>`;
+        
+        // Actualizar clase activa
+        periodOptions.forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+        
+        periodMenu.classList.remove('show');
+      });
+    });
+
+    // Función para mostrar alertas
+    function mostrarAlerta(titulo) {
+      alert(`Detalles de la alerta: ${titulo}`);
+    }
+
+    // Manejo de las sugerencias
+    const suggestionChips = document.querySelectorAll('.suggestion-chip');
+    const chatInput = document.querySelector('.chat-input textarea');
+
+    suggestionChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chatInput.value = chip.textContent;
+        chatInput.focus();
+      });
     });
   </script>
 

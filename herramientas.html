@@ -8,6 +8,88 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+
+  <style>
+    /* Estilos específicos para la página de herramientas */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tool-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .tool-icon {
+      width: 50px;
+      height: 50px;
+      background-color: var(--color-primario);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .tool-icon i {
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .tool-content h3 {
+      margin: 0 0 10px;
+      color: var(--color-texto);
+    }
+
+    .tool-content p {
+      margin: 0;
+      color: var(--color-texto-claro);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .tool-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .tool-actions button {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primario);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primario-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--color-secundario);
+      color: var(--color-texto);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-borde);
+    }
+  </style>
 </head>
 <body class="has-sidebar">
   <!-- Estilos para la barra lateral -->
@@ -42,6 +124,7 @@
       height: auto;
       margin-bottom: 15px;
       transition: all 0.3s ease;
+      border-radius: 0;
     }
 
     .sidebar-profile .secondary-logo {
@@ -110,7 +193,8 @@
     }
   </style>
 
-  <!-- Menú lateral -->
+<body class="has-sidebar">
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div>
       <div class="sidebar-profile">
@@ -141,51 +225,263 @@
       <div class="topbar-actions">
         <div class="search-user-section">
           <div class="search-bar">
-            <input type="text" placeholder="Buscar..." />
             <i class="fas fa-search"></i>
+            <input type="text" placeholder="Buscar herramientas..." />
           </div>
           <div class="user-profile">
-            <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="Perfil" class="avatar" />
-            <div class="dropdown-menu">
-              <a href="#"><i class="fas fa-user"></i> Mi Perfil</a>
-              <a href="#"><i class="fas fa-cog"></i> Configuración</a>
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQEw-UoZ06Kb-A/profile-displayphoto-shrink_200_200/B56ZcELhdZHwAc-/0/1748121819494?e=1753315200&v=beta&t=umlB7AE5ew2DhHiSiN3-sUj3KmX2enK5mF7vCQyGtME" alt="Usuario" class="avatar" />
+            <div class="dropdown-menu" id="userMenu">
+              <a href="#"><i class="fas fa-user"></i> Ver perfil</a>
+              <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
             </div>
-          </div>
-          <div class="icons">
-            <i class="fas fa-bell"></i>
           </div>
         </div>
       </div>
     </header>
 
     <div class="content-wrapper">
-      <section class="tools-section">
+      <!-- SECCIÓN IZQUIERDA -->
+      <section class="left-section">
         <div class="tools-grid">
+          <!-- Herramienta 1 -->
           <div class="tool-card">
-            <i class="fas fa-file-export fa-2x"></i>
-            <h3>Exportar Datos</h3>
-            <p>Exporta tus datos en diferentes formatos</p>
+            <div class="tool-icon">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <div class="tool-content">
+              <h3>Calculadora de Rendimiento</h3>
+              <p>Calcula el rendimiento potencial de cultivos basado en variables como clima, suelo y riego.</p>
+            </div>
+            <div class="tool-actions">
+              <button class="btn-primary">Usar Herramienta</button>
+              <button class="btn-secondary">Info</button>
+            </div>
           </div>
+
+          <!-- Herramienta 2 -->
           <div class="tool-card">
-            <i class="fas fa-chart-pie fa-2x"></i>
-            <h3>Análisis Avanzado</h3>
-            <p>Herramientas de análisis estadístico</p>
+            <div class="tool-icon">
+              <i class="fas fa-cloud-sun-rain"></i>
+            </div>
+            <div class="tool-content">
+              <h3>Pronóstico Agroclimático</h3>
+              <p>Accede a pronósticos meteorológicos especializados para la agricultura.</p>
+            </div>
+            <div class="tool-actions">
+              <button class="btn-primary">Usar Herramienta</button>
+              <button class="btn-secondary">Info</button>
+            </div>
           </div>
+
+          <!-- Herramienta 3 -->
           <div class="tool-card">
-            <i class="fas fa-cogs fa-2x"></i>
-            <h3>Configuración</h3>
-            <p>Personaliza tu experiencia</p>
+            <div class="tool-icon">
+              <i class="fas fa-seedling"></i>
+            </div>
+            <div class="tool-content">
+              <h3>Planificador de Cultivos</h3>
+              <p>Optimiza la planificación de tus cultivos con recomendaciones personalizadas.</p>
+            </div>
+            <div class="tool-actions">
+              <button class="btn-primary">Usar Herramienta</button>
+              <button class="btn-secondary">Info</button>
+            </div>
           </div>
+
+          <!-- Herramienta 4 -->
           <div class="tool-card">
-            <i class="fas fa-database fa-2x"></i>
-            <h3>Gestión de Datos</h3>
-            <p>Administra tus bases de datos</p>
+            <div class="tool-icon">
+              <i class="fas fa-tint"></i>
+            </div>
+            <div class="tool-content">
+              <h3>Gestión de Riego</h3>
+              <p>Monitorea y optimiza el uso del agua en tus sistemas de riego.</p>
+            </div>
+            <div class="tool-actions">
+              <button class="btn-primary">Usar Herramienta</button>
+              <button class="btn-secondary">Info</button>
+            </div>
+          </div>
+
+          <!-- Herramienta 5 -->
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-bug"></i>
+            </div>
+            <div class="tool-content">
+              <h3>Control de Plagas</h3>
+              <p>Identifica y gestiona plagas con recomendaciones de tratamiento.</p>
+            </div>
+            <div class="tool-actions">
+              <button class="btn-primary">Usar Herramienta</button>
+              <button class="btn-secondary">Info</button>
+            </div>
+          </div>
+
+          <!-- Herramienta 6 -->
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tool-content">
+              <h3>Análisis de Mercado</h3>
+              <p>Accede a datos de mercado y tendencias del sector agrícola.</p>
+            </div>
+            <div class="tool-actions">
+              <button class="btn-primary">Usar Herramienta</button>
+              <button class="btn-secondary">Info</button>
+            </div>
           </div>
         </div>
       </section>
+
+      <!-- SECCIÓN DERECHA -->
+      <aside class="right-section">
+        <!-- Recordatorios -->
+        <div class="reminders">
+          <div class="reminders-header">
+            <div class="title-with-icon">
+              <i class="fas fa-bell"></i>
+              <span class="notification-dot"></span>
+              <h2>Recordatorios</h2>
+            </div>
+            <div class="period-selector">
+              <button id="periodButton">
+                Hoy <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="period-dropdown" id="periodMenu">
+                <a href="#" class="active">Hoy</a>
+                <a href="#">Ayer</a>
+                <a href="#">Esta semana</a>
+                <a href="#">Próxima semana</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="reminders-list">
+            <div class="reminder-item">
+              <div class="reminder-icon">
+                <i class="fas fa-video"></i>
+              </div>
+              <div class="reminder-content">
+                <h3>Zoom Agrotienda (CDMX)</h3>
+                <p>9:00 hrs - Vie 14 mar</p>
+              </div>
+              <div class="reminder-status pending"></div>
+            </div>
+
+            <div class="reminder-item">
+              <div class="reminder-icon">
+                <i class="fas fa-calendar"></i>
+              </div>
+              <div class="reminder-content">
+                <h3>Visita Cliente Invernaderos SA</h3>
+                <p>14:30 hrs - Vie 14 mar</p>
+              </div>
+              <div class="reminder-status completed">
+                <i class="fas fa-check"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="reminders-footer">
+            <a href="#" class="show-all">Mostrar todos</a>
+            <a href="#" class="add-new">Añadir+</a>
+          </div>
+        </div>
+
+        <!-- Notificaciones -->
+        <div class="alerts">
+          <div class="reminders-header">
+            <div class="title-with-icon">
+              <i class="fas fa-bell"></i>
+              <span class="notification-dot"></span>
+              <h2>Notificaciones</h2>
+            </div>
+          </div>
+          <div class="alert-item">
+            <p><strong>Invernaderos Bonanza</strong> (Jalisco)<br>Cliente respondió y agendó cita.</p>
+            <button onclick="mostrarAlerta('Invernaderos Bonanza (Jalisco)')">Ver Detalles</button>
+          </div>
+          <div class="alert-item">
+            <p><strong>Finca La Paloma</strong> (CDMX)<br>Cliente confirmó interés.</p>
+            <button onclick="mostrarAlerta('Finca La Paloma (CDMX)')">Ver Detalles</button>
+          </div>
+          <div class="alert-item">
+            <p><strong>Agroindustrial El Sol</strong> (Veracruz)<br>Cliente solicita seguimiento.</p>
+            <button onclick="mostrarAlerta('Agroindustrial El Sol (Veracruz)')">Ver Detalles</button>
+          </div>
+        </div>
+
+        <!-- Lista de Clientes Potenciales -->
+        <div class="clientes">
+          <h2>Clientes Potenciales</h2>
+          <ul id="clientesUl"></ul>
+        </div>
+
+        <!-- Explicación del Dashboard -->
+        <div class="dashboard-explanation">
+          <h2>¿Necesitas Ayuda?</h2>
+          <p>
+            Si tienes alguna duda sobre cómo usar esta plataforma o requieres asistencia personalizada, 
+            contacta a nuestro equipo de soporte.
+          </p>
+          <button class="btn-detail" style="width: 100%; margin-top: 15px;">Contactar Soporte</button>
+        </div>
+      </aside>
     </div>
   </main>
 
   <script src="scripts.js"></script>
+  <script>
+    // Manejo del menú de usuario
+    const userAvatar = document.querySelector('.avatar');
+    const userMenu = document.getElementById('userMenu');
+    
+    userAvatar.addEventListener('click', (e) => {
+      e.stopPropagation();
+      userMenu.classList.toggle('show');
+    });
+
+    // Manejo del selector de periodo
+    const periodButton = document.getElementById('periodButton');
+    const periodMenu = document.getElementById('periodMenu');
+    
+    periodButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      periodMenu.classList.toggle('show');
+    });
+
+    // Cerrar menús al hacer clic fuera
+    document.addEventListener('click', () => {
+      userMenu.classList.remove('show');
+      periodMenu.classList.remove('show');
+    });
+
+    // Prevenir cierre al hacer clic dentro de los menús
+    userMenu.addEventListener('click', (e) => e.stopPropagation());
+    periodMenu.addEventListener('click', (e) => e.stopPropagation());
+
+    // Actualizar el texto del botón de periodo al seleccionar una opción
+    const periodOptions = periodMenu.querySelectorAll('a');
+    periodOptions.forEach(option => {
+      option.addEventListener('click', (e) => {
+        e.preventDefault();
+        const selectedText = option.textContent;
+        periodButton.innerHTML = `${selectedText} <i class="fas fa-chevron-down"></i>`;
+        
+        // Actualizar clase activa
+        periodOptions.forEach(opt => opt.classList.remove('active'));
+        option.classList.add('active');
+        
+        periodMenu.classList.remove('show');
+      });
+    });
+
+    // Función para mostrar alertas
+    function mostrarAlerta(titulo) {
+      alert(`Detalles de la alerta: ${titulo}`);
+    }
+  </script>
 </body>
 </html> 

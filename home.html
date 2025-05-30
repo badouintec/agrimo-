@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Agrimonitor - Tablero de la Gente de Ventas</title>
+  <title>Kaptia - Dashboard</title>
   
   <!-- Fuente Google: Poppins -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
@@ -11,17 +11,11 @@
   <!-- Hoja de estilos principal -->
   <link rel="stylesheet" href="styles.css" />
   
-  <!-- Librería Leaflet -->
+  <!-- Librerías externas -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  
-  <!-- Librería de íconos (Font Awesome) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  
-  <!-- Librería Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-  <!-- PapaParse para CSV -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   
   <style>
@@ -91,9 +85,15 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .menu li.active a {
-      background-color: rgba(255, 255, 255, 0.15);
+    .sidebar .menu ul li.active a {
+      background-color: #247c78; /* un verde más claro para destacar */
       font-weight: 600;
+      padding-left: 20px;
+    }
+
+    .sidebar .menu ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding-left: 20px;
     }
 
     .sidebar-footer {
@@ -122,7 +122,7 @@
       text-align: center;
       font-size: 0.85rem;
     }
-
+    
     /* Ajuste del contenedor principal para dar espacio a la sidebar */
     .main-content {
       margin-left: 250px;
@@ -205,16 +205,18 @@
     /* Corregir estilo del menú izquierdo */
     .sidebar {
       width: 250px;
-      position: fixed;
-      top: 0;
-      left: 0;
       height: 100vh;
       background-color: #1d5c59;
-      color: #ecf0f1;
-      padding: 20px;
-      box-sizing: border-box;
+      position: fixed;
+      left: 0;
+      top: 0;
+      padding: 20px 0;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
       overflow-y: auto;
-      z-index: 1001;
+      overflow-x: hidden;
     }
     
     .sidebar-profile {
@@ -224,12 +226,11 @@
     }
     
     .sidebar-profile img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 10px;
-      border: 3px solid rgba(255, 255, 255, 0.2);
+      width: 120px;
+      height: auto;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+      border-radius: 0;
     }
     
     .sidebar .menu {
@@ -307,61 +308,31 @@
   </style>
 </head>
 <body class="has-sidebar">
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-profile">
-      <img src="assets/img/kaptiabot-logo.png" alt="KaptiaBot Logo" class="main-logo">
-      <img src="assets/img/kaptia-logo.png" alt="Kaptia Logo" class="secondary-logo">
-    </div>
-    
-    <nav class="menu">
-      <ul>
-        <li class="active">
-          <a href="home.html">
-            <i class="fas fa-home"></i>
-            Dashboard
-          </a>
-        </li>
-        <li>
-          <a href="chatbot.html">
-            <i class="fas fa-users"></i>
-            Mis Clientes
-          </a>
-        </li>
-        <li>
-          <a href="tableros.html">
-            <i class="fas fa-chart-bar"></i>
-            Tableros
-          </a>
-        </li>
-        <li>
-          <a href="mensajes.html">
-            <i class="fas fa-envelope"></i>
-            Mensajes
-          </a>
-        </li>
-        <li>
-          <a href="agenda.html">
-            <i class="fas fa-calendar-alt"></i>
-            Agenda
-          </a>
-        </li>
-        <li>
-          <a href="herramientas.html">
-            <i class="fas fa-tools"></i>
-            Herramientas
-          </a>
-        </li>
-      </ul>
-    </nav>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+<div>
+  <div class="sidebar-profile">
+    <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
+    <img class="secondary-logo" src="https://scontent-qro1-1.xx.fbcdn.net/v/t39.30808-6/500738011_687111284206903_2823906794035529988_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=8ZLP2CkI5EMQ7kNvwGi2eTc&_nc_oc=AdnnUJAvTgy0IV_co3BInX7qs8xVOocsdUK-0CNQifdrMTvLD9ilvsCNpPiITASgiRM&_nc_zt=23&_nc_ht=scontent-qro1-1.xx&_nc_gid=PhckQI5PZ10HHAMwTJseaA&oh=00_AfK4D10Anecx3Kjj1wfMo5DJMm1owQGnt1ufJ98Os-GZ5g&oe=683D2EF9" alt="Logo secundario" />
+  </div>
+  <nav class="menu">
+    <ul>
+      <li class="active"><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+      <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+      <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+      <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+      <li><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+      <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+      <li><a href="herramientas.html"><i class="fas fa-tools"></i> Herramientas</a></li>
+    </ul>
+  </nav>
+</div>
+<div class="sidebar-footer">
+  <a href="contacto-asesor.html"><i class="fas fa-question-circle"></i> Contacta un asesor</a>
+</div>
+</aside>
 
-    <div class="sidebar-footer">
-      <a href="contacto-asesor.html">
-        <i class="fas fa-headset"></i>
-        Contacta un asesor
-      </a>
-    </div>
-  </aside>
+
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
@@ -384,34 +355,6 @@
         </div>
       </div>
     </header>
-
-    <!-- Botones de acción del mapa -->
-    <div class="map-action-buttons">
-      <button class="map-action-button" id="zoomInBtn">
-        <i class="fas fa-plus"></i>
-        <span class="map-action-tooltip">Acercar</span>
-      </button>
-      <button class="map-action-button" id="zoomOutBtn">
-        <i class="fas fa-minus"></i>
-        <span class="map-action-tooltip">Alejar</span>
-      </button>
-      <button class="map-action-button" id="centerMapBtn">
-        <i class="fas fa-crosshairs"></i>
-        <span class="map-action-tooltip">Centrar mapa</span>
-      </button>
-      <button class="map-action-button" id="filterBtn">
-        <i class="fas fa-filter"></i>
-        <span class="map-action-tooltip">Filtros</span>
-      </button>
-      <button class="map-action-button" id="exportBtn">
-        <i class="fas fa-download"></i>
-        <span class="map-action-tooltip">Exportar datos</span>
-      </button>
-      <button class="map-action-button" id="refreshBtn">
-        <i class="fas fa-sync-alt"></i>
-        <span class="map-action-tooltip">Actualizar datos</span>
-      </button>
-    </div>
 
     <div class="content-wrapper">
       <!-- SECCIÓN IZQUIERDA -->

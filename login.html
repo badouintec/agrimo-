@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kaptia - Iniciar Sesión</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tJh3AuSi5rkQ7kNvwHSd86T&_nc_oc=AdnIQRGQh5aisLMkCwlI77dOf8e3uxbuGQQ71ixGMWU367xEGMcVrbCZw9CIAGAVPIX5y4cSNooJRRmED_-Pk2Oj&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=h4B5xRQOO6bq6jsCwHbLoA&oh=00_AfJUFyGLAQ4Sy8kMl-AmfD68XXPXLA49Yb_gGTXhkBILfg&oe=6837FAED"/>
+  <!-- Fuente Google: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(rgba(29, 92, 89, 0.7), rgba(29, 92, 89, 0.9)),
+                  url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .logo-section {
+      text-align: center;
+      animation: fadeInDown 1s ease;
+    }
+
+    .logo-section img {
+      width: 180px;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+
+    .logo-section h1 {
+      color: white;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .logo-section p {
+      color: white;
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      animation: fadeInUp 1s ease;
+    }
+
+    .login-card h2 {
+      color: #1d5c59;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .input-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .input-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-size: 0.9rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #e1e1e1;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-group input:focus {
+      border-color: #1d5c59;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(29, 92, 89, 0.1);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #1d5c59;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background: #164542;
+      transform: translateY(-2px);
+    }
+
+    .demo-credentials {
+      text-align: center;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(29, 92, 89, 0.1);
+      border-radius: 8px;
+    }
+
+    .demo-credentials p {
+      color: #1d5c59;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .demo-credentials code {
+      background: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+
+      .logo-section h1 {
+        font-size: 2rem;
+      }
+
+      .logo-section p {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
+
+      .login-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-section">
+      <img src="https://scontent-qro1-1.xx.fbcdn.net/v/t39.30808-6/500738011_687111284206903_2823906794035529988_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=8ZLP2CkI5EMQ7kNvwGi2eTc&_nc_oc=AdnnUJAvTgy0IV_co3BInX7qs8xVOocsdUK-0CNQifdrMTvLD9ilvsCNpPiITASgiRM&_nc_zt=23&_nc_ht=scontent-qro1-1.xx&_nc_gid=PhckQI5PZ10HHAMwTJseaA&oh=00_AfK4D10Anecx3Kjj1wfMo5DJMm1owQGnt1ufJ98Os-GZ5g&oe=683D2EF9" alt="Kaptia Logo">
+      <h1>Bienvenido a Kaptia</h1>
+      <p>Tu plataforma integral para la gestión y optimización de recursos agrícolas</p>
+    </div>
+
+    <div class="login-card">
+      <h2>Iniciar Sesión</h2>
+      <form onsubmit="return demoLogin()">
+        <div class="input-group">
+          <label for="loginUser">Usuario</label>
+          <input type="text" id="loginUser" placeholder="Ingresa tu usuario" required>
+        </div>
+        <div class="input-group">
+          <label for="loginPass">Contraseña</label>
+          <input type="password" id="loginPass" placeholder="Ingresa tu contraseña" required>
+        </div>
+        <button type="submit" class="login-btn">
+          Ingresar <i class="fas fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <div class="demo-credentials">
+        <p>Credenciales de demostración:</p>
+        <p>Usuario: <code>user</code></p>
+        <p>Contraseña: <code>user</code></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function demoLogin() {
+      const user = document.getElementById("loginUser").value;
+      const pass = document.getElementById("loginPass").value;
+      if (user === "user" && pass === "user") {
+        window.location.href = "home.html";
+      } else {
+        alert('Credenciales incorrectas. Por favor usa "user"/"user" para el demo.');
+      }
+      return false;
+    }
+  </script>
+</body>
+</html> 
