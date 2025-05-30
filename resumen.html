@@ -3,33 +3,247 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kaptia - Mapa Interactivo</title>
+  <title>Kaptia - Resumen</title>
   
-  <!-- Fuente Google: Poppins -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet" />
   
-  <!-- Hoja de estilos principal -->
+  <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
-  
-  <!-- Librería Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  
-  <!-- Librería de íconos (Font Awesome) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   
-  <!-- PapaParse para CSV -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
   <style>
-    /* Estilos específicos para el mapa */
-    .map-container {
+    .dashboard-container {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: calc(100vh - 90px);
+    }
+
+    .main-content-wrapper {
+      display: flex;
+      gap: 20px;
+      height: 60%;
+      min-height: 500px;
+    }
+
+    /* Panel de filtros - Ahora a la izquierda */
+    .filters-sidebar {
+      width: 300px;
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-section h3 {
+      color: #1d5c59;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+    }
+
+    .filter-group {
+      margin-bottom: 15px;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .filter-group select {
       width: 100%;
-      height: 600px;
-      margin: 20px 0;
+      padding: 10px;
       border: 1px solid #ddd;
       border-radius: 8px;
+      font-size: 0.95rem;
+      color: #333;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+
+    .filter-group select:focus {
+      border-color: #1d5c59;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(29, 92, 89, 0.1);
+    }
+
+    .apply-filters {
+      background-color: #1d5c59;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+
+    .apply-filters:hover {
+      background-color: #164542;
+      transform: translateY(-2px);
+    }
+
+    /* Favoritos */
+    .favorites-section {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+
+    .favorites-button {
+      width: 100%;
+      padding: 15px;
+      background: #f8f9fa;
+      border: 2px solid #1d5c59;
+      border-radius: 8px;
+      color: #1d5c59;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .favorites-button:hover {
+      background: #1d5c59;
+      color: white;
+    }
+
+    .favorites-button i {
+      font-size: 1.2rem;
+    }
+
+    /* Modal de Favoritos */
+    .favorites-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .favorites-modal.active {
+      display: flex;
+    }
+
+    .favorites-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .favorites-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .favorites-header h2 {
+      color: #1d5c59;
+      margin: 0;
+    }
+
+    .close-favorites {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .favorite-client {
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .favorite-client:hover {
+      transform: translateX(5px);
+      border-color: #1d5c59;
+    }
+
+    .favorite-client-info {
+      flex: 1;
+    }
+
+    .favorite-client h4 {
+      margin: 0 0 5px 0;
+      color: #333;
+    }
+
+    .favorite-client p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .favorite-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .favorite-action-btn {
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      background: #f8f9fa;
+      color: #1d5c59;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .favorite-action-btn:hover {
+      background: #1d5c59;
+      color: white;
+    }
+
+    /* Mapa - Ahora más grande */
+    .map-section {
+      flex: 1;
+      background: white;
+      border-radius: 15px;
       overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .map-container {
+      width: 100%;
+      height: 100%;
     }
 
     #map {
@@ -37,177 +251,422 @@
       height: 100%;
     }
 
-    .filter-container {
-      background-color: #fff;
-      padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
+    /* Dashboard inferior */
+    .bottom-dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      height: 40%;
     }
 
-    .filter-container select {
-      flex: 1;
-      min-width: 200px;
-      padding: 8px 12px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 14px;
-    }
-
-    /* Estilos para los popups del mapa */
-    .leaflet-popup-content {
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .leaflet-popup-content button {
-      background-color: var(--color-boton-fondo);
-      color: var(--color-boton-texto);
-      border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-      margin-top: 10px;
-      width: 100%;
-    }
-
-    .leaflet-popup-content button:hover {
-      background-color: var(--color-boton-hover);
-    }
-
-    /* Ajustes para el contenedor principal */
-    .left-section {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .right-section {
-      width: 300px;
-      min-width: 300px;
-    }
-
-    @media (max-width: 768px) {
-      .content-wrapper {
-        flex-direction: column;
-      }
-
-      .right-section {
-        width: 100%;
-      }
-
-      .filter-container select {
-        width: 100%;
-      }
-    }
-
-    /* Estilos para la barra lateral */
-    .sidebar {
-      width: 250px;
-      height: 100vh;
-      background-color: #1d5c59;
-      position: fixed;
-      left: 0;
-      top: 0;
-      padding: 20px 0;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      z-index: 1000;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    .menu li {
-      margin-bottom: 0;
-    }
-
-    .menu a {
-      display: flex;
-      align-items: center;
-      padding: 8px 20px;
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-size: 0.95rem;
-      gap: 10px;
-      font-weight: 400;
-    }
-
-    .menu a i {
-      width: 16px;
-      text-align: center;
-      font-size: 1rem;
-    }
-
-    .menu a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .menu li.active a {
-      background-color: rgba(255, 255, 255, 0.15);
-      font-weight: 600;
-    }
-
-    .sidebar-profile {
-      padding: 15px;
-      text-align: center;
-      margin-bottom: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .sidebar-profile img {
-      width: 120px;
-      height: auto;
-      margin-bottom: 15px;
-      transition: all 0.3s ease;
-      border-radius: 0;
-    }
-
-    .sidebar-profile .secondary-logo {
-      width: 100px;
-      height: auto;
-      margin-bottom: 10px;
-      transition: all 0.3s ease;
-    }
-
-    .sidebar-footer {
-      margin-top: auto;
+    .dashboard-card {
+      background: white;
+      border-radius: 15px;
       padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
-    .sidebar-footer a {
+    /* Favoritos Card */
+    .favorites-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .favorites-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .favorites-header h3 {
+      color: #1d5c59;
+      margin: 0;
+    }
+
+    .favorites-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .favorite-item {
+      padding: 12px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      margin-bottom: 10px;
       display: flex;
       align-items: center;
-      padding: 8px 20px;
-      color: white;
-      text-decoration: none;
+      gap: 12px;
       transition: all 0.3s ease;
-      font-size: 0.8rem;
-      gap: 10px;
-      font-weight: 400;
     }
 
-    .sidebar-footer a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    .favorite-item:hover {
+      transform: translateX(5px);
+      border-color: #1d5c59;
+      background: #f8f9fa;
     }
 
-    .sidebar-footer a i {
-      width: 14px;
-      text-align: center;
+    .favorite-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1d5c59;
+    }
+
+    .favorite-info {
+      flex: 1;
+    }
+
+    .favorite-info h4 {
+      margin: 0 0 3px 0;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .favorite-info p {
+      margin: 0;
+      color: #666;
       font-size: 0.85rem;
+    }
+
+    .favorite-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .favorite-action-btn {
+      padding: 6px;
+      border: none;
+      border-radius: 4px;
+      background: #f8f9fa;
+      color: #1d5c59;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .favorite-action-btn:hover {
+      background: #1d5c59;
+      color: white;
+    }
+
+    /* Panel lateral izquierdo */
+    .dashboard-sidebar {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .stats-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .stat-card h3 {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 5px;
+    }
+
+    .stat-card p {
+      font-size: 1.5rem;
+      color: #1d5c59;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .stat-card small {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    /* Controles del mapa */
+    .map-controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .map-control-button {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: white;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .map-control-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .map-control-button i {
+      color: #1d5c59;
+      font-size: 1.2rem;
+    }
+
+    /* Leyenda del mapa */
+    .map-legend {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .legend-text {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* Popups personalizados */
+    .popup-custom {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      max-width: 300px;
+    }
+
+    .popup-custom h3 {
+      margin: 0 0 10px 0;
+      color: #1d5c59;
+      font-size: 1.1rem;
+    }
+
+    .popup-custom p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .popup-custom button {
+      background-color: #1d5c59;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .popup-custom button:hover {
+      background-color: #164542;
+    }
+
+    /* Panel de acciones rápidas */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: auto;
+    }
+
+    .action-button {
+      background: #f8f9fa;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      color: #1d5c59;
+      font-weight: 500;
+    }
+
+    .action-button:hover {
+      background: #e9ecef;
+      transform: translateY(-2px);
+    }
+
+    .action-button i {
+      font-size: 1.1rem;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stat-card, .filter-panel, .map-legend {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .map-control-button {
+      animation: fadeIn 0.3s ease forwards;
+      animation-delay: calc(var(--btn-index) * 0.1s);
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .dashboard-container {
+        grid-template-columns: 250px 1fr;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .dashboard-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .dashboard-sidebar {
+        height: auto;
+      }
+    }
+
+    /* Nuevas secciones para el panel lateral */
+    .performance-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .performance-chart {
+      width: 100%;
+      height: 200px;
+      margin: 10px 0;
+    }
+
+    .recent-activity {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .activity-item {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1d5c59;
+    }
+
+    .activity-content {
+      flex: 1;
+    }
+
+    .activity-content h4 {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    .activity-content p {
+      margin: 3px 0 0;
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .activity-time {
+      font-size: 0.75rem;
+      color: #999;
+    }
+
+    .goals-section {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .goal-progress {
+      margin: 10px 0;
+    }
+
+    .goal-progress h4 {
+      margin: 0 0 5px;
+      font-size: 0.9rem;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #e9ecef;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #1d5c59;
+      border-radius: 3px;
+      transition: width 0.3s ease;
     }
   </style>
 </head>
 <body class="has-sidebar">
   <!-- SIDEBAR -->
-  <aside class="sidebar" style="display: flex; flex-direction: column;">
+  <aside class="sidebar">
     <div>
       <div class="sidebar-profile">
         <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
@@ -233,270 +692,544 @@
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
     <header class="topbar">
-      <h1>Mapa Interactivo de Clientes</h1>
+      <h1>Resumen y Mapa Interactivo</h1>
       <div class="topbar-actions">
-        <div class="search-bar">
-          <input type="text" placeholder="Buscar..." />
-          <i class="fas fa-search"></i>
-        </div>
-        <div class="icons">
-          <i class="fas fa-envelope"></i>
-          <i class="fas fa-bell"></i>
+        <div class="search-user-section">
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Buscar ubicación o cliente..." />
+          </div>
+          <div class="user-profile">
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQEw-UoZ06Kb-A/profile-displayphoto-shrink_200_200/B56ZcELhdZHwAc-/0/1748121819494?e=1753315200&v=beta&t=umlB7AE5ew2DhHiSiN3-sUj3KmX2enK5mF7vCQyGtME" alt="Usuario" class="avatar" />
+            <div class="dropdown-menu" id="userMenu">
+              <a href="#"><i class="fas fa-user"></i> Ver perfil</a>
+              <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+            </div>
+          </div>
         </div>
       </div>
     </header>
 
-    <div class="content-wrapper">
-      <!-- SECCIÓN IZQUIERDA -->
-      <section class="left-section">
-        <!-- Filtros y Mapa -->
-        <div class="land-section land-card">
-          <h2>Mapa de Clientes Potenciales</h2>
-          <p>Utiliza los filtros para segmentar y analizar oportunidades:</p>
-          <div class="filter-container">
-            <select id="filterEstado">
-              <option value="">Estado: Todos</option>
-            </select>
-            <select id="filterPrioridad">
-              <option value="">Prioridad: Todas</option>
-              <option value="Alta">Alta</option>
-              <option value="Media">Media</option>
-              <option value="Baja">Baja</option>
-            </select>
-            <select id="filterCanal">
-              <option value="">Canal de Compra: Todos</option>
-              <option value="Correo">Correo</option>
-              <option value="Teléfono">Teléfono</option>
-              <option value="Web">Web</option>
-              <option value="Presencial">Presencial</option>
-              <option value="No disponible">No disponible</option>
-            </select>
+    <div class="dashboard-container">
+      <div class="main-content-wrapper">
+        <!-- Panel de Filtros -->
+        <div class="filters-sidebar">
+          <div class="filter-section">
+            <h3>Filtros de Búsqueda</h3>
+            <div class="filter-group">
+              <label for="filterEstado">Estado</label>
+              <select id="filterEstado">
+                <option value="">Todos los estados</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filterPrioridad">Prioridad</label>
+              <select id="filterPrioridad">
+                <option value="">Todas las prioridades</option>
+                <option value="Alta">Alta</option>
+                <option value="Media">Media</option>
+                <option value="Baja">Baja</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filterCanal">Canal de Venta</label>
+              <select id="filterCanal">
+                <option value="">Todos los canales</option>
+                <option value="Directo">Directo</option>
+                <option value="Distribuidor">Distribuidor</option>
+                <option value="Online">Online</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filterActividad">Actividad</label>
+              <select id="filterActividad">
+                <option value="">Todas las actividades</option>
+                <option value="Comercial">Comercial</option>
+                <option value="Industrial">Industrial</option>
+                <option value="Servicios">Servicios</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filterPotencial">Potencial de Venta</label>
+              <select id="filterPotencial">
+                <option value="">Todo potencial</option>
+                <option value="Alto">Alto</option>
+                <option value="Medio">Medio</option>
+                <option value="Bajo">Bajo</option>
+              </select>
+            </div>
+            <button class="apply-filters" onclick="applyFilters()">
+              Aplicar Filtros
+            </button>
           </div>
+
+          <!-- Sección de Favoritos -->
+          <div class="favorites-section">
+            <button class="favorites-button" onclick="toggleFavorites()">
+              <i class="fas fa-star"></i>
+              Mis Favoritos
+            </button>
+          </div>
+        </div>
+
+        <!-- Sección del Mapa -->
+        <div class="map-section">
           <div class="map-container">
             <div id="map"></div>
+            
+            <!-- Controles del Mapa -->
+            <div class="map-controls">
+              <button class="map-control-button" style="--btn-index: 1" onclick="zoomIn()">
+                <i class="fas fa-plus"></i>
+              </button>
+              <button class="map-control-button" style="--btn-index: 2" onclick="zoomOut()">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button class="map-control-button" style="--btn-index: 3" onclick="centerMap()">
+                <i class="fas fa-crosshairs"></i>
+              </button>
+              <button class="map-control-button" style="--btn-index: 4" onclick="toggleHeatmap()">
+                <i class="fas fa-layer-group"></i>
+              </button>
+            </div>
+
+            <!-- Leyenda del Mapa -->
+            <div class="map-legend">
+              <div class="legend-item">
+                <div class="legend-color" style="background-color: #1B5E20"></div>
+                <span class="legend-text">Prioridad Alta</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background-color: #4CAF50"></div>
+                <span class="legend-text">Prioridad Media</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color" style="background-color: #C62828"></div>
+                <span class="legend-text">Prioridad Baja</span>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- SECCIÓN DERECHA -->
-      <aside class="right-section">
-        <!-- Lista de Clientes Potenciales -->
-        <div class="clientes">
-          <h2>Clientes Potenciales</h2>
-          <ul id="clientesUl"></ul>
+      <!-- Dashboard Inferior -->
+      <div class="bottom-dashboard">
+        <!-- Estadísticas -->
+        <div class="dashboard-card stats-section">
+          <h3>Estadísticas</h3>
+          <div class="stat-card">
+            <h3>Clientes Totales</h3>
+            <p id="totalClientes">0</p>
+            <small>En el área seleccionada</small>
+          </div>
+          <div class="stat-card">
+            <h3>Prioridad Alta</h3>
+            <p id="clientesAlta">0</p>
+            <small>Requieren atención inmediata</small>
+          </div>
+          <div class="stat-card">
+            <h3>Oportunidades</h3>
+            <p id="oportunidades">0</p>
+            <small>Nuevos leads este mes</small>
+          </div>
         </div>
 
-        <!-- Leyenda del Mapa -->
-        <div class="dashboard-explanation">
-          <h2>Leyenda del Mapa</h2>
-          <div style="margin: 15px 0;">
-            <div style="display: flex; align-items: center; margin-bottom: 10px;">
-              <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #1B5E20; margin-right: 10px;"></span>
-              <span>Prioridad Alta</span>
-            </div>
-            <div style="display: flex; align-items: center; margin-bottom: 10px;">
-              <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #4CAF50; margin-right: 10px;"></span>
-              <span>Prioridad Media</span>
-            </div>
-            <div style="display: flex; align-items: center;">
-              <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: #C62828; margin-right: 10px;"></span>
-              <span>Prioridad Baja</span>
+        <!-- Favoritos -->
+        <div class="dashboard-card favorites-card">
+          <div class="favorites-header">
+            <h3>Mis Favoritos</h3>
+            <button class="favorite-action-btn" onclick="verTodosFavoritos()">
+              <i class="fas fa-external-link-alt"></i>
+            </button>
+          </div>
+          <div class="favorites-list" id="favoritesPreview">
+            <!-- Los favoritos se cargarán aquí dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Metas -->
+        <div class="dashboard-card goals-section">
+          <h3>Metas del Mes</h3>
+          <div class="goal-progress">
+            <h4>
+              <span>Nuevos Clientes</span>
+              <span>15/20</span>
+            </h4>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 75%"></div>
             </div>
           </div>
-          <p>
-            Haz clic en los marcadores para ver más detalles y generar propuestas de venta.
-          </p>
+          <div class="goal-progress">
+            <h4>
+              <span>Ventas Cerradas</span>
+              <span>8/10</span>
+            </h4>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 80%"></div>
+            </div>
+          </div>
+          <div class="goal-progress">
+            <h4>
+              <span>Satisfacción Cliente</span>
+              <span>92%</span>
+            </h4>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 92%"></div>
+            </div>
+          </div>
         </div>
-      </aside>
+      </div>
+    </div>
+
+    <!-- Modal de Favoritos -->
+    <div class="favorites-modal" id="favoritesModal">
+      <div class="favorites-content">
+        <div class="favorites-header">
+          <h2>Mis Clientes Favoritos</h2>
+          <button class="close-favorites" onclick="toggleFavorites()">×</button>
+        </div>
+        <div id="favoritesList">
+          <!-- Los clientes favoritos se cargarán aquí dinámicamente -->
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- Modal para Propuesta de Venta -->
-  <div class="modal" id="proposalModal">
-    <div class="modal-content" id="proposalModalContent">
-      <span class="close-btn" id="closeProposalModal">&times;</span>
-      <h3>Propuesta de Venta</h3>
-      <p><strong>Empresa Seleccionada:</strong> <span id="proposalCompanyName"></span></p>
-      <p id="proposalText">Detalla la propuesta de venta de soluciones y servicios para este cliente.</p>
-      <div class="btn-group">
-        <button class="close-sale" id="markSaleClosedBtn">Venta Cerrada</button>
-        <button class="pending-sale" id="markSalePendingBtn">Mantener Pendiente</button>
-      </div>
-      <p style="margin-top:15px;"><strong>Estado de la Venta:</strong> <span id="saleStatusText">Pendiente</span></p>
-    </div>
-  </div>
-
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      // =======================================
-      // 1. INICIALIZACIÓN DEL MAPA
-      // =======================================
-      const map = L.map("map").setView([23.634501, -102.552784], 5);
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-      }).addTo(map);
+    // Inicialización del mapa
+    const map = L.map('map').setView([23.634501, -102.552784], 5);
+    
+    // Capa base del mapa con estilo personalizado
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Variables globales
+    let geojsonLayer = null;
+    let geojsonData = null;
+    let heatmapActive = false;
+
+    // Funciones de control del mapa
+    function zoomIn() {
+      map.zoomIn();
+    }
+
+    function zoomOut() {
+      map.zoomOut();
+    }
+
+    function centerMap() {
+      map.setView([23.634501, -102.552784], 5);
+    }
+
+    function toggleHeatmap() {
+      heatmapActive = !heatmapActive;
+      updateMapVisualization();
+    }
+
+    // Función para actualizar la visualización del mapa
+    function updateMapVisualization() {
+      if (!geojsonData) return;
       
-      // =======================================
-      // 2. CARGA DEL ARCHIVO GEOJSON
-      // =======================================
-      let geojsonLayer = null;
-      let geojsonData = null;
-      
-      function updateGeoJSONLayer(data) {
-        if (geojsonLayer) {
-          map.removeLayer(geojsonLayer);
-        }
-        geojsonLayer = L.geoJSON(data, {
-          pointToLayer: function(feature, latlng) {
-            let color = "#4CAF50";
-            if (feature.properties.prioridad_venta === "Alta") {
-              color = "#1B5E20";
-            } else if (feature.properties.prioridad_venta === "Baja") {
-              color = "#C62828";
-            }
-            return L.circleMarker(latlng, {
-              radius: 8,
-              fillColor: color,
-              color: "#fff",
-              weight: 1,
-              opacity: 1,
-              fillOpacity: 0.8
-            });
-          },
-          onEachFeature: function(feature, layer) {
-            const props = feature.properties;
-            const lat = feature.geometry.coordinates[1];
-            const lng = feature.geometry.coordinates[0];
-            layer.bindPopup(`
-              <b>ID:</b> ${props.id}<br>
-              <b>Establecimiento:</b> ${props.nom_estab}<br>
-              <b>Razón Social:</b> ${props.raz_social}<br>
-              <b>Actividad:</b> ${props.nombre_act}<br>
-              <b>Teléfono:</b> ${props.telefono}<br>
-              <b>Correo:</b> ${props.correoelec}<br>
-              <b>Página Web:</b> ${props.www ? props.www : "No disponible"}<br>
-              <b>Entidad:</b> ${props.entidad}<br>
-              <b>Municipio:</b> ${props.municipio}<br>
-              <b>Localidad:</b> ${props.localidad}<br>
-              <b>Coordenadas:</b> ${lat}, ${lng}<br><br>
-              <button onclick="openProposalModal(${props.id})">Generar Propuesta</button>
-            `);
+      if (geojsonLayer) {
+        map.removeLayer(geojsonLayer);
+      }
+
+      geojsonLayer = L.geoJSON(geojsonData, {
+        pointToLayer: function(feature, latlng) {
+          let color = "#4CAF50";
+          if (feature.properties.prioridad_venta === "Alta") {
+            color = "#1B5E20";
+          } else if (feature.properties.prioridad_venta === "Baja") {
+            color = "#C62828";
           }
-        }).addTo(map);
-      }
-      
-      function loadGeoJSON() {
-        fetch("nube.geojson")
-          .then(response => response.json())
-          .then(data => {
-            geojsonData = data;
-            updateGeoJSONLayer(data);
-            updateClientesList(data.features);
-            populateEstadosFilter(data.features);
-          })
-          .catch(err => console.error("Error cargando el GeoJSON:", err));
-      }
-      
-      loadGeoJSON();
-      
-      // =======================================
-      // 3. FILTROS BASADOS EN GEOJSON
-      // =======================================
-      const filterEstado = document.getElementById("filterEstado");
-      const filterPrioridad = document.getElementById("filterPrioridad");
-      const filterCanal = document.getElementById("filterCanal");
-      
-      function applyFilters() {
-        if (!geojsonData) return;
-        const estadoValor = filterEstado ? filterEstado.value : "";
-        const prioridadValor = filterPrioridad ? filterPrioridad.value : "";
-        const canalValor = filterCanal ? filterCanal.value : "";
-        
-        const filteredFeatures = geojsonData.features.filter(feature => {
+
+          return L.circleMarker(latlng, {
+            radius: heatmapActive ? 15 : 8,
+            fillColor: color,
+            color: "#fff",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: heatmapActive ? 0.6 : 0.8
+          });
+        },
+        onEachFeature: function(feature, layer) {
           const props = feature.properties;
-          const matchEstado = estadoValor ? props.entidad === estadoValor : true;
-          const matchPrioridad = prioridadValor ? props.prioridad_venta === prioridadValor : true;
-          const matchCanal = canalValor ? props.canal_preferido === canalValor : true;
-          return matchEstado && matchPrioridad && matchCanal;
-        });
-        
-        const filteredGeoJSON = {
-          type: "FeatureCollection",
-          features: filteredFeatures
-        };
-        
-        updateGeoJSONLayer(filteredGeoJSON);
-        updateClientesList(filteredFeatures);
-      }
+          layer.bindPopup(createCustomPopup(props));
+        }
+      }).addTo(map);
+
+      // Actualizar estadísticas
+      updateStats();
+    }
+
+    // Función para crear popups personalizados
+    function createCustomPopup(props) {
+      return `
+        <div class="popup-custom">
+          <h3>${props.nom_estab}</h3>
+          <p><strong>Razón Social:</strong> ${props.raz_social}</p>
+          <p><strong>Actividad:</strong> ${props.nombre_act}</p>
+          <p><strong>Ubicación:</strong> ${props.entidad}, ${props.municipio}</p>
+          <p><strong>Contacto:</strong> ${props.telefono}</p>
+          <button onclick="openProposalModal(${props.id})">
+            Generar Propuesta
+          </button>
+        </div>
+      `;
+    }
+
+    // Función para actualizar estadísticas
+    function updateStats() {
+      if (!geojsonData) return;
+
+      const features = geojsonData.features;
+      const totalClientes = features.length;
+      const clientesAlta = features.filter(f => f.properties.prioridad_venta === "Alta").length;
+      const oportunidades = features.filter(f => f.properties.es_oportunidad).length;
+
+      document.getElementById('totalClientes').textContent = totalClientes;
+      document.getElementById('clientesAlta').textContent = clientesAlta;
+      document.getElementById('oportunidades').textContent = oportunidades;
+    }
+
+    // Función para aplicar filtros actualizada
+    function applyFilters() {
+      if (!geojsonData) return;
       
-      // Aplicar filtros al cambiar cualquier selector
-      [filterEstado, filterPrioridad, filterCanal].forEach(select => {
-        if (select) select.addEventListener("change", applyFilters);
+      const estadoValor = document.getElementById("filterEstado").value;
+      const prioridadValor = document.getElementById("filterPrioridad").value;
+      const canalValor = document.getElementById("filterCanal").value;
+      const actividadValor = document.getElementById("filterActividad").value;
+      const potencialValor = document.getElementById("filterPotencial").value;
+
+      const filteredFeatures = geojsonData.features.filter(feature => {
+        const props = feature.properties;
+        const matchEstado = !estadoValor || props.entidad === estadoValor;
+        const matchPrioridad = !prioridadValor || props.prioridad_venta === prioridadValor;
+        const matchCanal = !canalValor || props.canal_preferido === canalValor;
+        const matchActividad = !actividadValor || props.tipo_actividad === actividadValor;
+        const matchPotencial = !potencialValor || props.potencial_venta === potencialValor;
+        return matchEstado && matchPrioridad && matchCanal && matchActividad && matchPotencial;
       });
 
-      function populateEstadosFilter(features) {
-        const estados = Array.from(new Set(features.map(feature => feature.properties.entidad)));
-        filterEstado.innerHTML = '<option value="">Estado: Todos</option>';
-        estados.sort();
-        estados.forEach(estado => {
-          filterEstado.innerHTML += `<option value="${estado}">${estado}</option>`;
-        });
-      }
-
-      // Actualizar lista de clientes potenciales basada en GeoJSON
-      function updateClientesList(features) {
-        const clientesUl = document.getElementById("clientesUl");
-        if (clientesUl) {
-          clientesUl.innerHTML = "";
-          features.slice(0, 10).forEach(feature => {
-            const li = document.createElement("li");
-            li.innerText = `${feature.properties.nom_estab} (${feature.properties.entidad})`;
-            clientesUl.appendChild(li);
-          });
-        }
-      }
-
-      // Funciones para el modal de Propuesta de Venta
-      let salesStatus = {}; // Estado de venta por id
-      window.openProposalModal = function(companyId) {
-        window.currentCompanyId = companyId;
-        document.getElementById("proposalCompanyName").innerText = "Empresa " + companyId;
-        document.getElementById("saleStatusText").innerText = salesStatus[companyId] || "Pendiente";
-        document.getElementById("proposalModal").style.display = "flex";
+      const filteredGeoJSON = {
+        type: "FeatureCollection",
+        features: filteredFeatures
       };
 
-      const closeProposalModalBtn = document.getElementById("closeProposalModal");
-      if (closeProposalModalBtn) {
-        closeProposalModalBtn.addEventListener("click", () => {
-          document.getElementById("proposalModal").style.display = "none";
-        });
-      }
+      updateMapVisualization(filteredGeoJSON);
+    }
 
-      window.addEventListener("click", (e) => {
-        if (e.target === document.getElementById("proposalModal")) {
-          document.getElementById("proposalModal").style.display = "none";
+    // Funciones de acciones rápidas
+    function exportarDatos() {
+      alert('Exportando datos...');
+      // Implementar lógica de exportación
+    }
+
+    function generarReporte() {
+      alert('Generando reporte...');
+      // Implementar generación de reporte
+    }
+
+    function programarVisita() {
+      alert('Abriendo calendario...');
+      // Implementar programación de visita
+    }
+
+    function mostrarAyuda() {
+      alert('Mostrando ayuda...');
+      // Implementar guía de ayuda
+    }
+
+    // Cargar datos GeoJSON
+    fetch("nube.geojson")
+      .then(response => response.json())
+      .then(data => {
+        geojsonData = data;
+        updateMapVisualization();
+        
+        // Poblar select de Estados
+        const estados = Array.from(new Set(data.features.map(f => f.properties.entidad))).sort();
+        const filterEstado = document.getElementById("filterEstado");
+        estados.forEach(estado => {
+          const option = document.createElement("option");
+          option.value = estado;
+          option.textContent = estado;
+          filterEstado.appendChild(option);
+        });
+      })
+      .catch(err => console.error("Error cargando el GeoJSON:", err));
+
+    // Event Listeners
+    document.querySelector('.avatar').addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.getElementById('userMenu').classList.toggle('show');
+    });
+
+    document.addEventListener('click', function() {
+      document.getElementById('userMenu').classList.remove('show');
+    });
+
+    // Inicializar gráfico de rendimiento
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Ventas',
+          data: [12, 19, 15, 17, 22, 24],
+          borderColor: '#1d5c59',
+          tension: 0.4,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
-      });
-
-      const markSaleClosedBtn = document.getElementById("markSaleClosedBtn");
-      if (markSaleClosedBtn) {
-        markSaleClosedBtn.addEventListener("click", () => {
-          if (window.currentCompanyId) {
-            salesStatus[window.currentCompanyId] = "Cerrado";
-            document.getElementById("saleStatusText").innerText = "Cerrado";
-          }
-        });
       }
+    });
 
-      const markSalePendingBtn = document.getElementById("markSalePendingBtn");
-      if (markSalePendingBtn) {
-        markSalePendingBtn.addEventListener("click", () => {
-          if (window.currentCompanyId) {
-            salesStatus[window.currentCompanyId] = "Pendiente";
-            document.getElementById("saleStatusText").innerText = "Pendiente";
-          }
-        });
+    // Función para alternar modal de favoritos
+    function toggleFavorites() {
+      const modal = document.getElementById('favoritesModal');
+      modal.classList.toggle('active');
+      
+      if (modal.classList.contains('active')) {
+        loadFavorites();
       }
+    }
+
+    // Función para cargar favoritos
+    function loadFavorites() {
+      const favoritesList = document.getElementById('favoritesList');
+      // Ejemplo de datos de favoritos - En producción, estos vendrían de una API o base de datos
+      const favorites = [
+        {
+          id: 1,
+          name: "Empresa ABC",
+          location: "Ciudad de México",
+          lastContact: "2024-03-15",
+          status: "Propuesta pendiente"
+        },
+        {
+          id: 2,
+          name: "Corporativo XYZ",
+          location: "Guadalajara",
+          lastContact: "2024-03-10",
+          status: "Seguimiento programado"
+        },
+        {
+          id: 3,
+          name: "Industrias 123",
+          location: "Monterrey",
+          lastContact: "2024-03-08",
+          status: "En negociación"
+        }
+      ];
+
+      favoritesList.innerHTML = favorites.map(client => `
+        <div class="favorite-client">
+          <div class="favorite-client-info">
+            <h4>${client.name}</h4>
+            <p>${client.location}</p>
+            <p><small>Último contacto: ${client.lastContact}</small></p>
+            <p><small>${client.status}</small></p>
+          </div>
+          <div class="favorite-actions">
+            <button class="favorite-action-btn" onclick="contactClient(${client.id})">
+              <i class="fas fa-phone"></i>
+            </button>
+            <button class="favorite-action-btn" onclick="scheduleVisit(${client.id})">
+              <i class="fas fa-calendar-plus"></i>
+            </button>
+            <button class="favorite-action-btn" onclick="viewDetails(${client.id})">
+              <i class="fas fa-info-circle"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Funciones de acciones para favoritos
+    function contactClient(id) {
+      alert(`Contactando al cliente ${id}`);
+    }
+
+    function scheduleVisit(id) {
+      alert(`Programando visita para el cliente ${id}`);
+    }
+
+    function viewDetails(id) {
+      alert(`Viendo detalles del cliente ${id}`);
+    }
+
+    // Cargar vista previa de favoritos
+    function loadFavoritesPreview() {
+      const favoritesList = document.getElementById('favoritesPreview');
+      // Ejemplo de datos - En producción, estos vendrían de una API
+      const favorites = [
+        {
+          id: 1,
+          name: "Empresa ABC",
+          location: "Ciudad de México",
+          status: "Propuesta pendiente"
+        },
+        {
+          id: 2,
+          name: "Corporativo XYZ",
+          location: "Guadalajara",
+          status: "Seguimiento programado"
+        },
+        {
+          id: 3,
+          name: "Industrias 123",
+          location: "Monterrey",
+          status: "En negociación"
+        }
+      ];
+
+      favoritesList.innerHTML = favorites.slice(0, 3).map(client => `
+        <div class="favorite-item">
+          <div class="favorite-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <div class="favorite-info">
+            <h4>${client.name}</h4>
+            <p>${client.location}</p>
+            <p><small>${client.status}</small></p>
+          </div>
+          <div class="favorite-actions">
+            <button class="favorite-action-btn" onclick="contactClient(${client.id})">
+              <i class="fas fa-phone"></i>
+            </button>
+            <button class="favorite-action-btn" onclick="scheduleVisit(${client.id})">
+              <i class="fas fa-calendar-plus"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Función para ver todos los favoritos
+    function verTodosFavoritos() {
+      toggleFavorites();
+    }
+
+    // Cargar favoritos al iniciar
+    document.addEventListener('DOMContentLoaded', function() {
+      loadFavoritesPreview();
     });
   </script>
 </body>

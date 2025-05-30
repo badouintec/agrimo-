@@ -3,348 +3,309 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kaptia - Dashboard</title>
+  <title>Kaptia - Inicio</title>
   
-  <!-- Fuente Google: Poppins -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet" />
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet" />
   
-  <!-- Hoja de estilos principal -->
+  <!-- Estilos -->
   <link rel="stylesheet" href="styles.css" />
-  
-  <!-- Librerías externas -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
   
   <style>
-    /* Estilos para la barra lateral */
-    .sidebar {
-      width: 250px;
-      height: 100vh;
-      background-color: #1d5c59;
-      position: fixed;
-      left: 0;
-      top: 0;
-      padding: 20px 0;
+    .welcome-section {
+      background: linear-gradient(135deg, #1d5c59 0%, #2a8783 100%);
       color: white;
-      display: flex;
-      flex-direction: column;
-      z-index: 1000;
-      overflow-y: auto;
-      overflow-x: hidden;
+      padding: 30px;
+      border-radius: 15px;
+      margin-bottom: 30px;
     }
 
-    .sidebar-profile {
-      padding: 15px;
-      text-align: center;
+    .welcome-content {
+      max-width: 800px;
+    }
+
+    .welcome-content h1 {
+      font-size: 2rem;
       margin-bottom: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
-    .sidebar-profile img {
-      width: 120px;
-      height: auto;
-      margin-bottom: 15px;
-      transition: all 0.3s ease;
+    .welcome-content p {
+      font-size: 1.1rem;
+      opacity: 0.9;
     }
 
-    .sidebar-profile .secondary-logo {
-      width: 100px;
-      height: auto;
-      margin-bottom: 10px;
-      transition: all 0.3s ease;
+    .quick-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
     }
 
-    .menu li {
-      margin-bottom: 0;
-    }
-
-    .menu a {
+    .stat-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       display: flex;
       align-items: center;
-      padding: 8px 20px;
-      color: white;
+      gap: 20px;
+    }
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #1d5c59;
+    }
+
+    .stat-info h3 {
+      color: #666;
+      font-size: 0.9rem;
+      margin: 0 0 5px 0;
+    }
+
+    .stat-info p {
+      color: #1d5c59;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .dashboard-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .card-header h2 {
+      color: #1d5c59;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    .card-header .view-all {
+      color: #1d5c59;
       text-decoration: none;
-      transition: all 0.3s ease;
-      font-size: 0.95rem;
-      gap: 10px;
-      font-weight: 400;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
 
-    .menu a i {
-      width: 16px;
-      text-align: center;
+    /* Actividad Reciente */
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .activity-item:hover {
+      transform: translateX(5px);
+    }
+
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1d5c59;
+    }
+
+    .activity-content {
+      flex: 1;
+    }
+
+    .activity-content h4 {
+      margin: 0 0 5px 0;
+      color: #333;
       font-size: 1rem;
     }
 
-    .menu a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .sidebar .menu ul li.active a {
-      background-color: #247c78; /* un verde más claro para destacar */
-      font-weight: 600;
-      padding-left: 20px;
-    }
-
-    .sidebar .menu ul li a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding-left: 20px;
-    }
-
-    .sidebar-footer {
-      margin-top: auto;
-      padding: 20px;
-    }
-
-    .sidebar-footer a {
-      display: flex;
-      align-items: center;
-      padding: 8px 20px;
-      color: white;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-size: 0.8rem;
-      gap: 10px;
-      font-weight: 400;
-    }
-
-    .sidebar-footer a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .sidebar-footer a i {
-      width: 14px;
-      text-align: center;
-      font-size: 0.85rem;
-    }
-    
-    /* Ajuste del contenedor principal para dar espacio a la sidebar */
-    .main-content {
-      margin-left: 250px;
-      padding: 20px;
-      font-family: 'Poppins', sans-serif;
-      background-color: #fff;
-    }
-    
-    /* Ajustes rápidos para el canvas de la gráfica */
-    .chart-card canvas {
-      width: 100% !important;
-      height: 250px !important;
-    }
-
-    /* Asegura que el contenedor del mapa tenga altura */
-    .map-container {
-      width: 100%;
-      height: 400px; /* Ajusta según tu diseño */
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      overflow: hidden;
-      margin-top: 20px; /* Según el espaciado que desees */
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    #map {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    /* Mejoras generales de estética */
-    body {
-      background-color: #f9f9f9;
-      color: #333;
-    }
-
-    /* Contenedor de filtros */
-    .filter-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 15px;
-      padding: 10px;
-      background-color: #f5f5f5;
-      border-radius: 5px;
-    }
-
-    /* Calendario con grid para mayor orden */
-    .calendar {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 8px;
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    .calendar div {
-      padding: 8px;
-      text-align: center;
-      border: 1px solid #ddd;
-      border-radius: 3px;
-    }
-
-    .calendar-event {
-      background-color: #e3f2fd;
-      font-size: 0.9rem;
-      font-weight: bold;
-    }
-
-    /* Mejoras en modales */
-    .modal .modal-content {
-      border-radius: 8px;
-      padding: 20px;
-      background-color: #fff;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    /* Corregir estilo del menú izquierdo */
-    .sidebar {
-      width: 250px;
-      height: 100vh;
-      background-color: #1d5c59;
-      position: fixed;
-      left: 0;
-      top: 0;
-      padding: 20px 0;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      z-index: 1000;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-    
-    .sidebar-profile {
-      text-align: center;
-      margin-bottom: 30px;
-      width: 100%;
-    }
-    
-    .sidebar-profile img {
-      width: 120px;
-      height: auto;
-      margin-bottom: 15px;
-      transition: all 0.3s ease;
-      border-radius: 0;
-    }
-    
-    .sidebar .menu {
-      width: 100%;
-    }
-    
-    .sidebar .menu ul {
-      list-style: none;
-      padding: 0;
+    .activity-content p {
       margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .activity-time {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    /* Próximas Tareas */
+    .task-list {
       display: flex;
       flex-direction: column;
-      width: 100%;
+      gap: 15px;
     }
-    
-    .sidebar .menu ul li {
-      margin: 8px 0;
-      width: 100%;
-    }
-    
-    .sidebar .menu ul li a {
+
+    .task-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 15px;
-      color: #ecf0f1;
-      text-decoration: none;
-      border-radius: 5px;
+      gap: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
       transition: all 0.3s ease;
-      width: 100%;
-      box-sizing: border-box;
     }
-    
-    .sidebar .menu ul li a i {
+
+    .task-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .task-checkbox {
       width: 20px;
-      text-align: center;
-      font-size: 1.1rem;
+      height: 20px;
+      border: 2px solid #1d5c59;
+      border-radius: 4px;
+      cursor: pointer;
     }
-    
-    .sidebar .menu ul li.active a,
-    .sidebar .menu ul li a:hover {
-      background-color: #1d5c59;
-      padding-left: 20px;
+
+    .task-content {
+      flex: 1;
     }
-    
-    .sidebar-footer {
-      margin-top: auto;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      padding-top: 20px;
-      width: 100%;
+
+    .task-content h4 {
+      margin: 0 0 5px 0;
+      color: #333;
+      font-size: 1rem;
     }
-    
-    .sidebar-footer button,
-    .sidebar-footer a {
+
+    .task-content p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .task-due {
+      color: #1d5c59;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Oportunidades de Venta */
+    .opportunity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .opportunity-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      width: 100%;
-      padding: 10px 15px;
-      margin: 5px 0;
-      background: none;
-      border: none;
-      color: #ecf0f1;
-      text-align: left;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-      text-decoration: none;
+      gap: 15px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      transition: all 0.3s ease;
     }
-    
-    .sidebar-footer button:hover,
-    .sidebar-footer a:hover {
-      background-color: #1d5c59;
+
+    .opportunity-item:hover {
+      transform: translateX(5px);
+    }
+
+    .opportunity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1d5c59;
+    }
+
+    .opportunity-content {
+      flex: 1;
+    }
+
+    .opportunity-content h4 {
+      margin: 0 0 5px 0;
+      color: #333;
+      font-size: 1rem;
+    }
+
+    .opportunity-content p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .opportunity-value {
+      color: #1d5c59;
+      font-weight: 600;
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body class="has-sidebar">
-<!-- SIDEBAR -->
-<aside class="sidebar">
-<div>
-  <div class="sidebar-profile">
-    <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
-    <img class="secondary-logo" src="https://scontent-qro1-1.xx.fbcdn.net/v/t39.30808-6/500738011_687111284206903_2823906794035529988_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=8ZLP2CkI5EMQ7kNvwGi2eTc&_nc_oc=AdnnUJAvTgy0IV_co3BInX7qs8xVOocsdUK-0CNQifdrMTvLD9ilvsCNpPiITASgiRM&_nc_zt=23&_nc_ht=scontent-qro1-1.xx&_nc_gid=PhckQI5PZ10HHAMwTJseaA&oh=00_AfK4D10Anecx3Kjj1wfMo5DJMm1owQGnt1ufJ98Os-GZ5g&oe=683D2EF9" alt="Logo secundario" />
-  </div>
-  <nav class="menu">
-    <ul>
-      <li class="active"><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
-      <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
-      <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
-      <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
-      <li><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
-      <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
-      <li><a href="herramientas.html"><i class="fas fa-tools"></i> Herramientas</a></li>
-    </ul>
-  </nav>
-</div>
-<div class="sidebar-footer">
-  <a href="contacto-asesor.html"><i class="fas fa-question-circle"></i> Contacta un asesor</a>
-</div>
-</aside>
-
-
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
+        <img class="secondary-logo" src="https://scontent-qro1-1.xx.fbcdn.net/v/t39.30808-6/500738011_687111284206903_2823906794035529988_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=8ZLP2CkI5EMQ7kNvwGi2eTc&_nc_oc=AdnnUJAvTgy0IV_co3BInX7qs8xVOocsdUK-0CNQifdrMTvLD9ilvsCNpPiITASgiRM&_nc_zt=23&_nc_ht=scontent-qro1-1.xx&_nc_gid=PhckQI5PZ10HHAMwTJseaA&oh=00_AfK4D10Anecx3Kjj1wfMo5DJMm1owQGnt1ufJ98Os-GZ5g&oe=683D2EF9" alt="Logo secundario" />
+      </div>
+      <nav class="menu">
+        <ul>
+          <li class="active"><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+          <li><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li><a href="herramientas.html"><i class="fas fa-tools"></i> Herramientas</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="sidebar-footer">
+      <a href="contacto-asesor.html"><i class="fas fa-question-circle"></i> Contacta un asesor</a>
+    </div>
+  </aside>
 
   <!-- CONTENIDO PRINCIPAL -->
   <main class="main-content">
     <header class="topbar">
-      <h1>Página de inicio</h1>
+      <h1>Panel de Control</h1>
       <div class="topbar-actions">
-        <!-- Buscador y Avatar -->
         <div class="search-user-section">
-        <div class="search-bar">
-          <i class="fas fa-search"></i>
-            <input type="text" placeholder="Preguntar a KaptiaBot o buscar" />
-        </div>
+          <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Buscar..." />
+          </div>
           <div class="user-profile">
             <img src="https://media.licdn.com/dms/image/v2/D5603AQEw-UoZ06Kb-A/profile-displayphoto-shrink_200_200/B56ZcELhdZHwAc-/0/1748121819494?e=1753315200&v=beta&t=umlB7AE5ew2DhHiSiN3-sUj3KmX2enK5mF7vCQyGtME" alt="Usuario" class="avatar" />
             <div class="dropdown-menu" id="userMenu">
@@ -356,751 +317,191 @@
       </div>
     </header>
 
-    <div class="content-wrapper">
-      <!-- SECCIÓN IZQUIERDA -->
-      <section class="left-section">
-        <!-- Mensaje de bienvenida -->
-        <div class="welcome-message">
-          <h1>¡Hola <span id="userName">Mariel</span>!</h1>
+    <div class="dashboard-container">
+      <!-- Sección de Bienvenida -->
+      <section class="welcome-section">
+        <div class="welcome-content">
+          <h1>¡Bienvenido de vuelta!</h1>
+          <p>Aquí tienes un resumen de tu actividad y las tareas pendientes para hoy.</p>
         </div>
+      </section>
 
-        <!-- KPIs y Gráfica de Ventas -->
-        <div class="kpis">
-          <div class="kpi-card">
-            <h3>Ventas Realizadas</h3>
-            <p id="kpiVentas">0</p>
-            <small>Unidades vendidas este mes</small>
-            <button class="btn-detail" onclick="abrirModalCurso('modalKpiVentas')">Ver Detalles</button>
+      <!-- Estadísticas Rápidas -->
+      <section class="quick-stats">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
           </div>
-          <div class="chart-card">
-            <canvas id="chartVentas"></canvas>
-            <button class="btn-detail" onclick="abrirModalCurso('modalGraficaVentas')">Más info sobre ventas</button>
+          <div class="stat-info">
+            <h3>Clientes Activos</h3>
+            <p>248</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Ventas del Mes</h3>
+            <p>$1.2M</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Oportunidades</h3>
+            <p>15</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Tareas Pendientes</h3>
+            <p>8</p>
           </div>
         </div>
       </section>
 
-      <!-- SECCIÓN DERECHA -->
-      <aside class="right-section">
-        <!-- Recordatorios -->
-        <div class="reminders">
-          <div class="reminders-header">
-            <div class="title-with-icon">
-              <i class="fas fa-bell"></i>
-              <span class="notification-dot"></span>
-              <h2>Recordatorios</h2>
-            </div>
-            <div class="period-selector">
-              <button id="periodButton">
-                Hoy <i class="fas fa-chevron-down"></i>
-              </button>
-              <div class="period-dropdown" id="periodMenu">
-                <a href="#" class="active">Hoy</a>
-                <a href="#">Ayer</a>
-                <a href="#">Esta semana</a>
-                <a href="#">Próxima semana</a>
+      <!-- Grid de Dashboard -->
+      <div class="dashboard-grid">
+        <!-- Actividad Reciente -->
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h2>Actividad Reciente</h2>
+            <a href="#" class="view-all">Ver todo <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-handshake"></i>
               </div>
-            </div>
-          </div>
-
-          <div class="reminders-list">
-            <div class="reminder-item">
-              <div class="reminder-icon">
-                <i class="fas fa-video"></i>
+              <div class="activity-content">
+                <h4>Nueva Propuesta Enviada</h4>
+                <p>Cliente: Empresa ABC</p>
               </div>
-              <div class="reminder-content">
-                <h3>Zoom Agrotienda (CDMX)</h3>
-                <p>9:00 hrs - Vie 14 mar</p>
+              <span class="activity-time">Hace 2h</span>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-calendar-check"></i>
               </div>
-              <div class="reminder-status pending"></div>
-            </div>
-
-            <div class="reminder-item">
-              <div class="reminder-icon">
-                <i class="fas fa-calendar"></i>
+              <div class="activity-content">
+                <h4>Reunión Programada</h4>
+                <p>Cliente: XYZ Corp</p>
               </div>
-              <div class="reminder-content">
-                <h3>Visita Cliente Invernaderos SA</h3>
-                <p>14:30 hrs - Vie 14 mar</p>
+              <span class="activity-time">Hace 4h</span>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-chart-line"></i>
               </div>
-              <div class="reminder-status completed">
-                <i class="fas fa-check"></i>
+              <div class="activity-content">
+                <h4>Meta Alcanzada</h4>
+                <p>Ventas Q1 2024</p>
               </div>
-            </div>
-          </div>
-
-          <div class="reminders-footer">
-            <a href="#" class="show-all">Mostrar todos</a>
-            <a href="#" class="add-new">Añadir+</a>
-          </div>
-        </div>
-
-        <!-- Notificaciones -->
-        <div class="alerts">
-          <div class="reminders-header">
-            <div class="title-with-icon">
-              <i class="fas fa-bell"></i>
-              <span class="notification-dot"></span>
-              <h2>Notificaciones</h2>
-            </div>
-          </div>
-          <div class="alert-item">
-            <p><strong>Invernaderos Bonanza</strong> (Jalisco)<br>Cliente respondió y agendó cita.</p>
-            <button onclick="mostrarAlerta('Invernaderos Bonanza (Jalisco)')">Ver Detalles</button>
-          </div>
-          <div class="alert-item">
-            <p><strong>Finca La Paloma</strong> (CDMX)<br>Cliente confirmó interés.</p>
-            <button onclick="mostrarAlerta('Finca La Paloma (CDMX)')">Ver Detalles</button>
-          </div>
-          <div class="alert-item">
-            <p><strong>Agroindustrial El Sol</strong> (Veracruz)<br>Cliente solicita seguimiento.</p>
-            <button onclick="mostrarAlerta('Agroindustrial El Sol (Veracruz)')">Ver Detalles</button>
-          </div>
-        </div>
-
-        <!-- Cursos de Ventas -->
-        <div class="courses">
-          <h2>Cursos de Ventas</h2>
-          <div class="course-item">
-            <img src="https://img.icons8.com/color/48/000000/sales-performance.png" alt="Estrategias de Venta Avanzadas" />
-            <div class="course-info">
-              <h3>Estrategias de Venta Avanzadas</h3>
-              <p>Aprende técnicas avanzadas para captar clientes y cerrar ventas en el sector agrícola.</p>
-              <small>Módulo 3 de 6</small>
-            </div>
-            <div class="course-extra">
-              <button onclick="abrirModalCurso('modalVentas')">Más Información</button>
-            </div>
-          </div>
-          <div class="course-item">
-            <img src="https://img.icons8.com/color/48/000000/prospecting.png" alt="Técnicas de Prospección" />
-            <div class="course-info">
-              <h3>Técnicas de Prospección</h3>
-              <p>Estrategias para identificar y captar clientes potenciales.</p>
-              <small>Módulo 2 de 5</small>
-            </div>
-            <div class="course-extra">
-              <button onclick="abrirModalCurso('modalRiego')">Más Información</button>
-            </div>
-          </div>
-          <div class="course-item">
-            <img src="https://img.icons8.com/color/48/000000/negotiation.png" alt="Negociación y Cierre de Ventas" />
-            <div class="course-info">
-              <h3>Negociación y Cierre de Ventas</h3>
-              <p>Descubre estrategias para negociar, superar objeciones y cerrar ventas efectivas.</p>
-              <small>Módulo 4 de 7</small>
-            </div>
-            <div class="course-extra">
-              <button onclick="abrirModalCurso('modalEco')">Más Información</button>
-            </div>
-          </div>
-          <div class="course-item">
-            <img src="https://img.icons8.com/color/48/000000/follow-up.png" alt="Manejo de Seguimiento Comercial" />
-            <div class="course-info">
-              <h3>Manejo de Seguimiento Comercial</h3>
-              <p>Herramientas para mantener relaciones efectivas con tus clientes.</p>
-              <small>Módulo 1 de 4</small>
-            </div>
-            <div class="course-extra">
-              <button onclick="abrirModalCurso('modalClima')">Más Información</button>
+              <span class="activity-time">Hace 1d</span>
             </div>
           </div>
         </div>
 
-        <!-- Lista de Clientes Potenciales (solo se mostrarán los 3 principales) -->
-        <div class="clientes">
-          <h2>Clientes Potenciales</h2>
-          <ul id="clientesUl"></ul>
+        <!-- Próximas Tareas -->
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h2>Próximas Tareas</h2>
+            <a href="#" class="view-all">Ver todo <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="task-list">
+            <div class="task-item">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <h4>Llamada de seguimiento</h4>
+                <p>Empresa ABC - Propuesta comercial</p>
+              </div>
+              <span class="task-due">Hoy 14:00</span>
+            </div>
+            <div class="task-item">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <h4>Preparar presentación</h4>
+                <p>Nuevo producto para XYZ Corp</p>
+              </div>
+              <span class="task-due">Mañana 10:00</span>
+            </div>
+            <div class="task-item">
+              <div class="task-checkbox"></div>
+              <div class="task-content">
+                <h4>Visita cliente</h4>
+                <p>Industrias 123 - Demostración producto</p>
+              </div>
+              <span class="task-due">En 2 días</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Explicación del Dashboard -->
-        <div class="dashboard-explanation">
-          <h2>¿Necesitas Ayuda?</h2>
-          <p>
-            Si tienes alguna duda sobre cómo usar esta plataforma o requieres asistencia personalizada, 
-            contacta a nuestro equipo de soporte.
-          </p>
-          <button class="btn-detail" style="width: 100%; margin-top: 15px;">Contactar Soporte</button>
+        <!-- Oportunidades de Venta -->
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h2>Oportunidades de Venta</h2>
+            <a href="#" class="view-all">Ver todo <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="opportunity-list">
+            <div class="opportunity-item">
+              <div class="opportunity-icon">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div class="opportunity-content">
+                <h4>Empresa ABC</h4>
+                <p>Expansión de servicios</p>
+              </div>
+              <span class="opportunity-value">$50K</span>
+            </div>
+            <div class="opportunity-item">
+              <div class="opportunity-icon">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div class="opportunity-content">
+                <h4>XYZ Corp</h4>
+                <p>Nuevo contrato anual</p>
+              </div>
+              <span class="opportunity-value">$75K</span>
+            </div>
+            <div class="opportunity-item">
+              <div class="opportunity-icon">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div class="opportunity-content">
+                <h4>Industrias 123</h4>
+                <p>Implementación software</p>
+              </div>
+              <span class="opportunity-value">$120K</span>
+            </div>
+          </div>
         </div>
-      </aside>
+      </div>
     </div>
   </main>
 
-  <!-- POP-UP Overlay para Alertas -->
-  <div class="popup-overlay" id="overlayAlerta">
-    <div class="popup">
-      <h2 id="tituloAlerta">Detalles</h2>
-      <p>Aquí se mostrarán más datos sobre la alerta seleccionada.</p>
-      <button onclick="cerrarAlerta()">Cerrar</button>
-    </div>
-  </div>
-
-  <!-- MODALES -->
-  <!-- Modal de Curso: Estrategias de Venta Avanzadas -->
-  <div class="course-modal" id="modalVentas">
-    <div class="course-modal-content">
-      <span class="close-modal" onclick="cerrarModalCurso('modalVentas')">&times;</span>
-      <h2>Estrategias de Venta Avanzadas</h2>
-      <p>
-        En este curso aprenderás técnicas avanzadas para captar clientes y cerrar ventas en el sector agrícola.
-      </p>
-      <ul>
-        <li>Módulo 1: Análisis del Mercado</li>
-        <li>Módulo 2: Prospección Efectiva</li>
-        <li>Módulo 3: Técnicas de Negociación</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Modal de Curso: Técnicas de Prospección -->
-  <div class="course-modal" id="modalRiego">
-    <div class="course-modal-content">
-      <span class="close-modal" onclick="cerrarModalCurso('modalRiego')">&times;</span>
-      <h2>Técnicas de Prospección</h2>
-      <p>
-        Aprende a identificar y acercarte a clientes potenciales de forma efectiva.
-      </p>
-      <button onclick="alert('Iniciando Evaluación de Prospección...')">Iniciar Evaluación</button>
-    </div>
-  </div>
-
-  <!-- Modal de Curso: Negociación y Cierre de Ventas -->
-  <div class="course-modal" id="modalEco">
-    <div class="course-modal-content">
-      <span class="close-modal" onclick="cerrarModalCurso('modalEco')">&times;</span>
-      <h2>Negociación y Cierre de Ventas</h2>
-      <p>
-        Descubre estrategias para negociar, superar objeciones y cerrar ventas efectivas.
-      </p>
-      <ul>
-        <li>Técnicas de Cierre</li>
-        <li>Manejo de Objeciones</li>
-        <li>Seguimiento Post-Venta</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Modal de Curso: Manejo de Seguimiento Comercial -->
-  <div class="course-modal" id="modalClima">
-    <div class="course-modal-content">
-      <span class="close-modal" onclick="cerrarModalCurso('modalClima')">&times;</span>
-      <h2>Manejo de Seguimiento Comercial</h2>
-      <p>
-        Aprende a mantener relaciones efectivas y dar seguimiento a clientes para aumentar tus ventas.
-      </p>
-      <p><strong>Próxima sesión:</strong> Viernes 15, 9 AM (Online)</p>
-    </div>
-  </div>
-
-  <!-- Modal de KPI: Detalle de Ventas -->
-  <div class="course-modal" id="modalKpiVentas">
-    <div class="course-modal-content">
-      <span class="close-modal" onclick="cerrarModalCurso('modalKpiVentas')">&times;</span>
-      <h2>Detalle de Ventas</h2>
-      <p>
-        Este indicador muestra el total de unidades vendidas durante el mes.
-      </p>
-      <p>
-        <strong>Objetivo:</strong> 200 unidades<br/>
-        <strong>Resultado actual:</strong> 120 unidades
-      </p>
-    </div>
-  </div>
-
-  <!-- Modal de Gráfica: Evolución de Ventas -->
-  <div class="course-modal" id="modalGraficaVentas">
-    <div class="course-modal-content">
-      <span class="close-modal" onclick="cerrarModalCurso('modalGraficaVentas')">&times;</span>
-      <h2>Datos sobre Evolución de Ventas</h2>
-      <p>
-        La gráfica muestra la evolución de las ventas a lo largo de los meses.
-      </p>
-      <ul>
-        <li>Enero: 15 unidades</li>
-        <li>Febrero: 20 unidades</li>
-        <li>Marzo: 25 unidades</li>
-        <li>Abril: 30 unidades</li>
-        <li>Mayo: 20 unidades</li>
-        <li>Junio: 10 unidades</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Modal de Gráfica: Ahorro de Agua -->
-  <div class="course-modal" id="modalGrafica">
-    <div class="course-modal-content">
-      <span class="close-modal" onclick="cerrarModalCurso('modalGrafica')">&times;</span>
-      <h2>Datos sobre el Ahorro de Agua</h2>
-      <p>
-        Esta gráfica representa la evolución del ahorro de agua (litros acumulados) a lo largo de los meses.
-      </p>
-      <ul>
-        <li>Enero: 500 L</li>
-        <li>Febrero: 800 L</li>
-        <li>Marzo: 1200 L</li>
-        <li>Abril: 1800 L</li>
-        <li>Mayo: 2700 L</li>
-        <li>Junio: 3500 L</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Modal para Propuesta de Venta -->
-  <div class="modal" id="proposalModal">
-    <div class="modal-content" id="proposalModalContent">
-      <span class="close-btn" id="closeProposalModal">&times;</span>
-      <h3>Propuesta de Venta</h3>
-      <p><strong>Empresa Seleccionada:</strong> <span id="proposalCompanyName"></span></p>
-      <p id="proposalText">Detalla la propuesta de venta de soluciones y servicios para este cliente.</p>
-      <div class="btn-group">
-        <button class="close-sale" id="markSaleClosedBtn">Venta Cerrada</button>
-        <button class="pending-sale" id="markSalePendingBtn">Mantener Pendiente</button>
-      </div>
-      <p style="margin-top:15px;"><strong>Estado de la Venta:</strong> <span id="saleStatusText">Pendiente</span></p>
-    </div>
-  </div>
-
-  <!-- Modal del Dashboard (Chatbot fake) -->
-  <div class="modal" id="dashboardModal">
-    <div class="modal-content">
-      <span class="close-btn" id="closeDashboardModal">&times;</span>
-      <h3>Dashboard de Ventas</h3>
-      <p>Aquí se muestran estadísticas y un asistente virtual para ayudarte en la toma de decisiones.</p>
-      <div style="margin-top:15px; padding:10px; border:1px solid #ccc; border-radius:4px;">
-        <p><strong>Chatbot:</strong> Hola, ¿en qué puedo ayudarte hoy?</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- SCRIPTS -->
-  <script src="scripts.js"></script>
-  <script src="map-actions.js"></script>
   <script>
-    // Funciones de scroll suave y resaltado (si aplica)
-    document.addEventListener("DOMContentLoaded", () => {
-      const sections = document.querySelectorAll("section[id]");
-      const navLinks = document.querySelectorAll(".scroll-link");
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const id = entry.target.getAttribute("id");
-              navLinks.forEach((link) => {
-                link.classList.remove("active");
-                if (link.getAttribute("href") === "#" + id) {
-                  link.classList.add("active");
-                }
-              });
-            }
-          });
-        },
-        { threshold: 0.3 }
-      );
-      sections.forEach((section) => observer.observe(section));
-      navLinks.forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const targetId = link.getAttribute("href").substring(1);
-          document.getElementById(targetId).scrollIntoView({ behavior: "smooth" });
-        });
-      });
-      
-      // =======================================
-      // 1. INICIALIZACIÓN DEL MAPA
-      // =======================================
-      const map = L.map("map").setView([23.634501, -102.552784], 5);
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
-      }).addTo(map);
-      
-      // =======================================
-      // 2. CARGA DEL ARCHIVO GEOJSON
-      // =======================================
-      let geojsonLayer = null;
-      let geojsonData = null;
-      
-      function updateGeoJSONLayer(data) {
-        if (geojsonLayer) {
-          map.removeLayer(geojsonLayer);
-        }
-        geojsonLayer = L.geoJSON(data, {
-          pointToLayer: function(feature, latlng) {
-            let color = "#4CAF50";
-            if (feature.properties.prioridad_venta === "Alta") {
-              color = "#1B5E20";
-            } else if (feature.properties.prioridad_venta === "Baja") {
-              color = "#C62828";
-            }
-            return L.circleMarker(latlng, {
-              radius: 8,
-              fillColor: color,
-              color: "#fff",
-              weight: 1,
-              opacity: 1,
-              fillOpacity: 0.8
-            });
-          },
-          onEachFeature: function(feature, layer) {
-            const props = feature.properties;
-            const lat = feature.geometry.coordinates[1];
-            const lng = feature.geometry.coordinates[0];
-            layer.bindPopup(`
-              <b>ID:</b> ${props.id}<br>
-              <b>Establecimiento:</b> ${props.nom_estab}<br>
-              <b>Razón Social:</b> ${props.raz_social}<br>
-              <b>Actividad:</b> ${props.nombre_act}<br>
-              <b>Teléfono:</b> ${props.telefono}<br>
-              <b>Correo:</b> ${props.correoelec}<br>
-              <b>Página Web:</b> ${props.www ? props.www : "No disponible"}<br>
-              <b>Entidad:</b> ${props.entidad}<br>
-              <b>Municipio:</b> ${props.municipio}<br>
-              <b>Localidad:</b> ${props.localidad}<br>
-              <b>Coordenadas:</b> ${lat}, ${lng}<br><br>
-              <button onclick="openProposalModal(${props.id})">Generar Propuesta</button>
-            `);
-          }
-        }).addTo(map);
-      }
-      
-      function loadGeoJSON() {
-        fetch("nube.geojson")
-          .then(response => response.json())
-          .then(data => {
-            geojsonData = data;
-            updateGeoJSONLayer(data);
-            updateClientesList(data.features);
-          })
-          .catch(err => console.error("Error cargando el GeoJSON:", err));
-      }
-      
-      loadGeoJSON();
-      
-      // =======================================
-      // 3. FILTROS BASADOS EN GEOJSON
-      // =======================================
-      const filterEstado = document.getElementById("filterEstado");
-      const filterPrioridad = document.getElementById("filterPrioridad");
-      const filterCanal = document.getElementById("filterCanal");
-      
-      function applyFilters() {
-        if (!geojsonData) return;
-        const estadoValor = filterEstado ? filterEstado.value : "";
-        const prioridadValor = filterPrioridad ? filterPrioridad.value : "";
-        const canalValor = filterCanal ? filterCanal.value : "";
-        
-        const filteredFeatures = geojsonData.features.filter(feature => {
-          const props = feature.properties;
-          const matchEstado = estadoValor ? props.entidad === estadoValor : true;
-          const matchPrioridad = prioridadValor ? props.prioridad_venta === prioridadValor : true;
-          const matchCanal = canalValor ? props.canal_preferido === canalValor : true;
-          return matchEstado && matchPrioridad && matchCanal;
-        });
-        
-        const filteredGeoJSON = {
-          type: "FeatureCollection",
-          features: filteredFeatures
-        };
-        
-        updateGeoJSONLayer(filteredGeoJSON);
-        updateClientesList(filteredFeatures);
-      }
-      
-      // Aplicar filtros al cambiar cualquier selector
-      [filterEstado, filterPrioridad, filterCanal].forEach(select => {
-        if (select) select.addEventListener("change", applyFilters);
-      });
-      
-      // Ejecutar una vez para poblar el select Estado
-      const interval = setInterval(() => {
-        if (geojsonData) {
-          // Poblar select de Estado dinámicamente
-          const estados = Array.from(new Set(geojsonData.features.map(feature => 
-            feature.properties.entidad)));
-          filterEstado.innerHTML = '<option value="">Estado: Todos</option>';
-          estados.sort();
-          estados.forEach(estado => {
-            filterEstado.innerHTML += `<option value="${estado}">${estado}</option>`;
-          });
-          clearInterval(interval);
-        }
-      }, 100);
-      
-      // =======================================
-      // 4. KPI y GRÁFICA CON CHART.JS
-      // =======================================
-      if (document.getElementById("kpiVentas") && document.getElementById("chartVentas")) {
-        animarKPI("kpiVentas", 120, 2000);  // Ejemplo: 120 ventas
-        const ctx = document.getElementById("chartVentas").getContext("2d");
-        new Chart(ctx, {
-          type: "line",
-          data: {
-            labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
-            datasets: [{
-              label: "Ventas",
-              data: [15, 20, 25, 30, 20, 10],
-              borderColor: "#4CAF50",
-              backgroundColor: "rgba(76, 175, 80, 0.2)",
-              borderWidth: 2,
-              tension: 0.3,
-              pointRadius: 4,
-              pointBackgroundColor: "#4CAF50"
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: { duration: 1500 },
-            scales: {
-              y: { beginAtZero: true, title: { display: true, text: "Unidades" } },
-              x: { title: { display: true, text: "Mes" } }
-            },
-            plugins: { legend: { display: false } }
-          }
-        });
-      }
-      
-      // =======================================
-      // 5. CHATBOT FALSO
-      // =======================================
-      const chatbotBtn = document.getElementById("chatbotBtn");
-      const chatbotWindow = document.getElementById("chatbotWindow");
-      const closeChatbot = document.getElementById("closeChatbot");
-      const chatMessages = document.getElementById("chatMessages");
-      const chatInput = document.getElementById("chatInput");
-      const sendChatBtn = document.getElementById("sendChatBtn");
-      
-      let chatbotOpen = false;
-      if (chatbotBtn) {
-        chatbotBtn.addEventListener("click", () => {
-          chatbotOpen = !chatbotOpen;
-          chatbotWindow.style.display = chatbotOpen ? "flex" : "none";
-        });
-      }
-      if (closeChatbot) {
-        closeChatbot.addEventListener("click", () => {
-          chatbotOpen = false;
-          chatbotWindow.style.display = "none";
-        });
-      }
-      if (sendChatBtn && chatInput) {
-        sendChatBtn.addEventListener("click", sendMessage);
-        chatInput.addEventListener("keydown", (e) => {
-          if(e.key === "Enter") sendMessage();
-        });
-      }
-      function sendMessage() {
-        const msg = chatInput.value.trim();
-        if (!msg) return;
-        const userMsg = document.createElement("div");
-        userMsg.classList.add("chat-message", "user");
-        userMsg.innerText = msg;
-        chatMessages.appendChild(userMsg);
-        chatInput.value = "";
-        const botMsg = document.createElement("div");
-        botMsg.classList.add("chat-message", "bot");
-        botMsg.innerText = "Este es un chatbot ficticio.";
-        chatMessages.appendChild(botMsg);
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-      }
-      
-      // =======================================
-      // 6. FUNCIONES EXTERNAS: KPI, MODALES, DEMO LOGIN, ETC.
-      // =======================================
-      
-      // Animar el KPI (conteo ascendente)
-      function animarKPI(elementId, endValue, duration) {
-        let startValue = 0;
-        const increment = endValue / (duration / 16);
-        const obj = document.getElementById(elementId);
-        const timer = setInterval(() => {
-          startValue += increment;
-          if (startValue >= endValue) {
-            startValue = endValue;
-            clearInterval(timer);
-          }
-          obj.textContent = Math.floor(startValue);
-        }, 16);
-      }
-      
-      // Funciones para modales de cursos/detalles
-      function abrirModalCurso(idModal) {
-        const modal = document.getElementById(idModal);
-        if (modal) modal.style.display = "flex";
-      }
-      function cerrarModalCurso(idModal) {
-        const modal = document.getElementById(idModal);
-        if (modal) modal.style.display = "none";
-      }
-      
-      // Funciones para popups de alertas (ahora globales)
-      window.mostrarAlerta = function(titulo) {
-        let detalleMensaje = "";
-        if (titulo === "OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)") {
-          detalleMensaje = "Información detallada: Oficina principal ubicada en Jalisco. Llámanos al 55-XXXX-XXXX para agendar una cita.";
-        } else if (titulo === "BAJA PK (Baja California)") {
-          detalleMensaje = "Información detallada: Oficina en Baja California. El cliente ha confirmado interés, coordina seguimiento inmediato.";
-        } else if (titulo === "HH AND SONS PRODUCE (Baja California Sur)") {
-          detalleMensaje = "Información detallada: Empresa de Baja California Sur. Se requiere revisión y seguimiento urgente.";
-        } else {
-          detalleMensaje = "Información detallada para " + titulo;
-        }
-        document.getElementById("tituloAlerta").innerText = titulo;
-        document.querySelector("#overlayAlerta p").innerText = detalleMensaje;
-        document.getElementById("overlayAlerta").style.display = "flex";
-      };
+    // Toggle del menú de usuario
+    document.querySelector('.avatar').addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.getElementById('userMenu').classList.toggle('show');
+    });
 
-      window.cerrarAlerta = function() {
-        document.getElementById("overlayAlerta").style.display = "none";
-      };
+    document.addEventListener('click', function() {
+      document.getElementById('userMenu').classList.remove('show');
+    });
 
-      // Funciones para el modal de Propuesta de Venta
-      let salesStatus = {}; // Estado de venta por id
-      window.openProposalModal = function(companyId) {
-        window.currentCompanyId = companyId;
-        document.getElementById("proposalCompanyName").innerText = "Empresa " + companyId;
-        document.getElementById("saleStatusText").innerText = salesStatus[companyId] || "Pendiente";
-        document.getElementById("proposalModal").style.display = "flex";
-      };
-      const closeProposalModalBtn = document.getElementById("closeProposalModal");
-      if (closeProposalModalBtn) {
-        closeProposalModalBtn.addEventListener("click", () => {
-          document.getElementById("proposalModal").style.display = "none";
-        });
-      }
-      window.addEventListener("click", (e) => {
-        if (e.target === document.getElementById("proposalModal")) {
-          document.getElementById("proposalModal").style.display = "none";
-        }
-      });
-      const markSaleClosedBtn = document.getElementById("markSaleClosedBtn");
-      if (markSaleClosedBtn) {
-        markSaleClosedBtn.addEventListener("click", () => {
-          if (window.currentCompanyId) {
-            salesStatus[window.currentCompanyId] = "Cerrado";
-            document.getElementById("saleStatusText").innerText = "Cerrado";
-          }
-        });
-      }
-      const markSalePendingBtn = document.getElementById("markSalePendingBtn");
-      if (markSalePendingBtn) {
-        markSalePendingBtn.addEventListener("click", () => {
-          if (window.currentCompanyId) {
-            salesStatus[window.currentCompanyId] = "Pendiente";
-            document.getElementById("saleStatusText").innerText = "Pendiente";
-          }
-        });
-      }
-      
-      // Funciones para Demo Login
-      window.abrirModalLogin = function() {
-        const modal = document.getElementById("modalLogin");
-        if (modal) modal.style.display = "flex";
-      };
-      window.cerrarModalLogin = function() {
-        const modal = document.getElementById("modalLogin");
-        if (modal) modal.style.display = "none";
-      };
-      window.demoLogin = function() {
-        const user = document.getElementById("loginUser").value;
-        const pass = document.getElementById("loginPass").value;
-        if (user === "user" && pass === "user") {
-          window.location.href = "home.html";
-        } else {
-          alert('Credenciales incorrectas. Usa "user"/"user".');
-        }
-        return false;
-      };
-      
-      // Actualizar lista de clientes potenciales desde CSV (mostrando solo los 3 primeros)
-      Papa.parse("clientes_potenciales_fertilizantes_enhanced.csv", {
-        download: true,
-        header: true,
-        complete: function(results) {
-          const data = results.data;
-          const clientesUl = document.getElementById("clientesUl");
-          if (clientesUl) {
-            clientesUl.innerHTML = "";
-            data.slice(0, 3).forEach(item => {
-              const li = document.createElement("li");
-              li.innerText = `${item.nom_estab} (${item.entidad})`;
-              clientesUl.appendChild(li);
-            });
-          }
-          const alertsContainer = document.querySelector(".alerts");
-          if (alertsContainer) {
-            alertsContainer.innerHTML = `
-              <h2>Notificaciones</h2>
-              <div class="alert-item">
-                <p><strong>OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)</strong><br>Cliente respondió y agendó cita.</p>
-                <button onclick="mostrarAlerta('OFICINAS ADMINISTRATIVAS DE INVERNADEROS BONANZA 2001 (Jalisco)')">Ver Detalles</button>
-              </div>
-              <div class="alert-item">
-                <p><strong>BAJA PK (Baja California)</strong><br>Cliente confirmó interés.</p>
-                <button onclick="mostrarAlerta('BAJA PK (Baja California)')">Ver Detalles</button>
-              </div>
-              <div class="alert-item">
-                <p><strong>HH AND SONS PRODUCE (Baja California Sur)</strong><br>Cliente solicita seguimiento.</p>
-                <button onclick="mostrarAlerta('HH AND SONS PRODUCE (Baja California Sur)')">Ver Detalles</button>
-              </div>
-            `;
-          }
-        }
-      });
-
-      // Actualizar lista de clientes potenciales basada en GeoJSON (limitando a 3)
-      function updateClientesList(features) {
-        const clientesUl = document.getElementById("clientesUl");
-        if (clientesUl) {
-          clientesUl.innerHTML = "";
-          features.slice(0, 3).forEach(feature => {
-            const li = document.createElement("li");
-            li.innerText = `${feature.nom_estab} (${feature.entidad})`;
-            clientesUl.appendChild(li);
-          });
-        }
-      }
-
-      // Manejo del menú de usuario
-      const userAvatar = document.querySelector('.avatar');
-      const userMenu = document.getElementById('userMenu');
-      
-      userAvatar.addEventListener('click', (e) => {
-        e.stopPropagation();
-        userMenu.classList.toggle('show');
-      });
-
-      // Manejo del selector de periodo
-      const periodButton = document.getElementById('periodButton');
-      const periodMenu = document.getElementById('periodMenu');
-      
-      periodButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        periodMenu.classList.toggle('show');
-      });
-
-      // Cerrar menús al hacer clic fuera
-      document.addEventListener('click', () => {
-        userMenu.classList.remove('show');
-        periodMenu.classList.remove('show');
-      });
-
-      // Prevenir cierre al hacer clic dentro de los menús
-      userMenu.addEventListener('click', (e) => e.stopPropagation());
-      periodMenu.addEventListener('click', (e) => e.stopPropagation());
-
-      // Actualizar el texto del botón de periodo al seleccionar una opción
-      const periodOptions = periodMenu.querySelectorAll('a');
-      periodOptions.forEach(option => {
-        option.addEventListener('click', (e) => {
-          e.preventDefault();
-          const selectedText = option.textContent;
-          periodButton.innerHTML = `${selectedText} <i class="fas fa-chevron-down"></i>`;
-          
-          // Actualizar clase activa
-          periodOptions.forEach(opt => opt.classList.remove('active'));
-          option.classList.add('active');
-          
-          periodMenu.classList.remove('show');
-        });
+    // Funcionalidad de checkbox para tareas
+    document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+      checkbox.addEventListener('click', function() {
+        this.classList.toggle('checked');
+        const taskItem = this.closest('.task-item');
+        taskItem.style.opacity = this.classList.contains('checked') ? '0.5' : '1';
       });
     });
   </script>

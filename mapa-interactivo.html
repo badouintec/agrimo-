@@ -1,42 +1,240 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kaptia - Mapa Interactivo</title>
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tJh3AuSi5rkQ7kNvwHSd86T&_nc_oc=AdnIQRGQh5aisLMkCwlI77dOf8e3uxbuGQQ71ixGMWU367xEGMcVrbCZw9CIAGAVPIX5y4cSNooJRRmED_-Pk2Oj&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=h4B5xRQOO6bq6jsCwHbLoA&oh=00_AfJUFyGLAQ4Sy8kMl-AmfD68XXPXLA49Yb_gGTXhkBILfg&oe=6837FAED"/>
-  <!-- Fuente Google: Poppins -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap" rel="stylesheet"/>
-  <!-- Hoja de estilos principal -->
-  <link rel="stylesheet" href="styles.css"/>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+  
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap" rel="stylesheet" />
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  
+  <!-- Scripts -->
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <style>
+    .map-container {
+      position: relative;
+      height: calc(100vh - 90px);
+      margin: 20px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+
+    .map-controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .map-control-button {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: white;
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .map-control-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .map-control-button i {
+      color: #1d5c59;
+      font-size: 1.2rem;
+    }
+
+    .filter-panel {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      z-index: 1000;
+      width: 300px;
+      max-width: calc(100% - 40px);
+    }
+
+    .filter-panel h3 {
+      margin: 0 0 15px 0;
+      color: #1d5c59;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .filter-group {
+      margin-bottom: 15px;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .filter-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #333;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+    }
+
+    .filter-group select:focus {
+      border-color: #1d5c59;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(29, 92, 89, 0.1);
+    }
+
+    .apply-filters {
+      background-color: #1d5c59;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .apply-filters:hover {
+      background-color: #164542;
+      transform: translateY(-2px);
+    }
+
+    .map-legend {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .legend-text {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .popup-custom {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      max-width: 300px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .popup-custom h3 {
+      margin: 0 0 10px 0;
+      color: #1d5c59;
+      font-size: 1.1rem;
+    }
+
+    .popup-custom p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .popup-custom button {
+      background-color: #1d5c59;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      margin-top: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .popup-custom button:hover {
+      background-color: #164542;
+    }
+
+    /* Animaciones */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .filter-panel, .map-legend {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    .map-control-button {
+      animation: fadeIn 0.3s ease forwards;
+      animation-delay: calc(var(--btn-index) * 0.1s);
+    }
+  </style>
 </head>
 <body class="has-sidebar">
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <div class="sidebar-profile">
-      <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/500737320_684205464497485_8214817728757942933_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tJh3AuSi5rkQ7kNvwHSd86T&_nc_oc=AdnIQRGQh5aisLMkCwlI77dOf8e3uxbuGQQ71ixGMWU367xEGMcVrbCZw9CIAGAVPIX5y4cSNooJRRmED_-Pk2Oj&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=h4B5xRQOO6bq6jsCwHbLoA&oh=00_AfJUFyGLAQ4Sy8kMl-AmfD68XXPXLA49Yb_gGTXhkBILfg&oe=6837FAED" alt="Logo Kaptia" />
+    <div>
+      <div class="sidebar-profile">
+        <img src="https://scontent.fcvj5-1.fna.fbcdn.net/v/t39.30808-6/493125038_685139734404058_5788015028353864134_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=2HJpAiRI9XsQ7kNvwFeltDD&_nc_oc=AdmEetw5xa9ARhaYIlBZUGquqouFwc3V_4zBzTMq45x41M2qfDPeLrGRzLClXo8toKmsg6BOgWmf1_7CdVN8bUKR&_nc_zt=23&_nc_ht=scontent.fcvj5-1.fna&_nc_gid=ylZKEG8nDw8Uwdzvt1wHmA&oh=00_AfIMeLHR5kfFxGz5n_TjiB-f8FTYZXE5j9UQCwzy0nPE0w&oe=6839B38E" alt="KaptiaBot" />
+        <img class="secondary-logo" src="https://scontent-qro1-1.xx.fbcdn.net/v/t39.30808-6/500738011_687111284206903_2823906794035529988_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=8ZLP2CkI5EMQ7kNvwGi2eTc&_nc_oc=AdnnUJAvTgy0IV_co3BInX7qs8xVOocsdUK-0CNQifdrMTvLD9ilvsCNpPiITASgiRM&_nc_zt=23&_nc_ht=scontent-qro1-1.xx&_nc_gid=PhckQI5PZ10HHAMwTJseaA&oh=00_AfK4D10Anecx3Kjj1wfMo5DJMm1owQGnt1ufJ98Os-GZ5g&oe=683D2EF9" alt="Logo secundario" />
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
+          <li class="active"><a href="resumen.html"><i class="fas fa-map"></i> Mapa interactivo</a></li>
+          <li><a href="chatbot.html"><i class="fas fa-users"></i> Mis clientes</a></li>
+          <li><a href="tableros.html"><i class="fas fa-chart-line"></i> Métricas clave</a></li>
+          <li><a href="agenda.html"><i class="fas fa-calendar"></i> Agenda</a></li>
+          <li><a href="mensajes.html"><i class="fas fa-envelope"></i> Mensajes</a></li>
+          <li><a href="herramientas.html"><i class="fas fa-tools"></i> Herramientas</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav class="menu">
-      <ul>
-        <li><a href="home.html"><i class="fas fa-home"></i> Página de inicio</a></li>
-        <li class="active"><a href="mapa-interactivo.html"><i class="fas fa-map-marked-alt"></i> Mapa interactivo</a></li>
-        <li><a href="clientes.html"><i class="fas fa-users"></i> Mis clientes</a></li>
-        <li><a href="agenda.html"><i class="fas fa-calendar-alt"></i> Agenda</a></li>
-        <li><a href="mensajes.html"><i class="fas fa-comments"></i> Mensajes</a></li>
-        <li><a href="herramientas.html"><i class="fas fa-tools"></i> Herramientas</a></li>
-        <li><a href="chatbot.html"><i class="fas fa-robot"></i> Contacta a un asesor</a></li>
-      </ul>
-    </nav>
     <div class="sidebar-footer">
-      <a href="#configuracion"><i class="fas fa-cog"></i> Configuración</a>
-      <a href="#ayuda"><i class="fas fa-question-circle"></i> Ayuda</a>
-      <a href="index.html"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+      <a href="contacto-asesor.html"><i class="fas fa-question-circle"></i> Contacta un asesor</a>
     </div>
   </aside>
 
@@ -61,187 +259,208 @@
       </div>
     </header>
 
-    <div class="content-wrapper">
-      <!-- SECCIÓN IZQUIERDA -->
-      <section class="left-section">
-        <!-- Filtros del mapa -->
-        <div class="filter-container">
+    <div class="map-container">
+      <div id="map"></div>
+      
+      <!-- Panel de Filtros -->
+      <div class="filter-panel">
+        <h3>Filtros de Búsqueda</h3>
+        <div class="filter-group">
+          <label for="filterEstado">Estado</label>
           <select id="filterEstado">
-            <option value="">Estado: Todos</option>
+            <option value="">Todos los estados</option>
           </select>
+        </div>
+        <div class="filter-group">
+          <label for="filterPrioridad">Prioridad</label>
           <select id="filterPrioridad">
-            <option value="">Prioridad: Todas</option>
+            <option value="">Todas las prioridades</option>
             <option value="Alta">Alta</option>
             <option value="Media">Media</option>
             <option value="Baja">Baja</option>
           </select>
+        </div>
+        <div class="filter-group">
+          <label for="filterCanal">Canal de Venta</label>
           <select id="filterCanal">
-            <option value="">Canal: Todos</option>
+            <option value="">Todos los canales</option>
             <option value="Directo">Directo</option>
             <option value="Distribuidor">Distribuidor</option>
             <option value="Online">Online</option>
           </select>
-          <button onclick="applyFilters()">Aplicar Filtros</button>
         </div>
+        <button class="apply-filters" onclick="applyFilters()">
+          Aplicar Filtros
+        </button>
+      </div>
 
-        <!-- Contenedor del mapa -->
-        <div class="map-container">
-          <div id="map" style="height: 600px;"></div>
+      <!-- Controles del Mapa -->
+      <div class="map-controls">
+        <button class="map-control-button" style="--btn-index: 1" onclick="zoomIn()">
+          <i class="fas fa-plus"></i>
+        </button>
+        <button class="map-control-button" style="--btn-index: 2" onclick="zoomOut()">
+          <i class="fas fa-minus"></i>
+        </button>
+        <button class="map-control-button" style="--btn-index: 3" onclick="centerMap()">
+          <i class="fas fa-crosshairs"></i>
+        </button>
+        <button class="map-control-button" style="--btn-index: 4" onclick="toggleHeatmap()">
+          <i class="fas fa-layer-group"></i>
+        </button>
+      </div>
+
+      <!-- Leyenda del Mapa -->
+      <div class="map-legend">
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #1B5E20"></div>
+          <span class="legend-text">Prioridad Alta</span>
         </div>
-      </section>
-
-      <!-- SECCIÓN DERECHA -->
-      <aside class="right-section">
-        <!-- Recordatorios -->
-        <div class="reminders">
-          <div class="reminders-header">
-            <div class="title-with-icon">
-              <i class="fas fa-bell"></i>
-              <span class="notification-dot"></span>
-              <h2>Recordatorios</h2>
-            </div>
-            <div class="period-selector">
-              <button id="periodButton">
-                Hoy <i class="fas fa-chevron-down"></i>
-              </button>
-              <div class="period-dropdown" id="periodMenu">
-                <a href="#" class="active">Hoy</a>
-                <a href="#">Ayer</a>
-                <a href="#">Esta semana</a>
-                <a href="#">Próxima semana</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="reminders-list">
-            <div class="reminder-item">
-              <div class="reminder-icon">
-                <i class="fas fa-video"></i>
-              </div>
-              <div class="reminder-content">
-                <h3>Zoom Agrotienda (CDMX)</h3>
-                <p>9:00 hrs - Vie 14 mar</p>
-              </div>
-              <div class="reminder-status pending"></div>
-            </div>
-
-            <div class="reminder-item">
-              <div class="reminder-icon">
-                <i class="fas fa-calendar"></i>
-              </div>
-              <div class="reminder-content">
-                <h3>Visita Cliente Invernaderos SA</h3>
-                <p>14:30 hrs - Vie 14 mar</p>
-              </div>
-              <div class="reminder-status completed">
-                <i class="fas fa-check"></i>
-              </div>
-            </div>
-          </div>
-
-          <div class="reminders-footer">
-            <a href="#" class="show-all">Mostrar todos</a>
-            <a href="#" class="add-new">Añadir+</a>
-          </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #4CAF50"></div>
+          <span class="legend-text">Prioridad Media</span>
         </div>
-
-        <!-- Notificaciones -->
-        <div class="alerts">
-          <div class="reminders-header">
-            <div class="title-with-icon">
-              <i class="fas fa-bell"></i>
-              <span class="notification-dot"></span>
-              <h2>Notificaciones</h2>
-            </div>
-          </div>
-          <div class="alert-item">
-            <p><strong>Invernaderos Bonanza</strong> (Jalisco)<br>Cliente respondió y agendó cita.</p>
-            <button onclick="mostrarAlerta('Invernaderos Bonanza (Jalisco)')">Ver Detalles</button>
-          </div>
-          <div class="alert-item">
-            <p><strong>Finca La Paloma</strong> (CDMX)<br>Cliente confirmó interés.</p>
-            <button onclick="mostrarAlerta('Finca La Paloma (CDMX)')">Ver Detalles</button>
-          </div>
-          <div class="alert-item">
-            <p><strong>Agroindustrial El Sol</strong> (Veracruz)<br>Cliente solicita seguimiento.</p>
-            <button onclick="mostrarAlerta('Agroindustrial El Sol (Veracruz)')">Ver Detalles</button>
-          </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background-color: #C62828"></div>
+          <span class="legend-text">Prioridad Baja</span>
         </div>
-
-        <!-- Lista de Clientes Potenciales -->
-        <div class="clientes">
-          <h2>Clientes Potenciales</h2>
-          <ul id="clientesUl"></ul>
-        </div>
-
-        <!-- Explicación del Dashboard -->
-        <div class="dashboard-explanation">
-          <h2>¿Necesitas Ayuda?</h2>
-          <p>
-            Si tienes alguna duda sobre cómo usar esta plataforma o requieres asistencia personalizada, 
-            contacta a nuestro equipo de soporte.
-          </p>
-          <button class="btn-detail" style="width: 100%; margin-top: 15px;">Contactar Soporte</button>
-        </div>
-      </aside>
+      </div>
     </div>
   </main>
 
   <script>
     // Inicialización del mapa
     const map = L.map('map').setView([23.634501, -102.552784], 5);
+    
+    // Capa base del mapa con estilo personalizado
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+      attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // Manejo del menú de usuario
-    const userAvatar = document.querySelector('.avatar');
-    const userMenu = document.getElementById('userMenu');
-    
-    userAvatar.addEventListener('click', (e) => {
-      e.stopPropagation();
-      userMenu.classList.toggle('show');
-    });
+    // Variables globales
+    let geojsonLayer = null;
+    let geojsonData = null;
+    let heatmapActive = false;
 
-    // Manejo del selector de periodo
-    const periodButton = document.getElementById('periodButton');
-    const periodMenu = document.getElementById('periodMenu');
-    
-    periodButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      periodMenu.classList.toggle('show');
-    });
-
-    // Cerrar menús al hacer clic fuera
-    document.addEventListener('click', () => {
-      userMenu.classList.remove('show');
-      periodMenu.classList.remove('show');
-    });
-
-    // Prevenir cierre al hacer clic dentro de los menús
-    userMenu.addEventListener('click', (e) => e.stopPropagation());
-    periodMenu.addEventListener('click', (e) => e.stopPropagation());
-
-    // Actualizar el texto del botón de periodo al seleccionar una opción
-    const periodOptions = periodMenu.querySelectorAll('a');
-    periodOptions.forEach(option => {
-      option.addEventListener('click', (e) => {
-        e.preventDefault();
-        const selectedText = option.textContent;
-        periodButton.innerHTML = `${selectedText} <i class="fas fa-chevron-down"></i>`;
-        
-        // Actualizar clase activa
-        periodOptions.forEach(opt => opt.classList.remove('active'));
-        option.classList.add('active');
-        
-        periodMenu.classList.remove('show');
-      });
-    });
-
-    // Función para mostrar alertas
-    function mostrarAlerta(titulo) {
-      alert(`Detalles de la alerta: ${titulo}`);
+    // Funciones de control del mapa
+    function zoomIn() {
+      map.zoomIn();
     }
+
+    function zoomOut() {
+      map.zoomOut();
+    }
+
+    function centerMap() {
+      map.setView([23.634501, -102.552784], 5);
+    }
+
+    function toggleHeatmap() {
+      heatmapActive = !heatmapActive;
+      updateMapVisualization();
+    }
+
+    // Función para actualizar la visualización del mapa
+    function updateMapVisualization() {
+      if (!geojsonData) return;
+      
+      if (geojsonLayer) {
+        map.removeLayer(geojsonLayer);
+      }
+
+      geojsonLayer = L.geoJSON(geojsonData, {
+        pointToLayer: function(feature, latlng) {
+          let color = "#4CAF50";
+          if (feature.properties.prioridad_venta === "Alta") {
+            color = "#1B5E20";
+          } else if (feature.properties.prioridad_venta === "Baja") {
+            color = "#C62828";
+          }
+
+          return L.circleMarker(latlng, {
+            radius: heatmapActive ? 15 : 8,
+            fillColor: color,
+            color: "#fff",
+            weight: 1,
+            opacity: 1,
+            fillOpacity: heatmapActive ? 0.6 : 0.8
+          });
+        },
+        onEachFeature: function(feature, layer) {
+          const props = feature.properties;
+          layer.bindPopup(createCustomPopup(props));
+        }
+      }).addTo(map);
+    }
+
+    // Función para crear popups personalizados
+    function createCustomPopup(props) {
+      return `
+        <div class="popup-custom">
+          <h3>${props.nom_estab}</h3>
+          <p><strong>Razón Social:</strong> ${props.raz_social}</p>
+          <p><strong>Actividad:</strong> ${props.nombre_act}</p>
+          <p><strong>Ubicación:</strong> ${props.entidad}, ${props.municipio}</p>
+          <p><strong>Contacto:</strong> ${props.telefono}</p>
+          <button onclick="openProposalModal(${props.id})">
+            Generar Propuesta
+          </button>
+        </div>
+      `;
+    }
+
+    // Función para aplicar filtros
+    function applyFilters() {
+      if (!geojsonData) return;
+      
+      const estadoValor = document.getElementById("filterEstado").value;
+      const prioridadValor = document.getElementById("filterPrioridad").value;
+      const canalValor = document.getElementById("filterCanal").value;
+
+      const filteredFeatures = geojsonData.features.filter(feature => {
+        const props = feature.properties;
+        const matchEstado = !estadoValor || props.entidad === estadoValor;
+        const matchPrioridad = !prioridadValor || props.prioridad_venta === prioridadValor;
+        const matchCanal = !canalValor || props.canal_preferido === canalValor;
+        return matchEstado && matchPrioridad && matchCanal;
+      });
+
+      const filteredGeoJSON = {
+        type: "FeatureCollection",
+        features: filteredFeatures
+      };
+
+      updateMapVisualization(filteredGeoJSON);
+    }
+
+    // Cargar datos GeoJSON
+    fetch("nube.geojson")
+      .then(response => response.json())
+      .then(data => {
+        geojsonData = data;
+        updateMapVisualization();
+        
+        // Poblar select de Estados
+        const estados = Array.from(new Set(data.features.map(f => f.properties.entidad))).sort();
+        const filterEstado = document.getElementById("filterEstado");
+        estados.forEach(estado => {
+          const option = document.createElement("option");
+          option.value = estado;
+          option.textContent = estado;
+          filterEstado.appendChild(option);
+        });
+      })
+      .catch(err => console.error("Error cargando el GeoJSON:", err));
+
+    // Event Listeners
+    document.querySelector('.avatar').addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.getElementById('userMenu').classList.toggle('show');
+    });
+
+    document.addEventListener('click', function() {
+      document.getElementById('userMenu').classList.remove('show');
+    });
   </script>
 </body>
 </html> 
