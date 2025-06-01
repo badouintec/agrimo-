@@ -977,8 +977,8 @@
           <p><strong>Actividad:</strong> ${props.nombre_act}</p>
           <p><strong>Ubicación:</strong> ${props.entidad}, ${props.municipio}</p>
           <p><strong>Contacto:</strong> ${props.telefono}</p>
-          <button onclick="openProposalModal(${props.id})">
-            Generar Propuesta
+          <button onclick="window.location.href='cliente.html?id=${props.id}'">
+            Ver más información
           </button>
         </div>
       `;

@@ -296,12 +296,6 @@
 
       <!-- Controles del Mapa -->
       <div class="map-controls">
-        <button class="map-control-button" style="--btn-index: 1" onclick="zoomIn()">
-          <i class="fas fa-plus"></i>
-        </button>
-        <button class="map-control-button" style="--btn-index: 2" onclick="zoomOut()">
-          <i class="fas fa-minus"></i>
-        </button>
         <button class="map-control-button" style="--btn-index: 3" onclick="centerMap()">
           <i class="fas fa-crosshairs"></i>
         </button>
@@ -343,14 +337,6 @@
     let heatmapActive = false;
 
     // Funciones de control del mapa
-    function zoomIn() {
-      map.zoomIn();
-    }
-
-    function zoomOut() {
-      map.zoomOut();
-    }
-
     function centerMap() {
       map.setView([23.634501, -102.552784], 5);
     }
@@ -402,8 +388,8 @@
           <p><strong>Actividad:</strong> ${props.nombre_act}</p>
           <p><strong>Ubicación:</strong> ${props.entidad}, ${props.municipio}</p>
           <p><strong>Contacto:</strong> ${props.telefono}</p>
-          <button onclick="openProposalModal(${props.id})">
-            Generar Propuesta
+          <button onclick="window.location.href='cliente.html?id=${props.id}'">
+            Ver más información
           </button>
         </div>
       `;
