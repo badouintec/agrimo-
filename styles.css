@@ -547,10 +547,10 @@
   /************************************************************
    * SIDEBAR (común para todas las páginas)
    ************************************************************/
-  .sidebar {
+   .sidebar {
     width: 250px;
     height: 100vh;
-    background-color: var(--color-primario);
+    background-color: #1d5c59;
     position: fixed;
     left: 0;
     top: 0;
@@ -559,79 +559,94 @@
     display: flex;
     flex-direction: column;
     z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
-  
+
   .sidebar-profile {
-    padding: 20px;
+    padding: 15px;
     text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .sidebar-profile img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
-  
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+
+  .sidebar-profile img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    border-radius: 0;
   }
-  
+
+  .sidebar-profile .secondary-logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+  }
+
   .menu li {
-    margin-bottom: 5px;
+    margin-bottom: 0;
   }
-  
+
   .menu a {
     display: flex;
     align-items: center;
-    padding: 12px 20px;
+    padding: 8px 20px;
     color: white;
     text-decoration: none;
     transition: all 0.3s ease;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    gap: 10px;
+    font-weight: 400;
   }
-  
+
   .menu a i {
-    margin-right: 10px;
-    width: 20px;
+    width: 16px;
     text-align: center;
+    font-size: 1rem;
   }
-  
+
   .menu a:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
-  
+
   .menu li.active a {
-    background-color: rgba(255, 255, 255, 0.2);
-    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.15);
+    font-weight: 600;
   }
-  
+
   .sidebar-footer {
     margin-top: auto;
     padding: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
-  
+
   .sidebar-footer a {
-    display: block;
+    display: flex;
+    align-items: center;
+    padding: 8px 20px;
     color: white;
     text-decoration: none;
-    padding: 8px 0;
-    font-size: 0.9rem;
-    opacity: 0.8;
-    transition: opacity 0.3s;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+    gap: 10px;
+    font-weight: 400;
   }
-  
+
   .sidebar-footer a:hover {
-    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.1);
   }
-  
-  .sidebar-footer i {
-    margin-right: 8px;
+
+  .sidebar-footer a i {
+    width: 14px;
+    text-align: center;
+    font-size: 0.85rem;
   }
+</style>
+</head>
+<body class="has-sidebar">
   
   /* Ajuste del contenedor principal para dar espacio a la sidebar */
   .main-content {
