@@ -119,6 +119,25 @@
       font-size: 20px;
       line-height: 1.8;
       color: #000000;
+      margin-bottom: 2rem;
+    }
+
+    .demo-button {
+      background-color: var(--color-primario);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 1.2rem;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .demo-button:hover {
+      background-color: var(--color-secundario);
+      transform: translateY(-2px);
     }
 
     /* SECCIÓN BLOG */
@@ -277,6 +296,9 @@
         Tu mejor opción de agente inteligente para impulsar la venta de fertilizantes orgánicos a base de sargazo.  
         Utilizamos datos y análisis inteligente para prospectar clientes y hacer seguimiento a cada venta.
       </p>
+      <button onclick="window.location.href='login.html'" class="demo-button">
+        Solicita una demo
+      </button>
     </div>
   </section>
 
