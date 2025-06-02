@@ -408,36 +408,84 @@
   </section>
 
   <!-- SECCIÓN 5: CONTÁCTANOS -->
-  <section id="contacto" class="section-content contacto">
-    <h2 class="section-title">Contacto</h2>
-    <p class="section-subtitle">
-      ¿Listo para impulsar tus ventas de fertilizantes orgánicos? Contáctanos y descubre cómo Kaptia puede 
-      transformar tu estrategia comercial.
-    </p>
-    <div style="text-align: center; margin-top: 30px;">
-      <form id="contactForm" style="max-width: 500px; margin: 0 auto;">
-        <div style="margin-bottom: 20px;">
-          <input type="text" placeholder="Nombre completo" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required>
+  <section id="contacto" class="section-content contacto fade-in">
+    <h2 class="section-title">Contáctanos</h2>
+    <div class="contact-container" style="max-width: 600px; margin: 0 auto; padding: 2rem;">
+      <form id="contactForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div class="form-group">
+          <input 
+            type="email" 
+            id="email" 
+            placeholder="Tu Correo Electrónico" 
+            required
+            style="
+              width: 100%;
+              padding: 1rem;
+              border: 1px solid #ddd;
+              border-radius: 8px;
+              font-size: 1rem;
+              font-family: 'Poppins', sans-serif;
+              transition: border-color 0.3s;
+            "
+          >
         </div>
-        <div style="margin-bottom: 20px;">
-          <input type="email" placeholder="Correo electrónico" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required>
+        
+        <div class="form-group">
+          <input 
+            type="tel" 
+            id="phone" 
+            placeholder="Tu Teléfono (opcional)"
+            style="
+              width: 100%;
+              padding: 1rem;
+              border: 1px solid #ddd;
+              border-radius: 8px;
+              font-size: 1rem;
+              font-family: 'Poppins', sans-serif;
+              transition: border-color 0.3s;
+            "
+          >
         </div>
-        <div style="margin-bottom: 20px;">
-          <input type="tel" placeholder="Teléfono (opcional)" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;">
+
+        <div class="form-group">
+          <textarea 
+            id="message" 
+            placeholder="Escribe aquí tu mensaje..." 
+            rows="6" 
+            required
+            style="
+              width: 100%;
+              padding: 1rem;
+              border: 1px solid #ddd;
+              border-radius: 8px;
+              font-size: 1rem;
+              font-family: 'Poppins', sans-serif;
+              resize: vertical;
+              min-height: 150px;
+              transition: border-color 0.3s;
+            "
+          ></textarea>
         </div>
-        <div style="margin-bottom: 20px;">
-          <select style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required>
-            <option value="">Selecciona tu tipo de empresa</option>
-            <option value="agricola">Agrícola</option>
-            <option value="agroindustrial">Agroindustrial</option>
-            <option value="servicios">Servicios agrícolas</option>
-            <option value="otro">Otro</option>
-          </select>
-        </div>
-        <div style="margin-bottom: 20px;">
-          <textarea placeholder="¿Cómo podemos ayudarte?" rows="5" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ddd;" required></textarea>
-        </div>
-        <button type="submit" class="btn-primario" style="background-color: var(--color-primario); color: white; border: none; padding: 12px 30px; border-radius: 5px; cursor: pointer;">Enviar Mensaje</button>
+
+        <button 
+          type="submit"
+          style="
+            background-color: var(--color-primario);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-family: 'Poppins', sans-serif;
+          "
+          onmouseover="this.style.backgroundColor = 'var(--color-secundario)'; this.style.transform = 'translateY(-2px)'"
+          onmouseout="this.style.backgroundColor = 'var(--color-primario)'; this.style.transform = 'translateY(0)'"
+        >
+          Enviar
+        </button>
       </form>
     </div>
   </section>
